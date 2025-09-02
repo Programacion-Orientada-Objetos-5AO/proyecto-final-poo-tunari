@@ -4,9 +4,10 @@ import java.util.List;
 
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearMarcaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.MarcaDTO;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.Color;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.Marca;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.Modelo;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
+
 
 public class MarcaMapper {
 

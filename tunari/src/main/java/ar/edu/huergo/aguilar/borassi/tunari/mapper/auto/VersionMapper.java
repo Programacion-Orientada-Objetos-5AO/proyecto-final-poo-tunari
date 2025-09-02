@@ -2,9 +2,10 @@ package ar.edu.huergo.aguilar.borassi.tunari.mapper.auto;
 
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearVersionDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.VersionDTO;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.Color;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.Modelo;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.Version;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
+
 
 public class VersionMapper {
 

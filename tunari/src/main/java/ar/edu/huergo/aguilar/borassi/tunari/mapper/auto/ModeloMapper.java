@@ -4,10 +4,11 @@ import java.util.List;
 
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearModeloDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.ModeloDTO;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.Color;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.Marca;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.Modelo;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.Version;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
+
 
 public class ModeloMapper {
 
