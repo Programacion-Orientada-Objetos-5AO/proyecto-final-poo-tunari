@@ -12,7 +12,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.Color;
 
 @Data
 @AllArgsConstructor
@@ -24,7 +23,7 @@ public class Auto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "La marca no puede estar vacía");
+    @NotBlank(message = "La marca no puede estar vacía")
     private String marca;
 
     @NotBlank(message = "El modelo no puede estar vacío")
@@ -37,6 +36,10 @@ public class Auto {
     private List<Color> colores;
 
     public Auto() { }
+
+    public Auto(String marca) {
+        this.marca = marca;
+    }
 
     public Auto(String marca, String modelo) {
         this.marca = marca;

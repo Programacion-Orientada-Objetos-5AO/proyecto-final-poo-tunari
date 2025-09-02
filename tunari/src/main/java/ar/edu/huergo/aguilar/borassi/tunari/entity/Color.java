@@ -1,20 +1,20 @@
 package ar.edu.huergo.aguilar.borassi.tunari.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.GenerationType;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "colores")
 public class Color {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +22,14 @@ public class Color {
     @NotBlank(message = "El nombre del color no puede estar vacío")
     private String nombreColor;
 
-    @NotBlank(message = "La marca a la cual pertenece no puede estar vacía")
-    private String marca;
+    @ManyToOne
+    @JoinColumn(name = "marca_id")
+    private Marca marca;
 
+    @OneToMany
+    @JoinTable(name = "color_modelos",
+            joinColumns = @JoinColumn(name = "color_id"),
+            inverseJoinColumns = @JoinColumn(name = "modelo_id"))
+    private List<Modelo> modelos;
 }
+
