@@ -1,4 +1,4 @@
-package ar.edu.huergo.aguilar.borassi.tunari.entity;
+package ar.edu.huergo.aguilar.borassi.tunari.entity.auto;
 
 import java.util.List;
 import lombok.Data;

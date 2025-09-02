@@ -1,4 +1,4 @@
-package ar.edu.huergo.aguilar.borassi.tunari.dto;
+package ar.edu.huergo.aguilar.borassi.tunari.dto.auto;
 
 import java.util.List;
 

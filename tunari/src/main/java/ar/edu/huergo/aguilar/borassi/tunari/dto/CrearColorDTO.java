@@ -1,9 +1,10 @@
-package ar.edu.huergo.aguilar.borassi.tunari.dto;
+package ar.edu.huergo.aguilar.borassi.tunari.dto.auto;
+
+import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import java.util.List;
 
 public record CrearColorDTO(
     @NotBlank(message = "El nombre del color no puede estar vacío")

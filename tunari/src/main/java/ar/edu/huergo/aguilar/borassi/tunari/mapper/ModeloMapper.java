@@ -1,12 +1,13 @@
-package ar.edu.huergo.aguilar.borassi.tunari.mapper;
+package ar.edu.huergo.aguilar.borassi.tunari.mapper.auto;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.ModeloDTO;
+import java.util.List;
+
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearModeloDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.ModeloDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.Color;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.Version;
-import ar.edu.huergo.aguilar.borassi.tunari.dto.CrearModeloDTO;
-import java.util.List;
 
 public class ModeloMapper {
 

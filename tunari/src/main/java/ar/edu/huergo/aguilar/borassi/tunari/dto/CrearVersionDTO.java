@@ -1,4 +1,4 @@
-package ar.edu.huergo.aguilar.borassi.tunari.dto;
+package ar.edu.huergo.aguilar.borassi.tunari.dto.auto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

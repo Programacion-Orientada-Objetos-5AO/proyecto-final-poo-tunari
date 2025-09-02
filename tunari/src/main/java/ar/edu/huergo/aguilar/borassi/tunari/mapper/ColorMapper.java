@@ -1,11 +1,12 @@
-package ar.edu.huergo.aguilar.borassi.tunari.mapper;
+package ar.edu.huergo.aguilar.borassi.tunari.mapper.auto;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.ColorDTO;
+import java.util.List;
+
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.ColorDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearColorDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.Color;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.Modelo;
-import ar.edu.huergo.aguilar.borassi.tunari.dto.CrearColorDTO;
-import java.util.List;
 
 public class ColorMapper {
 
