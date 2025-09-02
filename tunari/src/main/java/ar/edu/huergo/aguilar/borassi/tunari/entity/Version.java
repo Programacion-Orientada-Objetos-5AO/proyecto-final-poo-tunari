@@ -23,6 +23,8 @@ public class Version {
     private String nombreVersion;
 
     @NotBlank(message = "La marca a la cual pertenece no puede estar vacía")
-    private String marca;
+    private String nombreMarca;
+
+    public Version() { }
 
 }
