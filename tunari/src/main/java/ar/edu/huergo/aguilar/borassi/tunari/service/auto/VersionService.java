@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.*;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
-
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -49,7 +48,7 @@ public class VersionService {
         List<Version> versiones = versionRepository.findAllById(versionesIds);
         if (versiones.size() != versionesIds.stream().filter(Objects::nonNull).distinct()
                 .count()) {
-            throw new EntityNotFoundException("Una o más versiones no existeb. Intente nuevamente.");
+            throw new EntityNotFoundException("Una o más versiones no existen. Intente nuevamente.");
         }
         return versiones;
     }
