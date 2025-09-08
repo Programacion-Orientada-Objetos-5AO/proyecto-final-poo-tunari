@@ -27,7 +27,7 @@ public class Auto {
     private String marca;
 
     @NotBlank(message = "El modelo no puede estar vacío")
-    private String modelo;
+    private List<Modelo> modelo;
 
     @ManyToMany
     @JoinTable(name = "autos_colores", 
@@ -35,15 +35,12 @@ public class Auto {
             inverseJoinColumns = @JoinColumn(name = "color_id"))
     private List<Color> colores;
 
+    @ManyToMany
+    @JoinTable(name = "autos_versiones", 
+            joinColumns = @JoinColumn(name = "auto_id"),
+            inverseJoinColumns = @JoinColumn(name = "version_id"))
+    private List<Version> versiones;
+
     public Auto() { }
-
-    public Auto(String marca) {
-        this.marca = marca;
-    }
-
-    public Auto(String marca, String modelo) {
-        this.marca = marca;
-        this.modelo = modelo;
-    }
 
 }

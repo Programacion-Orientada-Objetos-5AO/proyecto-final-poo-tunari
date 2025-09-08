@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.*;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.*;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -18,39 +19,40 @@ public class VersionService {
         return versionRepository.findAll();
     }
 
-    public Ingrediente obtenerIngredientePorId(Long id) throws EntityNotFoundException {
-        return ingredienteRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Ingrediente no encontrado"));
+
+    public Version obtenerVersionPorId(Long id) throws EntityNotFoundException {
+        return versionRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Version no encontrada."));
     }
 
-    public Version crearIngrediente(Version version) {
+    public Version crearVersion(Version version) {
         return versionRepository.save(version);
     }
 
-    public Ingrediente actualizarIngrediente(Long id, Ingrediente ingrediente) throws EntityNotFoundException {
-        Ingrediente ingredienteExistente = obtenerIngredientePorId(id);
-        ingredienteExistente.setNombre(ingrediente.getNombre());
-        return ingredienteRepository.save(ingredienteExistente);
+    public Version actualizarVersion(Long id, Version version) throws EntityNotFoundException {
+        Version versionExistente = obtenerVersionPorId(id);
+        versionExistente.setNombreVersion(version.getNombreVersion());
+        return versionRepository.save(versionExistente);
     }
     
-    public void eliminarIngrediente(Long id) throws EntityNotFoundException {
-        Ingrediente ingrediente = obtenerIngredientePorId(id);
-        ingredienteRepository.delete(ingrediente);
+    public void eliminarVersion(Long id) throws EntityNotFoundException {
+        Version version = obtenerVersionPorId(id);
+        versionRepository.delete(version);
     }
 
-    public List<Ingrediente> obtenerIngredientesPorNombre(String nombre) {
-        return ingredienteRepository.findByNombreContainingIgnoreCase(nombre);
+    public List<Version> obtenerVersionesPorNombre(String nombreVersion) {
+        return versionRepository.findByNombreContainingIgnoreCase(nombreVersion);
     }
 
-    public List<Ingrediente> resolverIngredientes(List<Long> ingredientesIds) throws IllegalArgumentException, EntityNotFoundException {
-        if (ingredientesIds == null || ingredientesIds.isEmpty()) {
-            throw new IllegalArgumentException("Debe especificar al menos un ingrediente");
+    public List<Version> resolverVersion(List<Long> versionesIds) throws IllegalArgumentException, EntityNotFoundException {
+        if (versionesIds == null || versionesIds.isEmpty()) {
+            throw new IllegalArgumentException("Hay que ingresar una versión.");
         }
-        List<Ingrediente> ingredientes = ingredienteRepository.findAllById(ingredientesIds);
-        if (ingredientes.size() != ingredientesIds.stream().filter(Objects::nonNull).distinct()
+        List<Version> versiones = versionRepository.findAllById(versionesIds);
+        if (versiones.size() != versionesIds.stream().filter(Objects::nonNull).distinct()
                 .count()) {
-            throw new EntityNotFoundException("Uno o más ingredientes no existen");
+            throw new EntityNotFoundException("Una o más versiones no existen. Intente nuevamente.");
         }
-        return ingredientes;
+        return versiones;
     }
 }
