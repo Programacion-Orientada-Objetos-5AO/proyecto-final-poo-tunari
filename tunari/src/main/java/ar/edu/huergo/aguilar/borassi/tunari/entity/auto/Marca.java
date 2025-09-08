@@ -20,25 +20,25 @@ import lombok.Data;
 @Table(name = "marcas")
 public class Marca {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        @NotBlank(message = "El nombre de la marca no puede estar vacío")
-        private String nombreMarca;
+    @NotBlank(message = "El nombre de la marca no puede estar vacío")
+    private String nombreMarca;
 
-        @OneToMany
-        @JoinTable(name = "autos_modelos", 
-                joinColumns = @JoinColumn(name = "marca_id"),
-                inverseJoinColumns = @JoinColumn(name = "modelo_id"))
-        private List<Modelo> modelos;
+    @OneToMany
+    @JoinTable(name = "autos_modelos", 
+            joinColumns = @JoinColumn(name = "marca_id"),
+            inverseJoinColumns = @JoinColumn(name = "modelo_id"))
+    private List<Modelo> modelos;
 
-        @OneToMany
-        @JoinTable(name = "autos_colores", 
-                joinColumns = @JoinColumn(name = "marca_id"),
-                inverseJoinColumns = @JoinColumn(name = "color_id"))
-        private List<Color> colores;
+    @OneToMany
+    @JoinTable(name = "autos_colores", 
+            joinColumns = @JoinColumn(name = "marca_id"),
+            inverseJoinColumns = @JoinColumn(name = "color_id"))
+    private List<Color> colores;
 
-        public Marca() { }
+    public Marca() { }
 
 }

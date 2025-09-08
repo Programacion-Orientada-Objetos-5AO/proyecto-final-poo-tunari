@@ -23,29 +23,29 @@ import lombok.NoArgsConstructor;
 @Table(name = "modelos")
 public class Modelo {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        @NotBlank(message = "El nombre del modelo no puede estar vacío")
-        private String nombreModelo;
+    @NotBlank(message = "El nombre del modelo no puede estar vacío")
+    private String nombreModelo;
 
-        @ManyToOne
-        @JoinTable(name = "autos_modelos", // usa la misma tabla que Marca
-        joinColumns = @JoinColumn(name = "modelo_id"),
-        inverseJoinColumns = @JoinColumn(name = "marca_id"))
-        private Marca marca;
+    @ManyToOne
+    @JoinTable(name = "autos_modelos", // usa la misma tabla que Marca
+    joinColumns = @JoinColumn(name = "modelo_id"),
+    inverseJoinColumns = @JoinColumn(name = "marca_id"))
+    private Marca marca;
 
-        @OneToMany
-        @JoinTable(name = "modelo_versiones",
-        joinColumns = @JoinColumn(name = "modelo_id"),
-        inverseJoinColumns = @JoinColumn(name = "version_id"))
-        private List<Version> versiones;
+    @OneToMany
+    @JoinTable(name = "modelo_versiones",
+    joinColumns = @JoinColumn(name = "modelo_id"),
+    inverseJoinColumns = @JoinColumn(name = "version_id"))
+    private List<Version> versiones;
 
-        @OneToMany
-        @JoinTable(name = "modelo_colores",
-        joinColumns = @JoinColumn(name = "modelo_id"),
-        inverseJoinColumns = @JoinColumn(name = "color_id"))
-        private List<Color> colores;
+    @OneToMany
+    @JoinTable(name = "modelo_colores",
+    joinColumns = @JoinColumn(name = "modelo_id"),
+    inverseJoinColumns = @JoinColumn(name = "color_id"))
+    private List<Color> colores;
 
 }
