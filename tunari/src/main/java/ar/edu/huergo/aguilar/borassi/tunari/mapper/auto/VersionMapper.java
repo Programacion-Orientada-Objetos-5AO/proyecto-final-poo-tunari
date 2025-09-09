@@ -1,12 +1,11 @@
 package ar.edu.huergo.aguilar.borassi.tunari.mapper.auto;
 
-import org.springframework.stereotype.Component;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.VersionDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
-import java.util.List;
 
 @Component
 public class VersionMapper {
