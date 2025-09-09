@@ -1,6 +1,7 @@
 package ar.edu.huergo.aguilar.borassi.tunari.controller.auto;
 
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.ColorDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearColorDTO;
@@ -44,7 +45,11 @@ public class ColorController {
     @PostMapping
     public ResponseEntity<String> crearColor(@RequestBody CrearColorDTO colorDto) {
         this.colorService.crearColor(colorDto);
-        return ResponseEntity.created(null).body("Color creado correctamente");
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(colorDto.nombreColor())
+            .toUri();
+        return ResponseEntity.created(location).body("Color creado correctamente");
         
     }
     
