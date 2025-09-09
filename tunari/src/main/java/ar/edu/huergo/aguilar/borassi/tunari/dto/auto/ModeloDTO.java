@@ -6,6 +6,7 @@ import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 
+
 public record ModeloDTO(
     Long id,
     Marca marca,

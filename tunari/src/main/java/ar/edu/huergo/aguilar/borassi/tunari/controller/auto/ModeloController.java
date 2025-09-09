@@ -16,13 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.ModeloDTO;
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.VersionDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 import ar.edu.huergo.aguilar.borassi.tunari.mapper.auto.ModeloMapper;
-import ar.edu.huergo.aguilar.borassi.tunari.mapper.auto.VersionMapper;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.ModeloService;
-import ar.edu.huergo.aguilar.borassi.tunari.service.auto.VersionService;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import jakarta.validation.Valid;
 
@@ -56,12 +52,12 @@ public class ModeloController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ModeloDTO> obtenerModeloPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(ModeloMapper.toDTO(modeloService.obtenerModeloPorId(id)));
+        return ResponseEntity.ok(modeloMapper.toDTO(modeloService.obtenerModeloPorId(id)));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ModeloDTO> actualizarModelo(@PathVariable Long id, @RequestBody @Valid ModeloDTO modeloDTO) {
-        return ResponseEntity.ok(ModeloMapper.toDTO(modeloService.actualizarModelo(id, ModeloMapper.toEntity(modeloDTO))));
+        return ResponseEntity.ok(modeloMapper.toDTO(modeloService.actualizarModelo(id, modeloMapper.toEntity(modeloDTO))));
     }
 
     @DeleteMapping("/{id}")
@@ -72,6 +68,6 @@ public class ModeloController {
 
     @GetMapping("/nombre")
     public ResponseEntity<List<ModeloDTO>> obtenerModeloPorId(@RequestParam String nombreModelo) {
-        return ResponseEntity.ok(ModeloMapper.toDTOList(modeloService.obtenerModeloPorNombre(nombreModelo)));
+        return ResponseEntity.ok(modeloMapper.toDTOList(modeloService.obtenerModeloPorNombre(nombreModelo)));
     }
 }
