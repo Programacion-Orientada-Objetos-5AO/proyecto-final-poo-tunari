@@ -13,7 +13,7 @@ import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 @Component
 public class MarcaMapper {
 
-    public static MarcaDTO toDTO(Marca marca) {
+    public MarcaDTO toDTO(Marca marca) {
         List<String> modelos = marca.getModelos().stream()
             .map(Modelo::getNombreModelo)
             .toList();
@@ -30,7 +30,7 @@ public class MarcaMapper {
         );
     }
 
-    public static Marca toEntity(CrearMarcaDTO dto, List<Modelo> modelos, List<Color> colores) {
+    public Marca toEntity(CrearMarcaDTO dto, List<Modelo> modelos, List<Color> colores) {
         Marca marca = new Marca();
         marca.setNombreMarca(dto.nombreMarca());
         marca.setModelos(modelos);

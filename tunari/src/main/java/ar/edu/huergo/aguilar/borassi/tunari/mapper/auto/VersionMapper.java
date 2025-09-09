@@ -2,27 +2,31 @@ package ar.edu.huergo.aguilar.borassi.tunari.mapper.auto;
 
 import org.springframework.stereotype.Component;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearVersionDTO;
+import org.springframework.stereotype.Component;
+
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.VersionDTO;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
+import java.util.List;
 
 @Component
 public class VersionMapper {
 
-    public static VersionDTO toDTO(Version version) {
+    public VersionDTO toDTO(Version version) {
         return new VersionDTO(
             version.getId(),
-            version.getNombreMarca(),
+            version.getMarca().getNombreMarca(),
             version.getNombreVersion()
         );
     }
 
-    public static Version toEntity(CrearVersionDTO dto, Modelo modelo, Color color) {
+    public Version toEntity(VersionDTO dto) {
         Version version = new Version();
         version.setNombreVersion(dto.nombreVersion());
-        version.setNombreMarca(dto.marcaId().toString());
         return version;
+    }
+
+    public List<VersionDTO> toDTOList(List<Version> versiones) {
+        if (versiones == null) return List.of();
+        return versiones.stream().map(this::toDTO).toList();
     }
 }

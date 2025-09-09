@@ -4,40 +4,33 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearModeloDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.ModeloDTO;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 
 @Component
 public class ModeloMapper {
 
-    public static ModeloDTO toDTO(Modelo modelo) {
-        List<String> versiones = modelo.getVersiones().stream()
-            .map(Version::getNombreVersion)
-            .toList();
-
-        List<String> colores = modelo.getColores().stream()
-            .map(Color::getNombreColor)
-            .toList();
-
+    public ModeloDTO toDTO(Modelo modelo) {
         return new ModeloDTO(
             modelo.getId(),
+            modelo.getMarca(),
             modelo.getNombreModelo(),
-            modelo.getMarca().getNombreMarca(),
-            versiones,
-            colores
+            modelo.getVersiones(),
+            modelo.getColores()
         );
     }
 
-    public static Modelo toEntity(CrearModeloDTO dto, Marca marca, List<Version> versiones, List<Color> colores) {
+    public Modelo toEntity(ModeloDTO dto) {
         Modelo modelo = new Modelo();
         modelo.setNombreModelo(dto.nombreModelo());
-        modelo.setMarca(marca);
-        modelo.setVersiones(versiones);
-        modelo.setColores(colores);
+        modelo.setMarca(dto.marca());
+        modelo.setVersiones(dto.versiones());
+        modelo.setColores(dto.colores());
         return modelo;
+    }
+
+    public List<ModeloDTO> toDTOList(List<Modelo> modelos) {
+        if (modelos == null) return List.of();
+        return modelos.stream().map(this::toDTO).toList();
     }
 }
