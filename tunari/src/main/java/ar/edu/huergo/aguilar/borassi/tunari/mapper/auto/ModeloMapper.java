@@ -12,30 +12,27 @@ import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 
 public class ModeloMapper {
 
-    public static ModeloDTO toDTO(Modelo modelo) {
-        List<String> versiones = modelo.getVersiones().stream()
-            .map(Version::getNombreVersion)
-            .toList();
-
-        List<String> colores = modelo.getColores().stream()
-            .map(Color::getNombreColor)
-            .toList();
-
+    public ModeloDTO toDTO(Modelo modelo) {
         return new ModeloDTO(
             modelo.getId(),
-            modelo.getNombreModelo(),
             modelo.getMarca().getNombreMarca(),
-            versiones,
-            colores
+            modelo.getNombreModelo(),
+            modelo.getVersiones(),
+            modelo.getColores()
         );
     }
 
-    public static Modelo toEntity(CrearModeloDTO dto, Marca marca, List<Version> versiones, List<Color> colores) {
+    public Modelo toEntity(CrearModeloDTO dto, Marca marca, List<Version> versiones, List<Color> colores) {
         Modelo modelo = new Modelo();
         modelo.setNombreModelo(dto.nombreModelo());
         modelo.setMarca(marca);
         modelo.setVersiones(versiones);
         modelo.setColores(colores);
         return modelo;
+    }
+
+    public List<ModeloDTO> toDTOList(List<Modelo> modelos) {
+        if (modelos == null) return List.of();
+        return modelos.stream().map(this::toDTO).toList();
     }
 }
