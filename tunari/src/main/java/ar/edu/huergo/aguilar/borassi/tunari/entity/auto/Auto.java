@@ -1,17 +1,20 @@
 package ar.edu.huergo.aguilar.borassi.tunari.entity.auto;
 
 import java.util.List;
-import lombok.Data;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @Data
 @AllArgsConstructor
@@ -26,8 +29,10 @@ public class Auto {
     @NotBlank(message = "La marca no puede estar vacía")
     private String marca;
 
-    @NotBlank(message = "El modelo no puede estar vacío")
-    private List<Modelo> modelo;
+    @ManyToOne
+    @JoinColumn(name = "modelo_id")
+    @NotNull(message = "El modelo no puede estar vacío")
+    private Modelo modelo;
 
     @ManyToMany
     @JoinTable(name = "autos_colores", 
@@ -40,7 +45,5 @@ public class Auto {
             joinColumns = @JoinColumn(name = "auto_id"),
             inverseJoinColumns = @JoinColumn(name = "version_id"))
     private List<Version> versiones;
-
-    public Auto() { }
 
 }

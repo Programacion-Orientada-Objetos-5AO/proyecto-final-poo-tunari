@@ -27,11 +27,9 @@ public class Marca {
     @NotBlank(message = "El nombre de la marca no puede estar vacío")
     private String nombreMarca;
 
-    @OneToMany
-    @JoinTable(name = "autos_modelos", 
-            joinColumns = @JoinColumn(name = "marca_id"),
-            inverseJoinColumns = @JoinColumn(name = "modelo_id"))
+    @OneToMany(mappedBy = "marca")
     private List<Modelo> modelos;
+
 
     @OneToMany
     @JoinTable(name = "autos_colores", 

@@ -2,13 +2,15 @@ package ar.edu.huergo.aguilar.borassi.tunari.mapper.auto;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearMarcaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.MarcaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 
-
+@Component
 public class MarcaMapper {
 
     public static MarcaDTO toDTO(Marca marca) {

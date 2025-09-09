@@ -1,12 +1,14 @@
 package ar.edu.huergo.aguilar.borassi.tunari.mapper.auto;
 
+import org.springframework.stereotype.Component;
+
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearVersionDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.VersionDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 
-
+@Component
 public class VersionMapper {
 
     public static VersionDTO toDTO(Version version) {

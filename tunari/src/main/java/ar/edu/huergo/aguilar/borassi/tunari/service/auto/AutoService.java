@@ -1,12 +1,14 @@
 package ar.edu.huergo.aguilar.borassi.tunari.service.auto;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
+
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.AutoRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -34,8 +36,8 @@ public class AutoService {
                 .orElseThrow(() -> new EntityNotFoundException("Auto no encontrado."));
     }
 
-    public Auto crearAuto(Auto auto, String marca, List<Long> coloresIds, List<Long> modelosIds, List<Long> versionesIds) {
-        List<Modelo> modelo = modeloService.resolverModelo(modelosIds);
+    public Auto crearAuto(Auto auto, String marca, List<Long> coloresIds, Long modeloIds, List<Long> versionesIds) {
+        Modelo modelo = modeloService.resolverModeloAuto(modeloIds);
         auto.setModelo(modelo);
         List<Color> color = colorService.resolverColor(coloresIds);
         auto.setColores(color);
@@ -46,12 +48,12 @@ public class AutoService {
         return autoRepository.save(auto);
     }
 
-    public Auto actualizarAuto(Long id, Auto auto, List<Long> coloresIds, List<Long> modelosIds, List<Long> versionesIds) throws EntityNotFoundException {
+    public Auto actualizarAuto(Long id, Auto auto, List<Long> coloresIds, Long modeloIds, List<Long> versionesIds) throws EntityNotFoundException {
         Auto autoExistente = obtenerAutoPorId(id);
         autoExistente.setModelo(auto.getModelo());
-        if (modelosIds != null) {
-            List<Modelo> modelos = modeloService.resolverModelo(modelosIds);
-            autoExistente.setModelo(modelos);
+        if (modeloIds != null) {
+            Modelo modelo = modeloService.resolverModeloAuto(modeloIds);
+            autoExistente.setModelo(modelo);
         }
         if (versionesIds != null) {
             List<Version> versiones = versionService.resolverVersion(versionesIds);

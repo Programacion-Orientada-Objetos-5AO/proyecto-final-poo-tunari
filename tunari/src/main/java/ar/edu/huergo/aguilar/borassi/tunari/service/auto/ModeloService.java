@@ -2,10 +2,12 @@ package ar.edu.huergo.aguilar.borassi.tunari.service.auto;
 
 import java.util.List;
 import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.*;
+
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
+import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.ModeloRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -37,11 +39,8 @@ public class ModeloService {
         modeloRepository.delete(modelo);
     }
 
-    public List<Modelo> obtenerModeloPorNombre(String nombreModelo) {
-        return modeloRepository.findByNombreContainingIgnoreCase(nombreModelo);
-    }
 
-    public List<Modelo> resolverModelo(List<Long> modelosIds) throws IllegalArgumentException, EntityNotFoundException {
+    public List<Modelo> resolverModeloMarcaColor(List<Long> modelosIds) throws IllegalArgumentException, EntityNotFoundException {
         if (modelosIds == null || modelosIds.isEmpty()) {
             throw new IllegalArgumentException("Hay que ingresar un modelo.");
         }
@@ -50,6 +49,13 @@ public class ModeloService {
                 .count()) {
             throw new EntityNotFoundException("Uno o más modelos no existen. Intente nuevamente.");
         }
+
         return modelos;
+    }
+
+    public Modelo resolverModeloAuto(Long modeloIds) throws IllegalArgumentException, EntityNotFoundException {
+        Modelo modelo = modeloRepository.findById(modeloIds)
+                .orElseThrow(() -> new EntityNotFoundException("Modelo no encontrado."));
+        return modelo;
     }
 }

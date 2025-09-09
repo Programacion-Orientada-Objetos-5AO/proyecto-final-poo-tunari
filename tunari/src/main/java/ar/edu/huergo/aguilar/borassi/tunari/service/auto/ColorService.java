@@ -6,10 +6,10 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.*;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearColorDTO;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
+import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.ColorRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -34,7 +34,7 @@ public class ColorService {
         Color colorEntity = new Color();
         colorEntity.setNombreColor(color.nombreColor());
         colorEntity.setMarca(marcaService.obtenerMarcaPorId(color.marcaId()));
-        List<Modelo> modelos = modeloService.resolverModelo(color.modelosIds());
+        List<Modelo> modelos = modeloService.resolverModeloMarcaColor(color.modelosIds());
         colorEntity.setModelos(modelos);
         return colorRepository.save(colorEntity);
     }
@@ -43,7 +43,7 @@ public class ColorService {
         Color colorExistente = obtenerColorPorId(id);
         colorExistente.setNombreColor(color.nombreColor());
         colorExistente.setMarca(marcaService.obtenerMarcaPorId(color.marcaId()));
-        List<Modelo> modelos = modeloService.resolverModelo(color.modelosIds());
+        List<Modelo> modelos = modeloService.resolverModeloMarcaColor(color.modelosIds());
         colorExistente.setModelos(modelos);
         return colorRepository.save(colorExistente);
     }
@@ -51,10 +51,6 @@ public class ColorService {
     public void eliminarColor(Long id) throws EntityNotFoundException {
         Color color = obtenerColorPorId(id);
         colorRepository.delete(color);
-    }
-
-    public List<Color> obtenerColorPorNombre(String nombreColor) {
-        return colorRepository.findByNombreContainingIgnoreCase(nombreColor);
     }
 
     public List<Color> resolverColor(List<Long> coloresIds) throws IllegalArgumentException, EntityNotFoundException {

@@ -40,10 +40,6 @@ public class VersionService {
         versionRepository.delete(version);
     }
 
-    public List<Version> obtenerVersionesPorNombre(String nombreVersion) {
-        return versionRepository.findByNombreContainingIgnoreCase(nombreVersion);
-    }
-
     public List<Version> resolverVersion(List<Long> versionesIds) throws IllegalArgumentException, EntityNotFoundException {
         if (versionesIds == null || versionesIds.isEmpty()) {
             throw new IllegalArgumentException("Hay que ingresar una versión.");
