@@ -2,9 +2,13 @@ package ar.edu.huergo.aguilar.borassi.tunari.service.auto;
 
 import java.util.List;
 import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.*;
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearColorDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -12,6 +16,10 @@ import jakarta.persistence.EntityNotFoundException;
 public class ColorService {
     @Autowired
     private ColorRepository colorRepository;
+    @Autowired
+    private MarcaService marcaService;
+    @Autowired
+    private ModeloService modeloService;
 
     public List<Color> obtenerTodosLosColores() {
         return colorRepository.findAll();
@@ -22,13 +30,21 @@ public class ColorService {
             .orElseThrow(() -> new EntityNotFoundException("Color no encontrado"));
     }
 
-    public Color crearColor(Color color) {
-        return colorRepository.save(color);
+    public Color crearColor(CrearColorDTO color) {
+        Color colorEntity = new Color();
+        colorEntity.setNombreColor(color.nombreColor());
+        colorEntity.setMarca(marcaService.obtenerMarcaPorId(color.marcaId()));
+        List<Modelo> modelos = modeloService.resolverModelo(color.modelosIds());
+        colorEntity.setModelos(modelos);
+        return colorRepository.save(colorEntity);
     }
 
-    public Color actualizarColor(Long id, Color color) throws EntityNotFoundException {
+    public Color actualizarColor(Long id, CrearColorDTO color) throws EntityNotFoundException {
         Color colorExistente = obtenerColorPorId(id);
-        colorExistente.setNombreColor(color.getNombreColor());
+        colorExistente.setNombreColor(color.nombreColor());
+        colorExistente.setMarca(marcaService.obtenerMarcaPorId(color.marcaId()));
+        List<Modelo> modelos = modeloService.resolverModelo(color.modelosIds());
+        colorExistente.setModelos(modelos);
         return colorRepository.save(colorExistente);
     }
     
