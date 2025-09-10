@@ -41,7 +41,7 @@ public class MarcaService {
             marcaExistente.setModelos(modelos);
         }
         if (modelosIds != null) {
-            List<Modelo> modelos = modeloService.resolverModelo(modelosIds);
+            List<Modelo> modelos = modeloService.resolverModeloMarcaColor(modelosIds);
             marcaExistente.setModelos(modelos);
         }
         return marcaRepository.save(marcaExistente);

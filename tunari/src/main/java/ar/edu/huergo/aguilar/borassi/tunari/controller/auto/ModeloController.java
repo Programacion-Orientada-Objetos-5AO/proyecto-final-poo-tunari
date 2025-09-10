@@ -24,7 +24,7 @@ import jakarta.validation.Valid;
 
 
 @RestController
-@RequestMapping("/api/ingredientes")
+@RequestMapping("/api/modelo")
 public class ModeloController {
 
     @Autowired
@@ -66,8 +66,5 @@ public class ModeloController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/nombre")
-    public ResponseEntity<List<ModeloDTO>> obtenerModeloPorId(@RequestParam String nombreModelo) {
-        return ResponseEntity.ok(modeloMapper.toDTOList(modeloService.obtenerModeloPorNombre(nombreModelo)));
-    }
+    
 }

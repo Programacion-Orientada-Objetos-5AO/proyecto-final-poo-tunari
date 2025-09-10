@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 
 
 @RestController
-@RequestMapping("/api/ingredientes")
+@RequestMapping("/api/versiones")
 public class VersionController {
 
     @Autowired
@@ -66,9 +66,4 @@ public class VersionController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/nombre")
-    public ResponseEntity<List<VersionDTO>> obtenerVersionPorNombre(@RequestParam String nombreVersion) {
-        List<VersionDTO> versionesObtenidas = versionMapper.toDTOList(versionService.obtenerVersionesPorNombre(nombreVersion));
-        return ResponseEntity.ok(versionesObtenidas);
-    }
 }
