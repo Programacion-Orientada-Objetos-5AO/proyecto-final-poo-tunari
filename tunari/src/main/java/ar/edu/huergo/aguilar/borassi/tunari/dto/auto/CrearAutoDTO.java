@@ -1,21 +1,19 @@
 package ar.edu.huergo.aguilar.borassi.tunari.dto.auto;
 
-import java.util.List;
+import jakarta.validation.constraints.NotNull;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 
 public record CrearAutoDTO(
-    @NotBlank(message = "El nombre de la marca no puede estar vacío")
-    String nombreMarca,
+    @NotNull(message = "Debe incluir una marca")
+    Long marcaId,
 
-    @NotEmpty(message = "Debe incluir al menos un modelo")
-    List<Long> modelosIds,
+    @NotNull(message = "Debe incluir un modelo")
+    Long modeloId,
 
-    @NotEmpty(message = "Debe incluir al menos un color")
-    List<Long> coloresIds,
+    @NotNull(message = "Debe incluir un color")
+    Long colorId,
 
-    @NotEmpty(message = "Debe incluir al menos una versión.")
-    List<Long> versionesIds
+    @NotNull(message = "Debe incluir una versión")
+    Long versionId
 
 ) {}

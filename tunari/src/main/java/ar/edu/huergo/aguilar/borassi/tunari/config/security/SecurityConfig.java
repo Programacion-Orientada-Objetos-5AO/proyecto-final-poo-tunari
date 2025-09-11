@@ -29,7 +29,7 @@ public class SecurityConfig {
     
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http,
-            JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
+        JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         // Configuración central de Spring Security con JWT:
         // - Deshabilitamos CSRF porque no usamos cookies/sesiones en un API stateless.
         // - Forzamos manejo de sesión sin estado (los datos de auth vienen en el JWT).

@@ -13,20 +13,16 @@ import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 @Component
 public class MarcaMapper {
 
-    public MarcaDTO toDTO(Marca marca) {
-        List<String> modelos = marca.getModelos().stream()
-            .map(Modelo::getNombreModelo)
-            .toList();
 
-        List<String> colores = marca.getColores().stream()
-            .map(Color::getNombreColor)
-            .toList();
+    public MarcaDTO toDTO(Marca marca) {
+        var modelos = marca.getModelos() == null ? List.<Modelo>of() : marca.getModelos();
+        var colores = marca.getColores() == null ? List.<Color>of() : marca.getColores();
 
         return new MarcaDTO(
             marca.getId(),
             marca.getNombreMarca(),
-            modelos,
-            colores
+            modelos.stream().map(Modelo::getNombreModelo).toList(),  
+            colores.stream().map(Color::getNombreColor).toList()     
         );
     }
 
@@ -36,5 +32,10 @@ public class MarcaMapper {
         marca.setModelos(modelos);
         marca.setColores(colores);
         return marca;
+    }
+
+    public List<MarcaDTO> toDTOList(List<Marca> marcas) {
+        if (marcas == null) return List.of();
+        return marcas.stream().map(this::toDTO).toList();
     }
 }

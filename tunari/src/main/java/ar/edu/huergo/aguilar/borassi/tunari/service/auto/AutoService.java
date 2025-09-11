@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearAutoDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.AutoRepository;
 import jakarta.persistence.EntityNotFoundException;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 
 @Service
 public class AutoService {
@@ -27,6 +29,9 @@ public class AutoService {
     @Autowired
     private VersionService versionService;
 
+    @Autowired
+    private MarcaService marcaService;
+
     public List<Auto> obtenerTodosLosAutos() {
         return autoRepository.findAll();
     }
@@ -36,34 +41,18 @@ public class AutoService {
                 .orElseThrow(() -> new EntityNotFoundException("Auto no encontrado."));
     }
 
-    public Auto crearAuto(Auto auto, String marca, List<Long> coloresIds, Long modeloIds, List<Long> versionesIds) {
-        Modelo modelo = modeloService.resolverModeloAuto(modeloIds);
-        auto.setModelo(modelo);
-        List<Color> color = colorService.resolverColor(coloresIds);
-        auto.setColores(color);
-        List<Version> versiones = versionService.resolverVersion(versionesIds);
-        auto.setVersiones(versiones);
-        String marcaAuto = marca;
-        auto.setMarca(marcaAuto);
-        return autoRepository.save(auto);
-    }
+    public Auto crearAuto(CrearAutoDTO dto) {
+        Marca marca = marcaService.obtenerMarcaPorId(dto.marcaId());
+        Modelo modelo = modeloService.obtenerModeloPorId(dto.modeloId());
+        Color color = colorService.obtenerColorPorId(dto.colorId());
+        Version version = versionService.obtenerVersionPorId(dto.versionId());
 
-    public Auto actualizarAuto(Long id, Auto auto, List<Long> coloresIds, Long modeloIds, List<Long> versionesIds) throws EntityNotFoundException {
-        Auto autoExistente = obtenerAutoPorId(id);
-        autoExistente.setModelo(auto.getModelo());
-        if (modeloIds != null) {
-            Modelo modelo = modeloService.resolverModeloAuto(modeloIds);
-            autoExistente.setModelo(modelo);
-        }
-        if (versionesIds != null) {
-            List<Version> versiones = versionService.resolverVersion(versionesIds);
-            autoExistente.setVersiones(versiones);
-        }
-        if (coloresIds != null) {
-            List<Color> colores = colorService.resolverColor(coloresIds);
-            autoExistente.setColores(colores);
-        }
-        return autoRepository.save(autoExistente);
+        Auto auto = new Auto();
+        auto.setMarca(marca);
+        auto.setModelo(modelo);
+        auto.setColor(color);       
+        auto.setVersion(version);   
+        return autoRepository.save(auto);
     }
 
     public void eliminarAuto(Long id) throws EntityNotFoundException {
