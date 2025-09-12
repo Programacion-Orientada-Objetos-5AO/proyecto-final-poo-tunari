@@ -1,20 +1,12 @@
 package ar.edu.huergo.aguilar.borassi.tunari.entity.auto;
 
 import java.util.List;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "marcas")
@@ -25,18 +17,15 @@ public class Marca {
     private Long id;
 
     @NotBlank(message = "El nombre de la marca no puede estar vacío")
+    @Column(nullable = false, unique = true)
     private String nombreMarca;
 
     @OneToMany(mappedBy = "marca")
     private List<Modelo> modelos;
 
+    @OneToMany(mappedBy = "marca")
+    private List<Version> versiones;
 
-    @OneToMany
-    @JoinTable(name = "autos_colores", 
-            joinColumns = @JoinColumn(name = "marca_id"),
-            inverseJoinColumns = @JoinColumn(name = "color_id"))
+    @OneToMany(mappedBy = "marca")
     private List<Color> colores;
-
-    public Marca() { }
-
 }

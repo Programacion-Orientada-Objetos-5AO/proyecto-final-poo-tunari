@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearModeloDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.ModeloDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.mapper.auto.ModeloMapper;
@@ -23,7 +24,7 @@ import jakarta.validation.Valid;
 
 
 @RestController
-@RequestMapping("/api/modelo")
+@RequestMapping("/api/modelos")
 public class ModeloController {
 
     @Autowired
@@ -38,9 +39,9 @@ public class ModeloController {
     }
 
     @PostMapping
-    public ResponseEntity<ModeloDTO> crearModelo(@RequestBody @Valid ModeloDTO modeloDTO) {
-        Modelo modeloNuevo = modeloMapper.toEntity(modeloDTO);
-        modeloNuevo = modeloService.crearModelo(modeloNuevo);
+    public ResponseEntity<ModeloDTO> crearModelo(@RequestBody @Valid CrearModeloDTO modeloDTO) {
+        
+        Modelo modeloNuevo = modeloService.crearModelo(modeloDTO);
         ModeloDTO modeloCreado = modeloMapper.toDTO(modeloNuevo);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
@@ -55,8 +56,9 @@ public class ModeloController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ModeloDTO> actualizarModelo(@PathVariable Long id, @RequestBody @Valid ModeloDTO modeloDTO) {
-        return ResponseEntity.ok(modeloMapper.toDTO(modeloService.actualizarModelo(id, modeloMapper.toEntity(modeloDTO))));
+    public ResponseEntity<ModeloDTO> actualizarModelo(@PathVariable Long id, @RequestBody @Valid CrearModeloDTO modeloDTO) {
+        Modelo modeloActualizado = modeloService.actualizarModelo(id, modeloDTO);
+        return ResponseEntity.ok(modeloMapper.toDTO(modeloActualizado));
     }
 
     @DeleteMapping("/{id}")

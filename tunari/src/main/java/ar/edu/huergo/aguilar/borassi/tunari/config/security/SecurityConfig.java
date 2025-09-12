@@ -39,17 +39,13 @@ public class SecurityConfig {
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/platos/**").hasAnyRole("ADMIN", "CLIENTE")
-                        .requestMatchers("/ingredientes/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/platos/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/platos/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/platos/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/pedidos/**").hasAnyRole("ADMIN", "CLIENTE")
-                        .requestMatchers(HttpMethod.GET, "/pedidos/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
-                )
+
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar", "/api/auth/login").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/**").hasAnyRole("CLIENTE", "ADMIN")
+
+                        .anyRequest().hasRole("ADMIN")
+            )
                 .exceptionHandling(
                         exceptions -> exceptions.accessDeniedHandler(accessDeniedHandler())
                                 .authenticationEntryPoint(authenticationEntryPoint()))

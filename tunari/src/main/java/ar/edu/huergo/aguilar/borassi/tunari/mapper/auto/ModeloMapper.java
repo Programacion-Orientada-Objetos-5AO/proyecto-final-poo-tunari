@@ -28,12 +28,9 @@ public class ModeloMapper {
         );
     }
 
-    public Modelo toEntity(CrearModeloDTO dto, Marca marca, List<Version> versiones, List<Color> colores) {
+    public Modelo toEntity(CrearModeloDTO dto) {
         Modelo modelo = new Modelo();
-        modelo.setNombreModelo(dto.nombreModelo());
-        modelo.setMarca(marca);               
-        modelo.setVersiones(versiones);       
-        modelo.setColores(colores);           
+        modelo.setNombreModelo(dto.nombreModelo());          
         return modelo;
     }
 

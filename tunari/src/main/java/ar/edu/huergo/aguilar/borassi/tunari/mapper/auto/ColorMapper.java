@@ -12,15 +12,10 @@ import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 public class ColorMapper {
 
     public ColorDTO toDTO(Color color) {
-        List<String> modelos = color.getModelos().stream()
-            .map(Modelo::getNombreModelo)
-            .toList();
-
         return new ColorDTO(
             color.getId(),
             color.getMarca().getNombreMarca(),
-            color.getNombreColor(),
-            modelos
+            color.getNombreColor()
         );
     }
 
