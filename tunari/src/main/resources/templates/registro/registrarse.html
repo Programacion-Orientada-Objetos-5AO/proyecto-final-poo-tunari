@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crear cuenta</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- CSS personalizado -->
+  <link rel="stylesheet" href="LFF/static/css/style.css" />
+
+</head>
+<body>
+  <nav class="navbar justify-content-center py-3">
+  </nav>
+<main class="container-lg auth-wrap py-4 py-md-5">
+  <div class="row justify-content-center">
+    <!-- 12 en mobile, 10 en lg, 8 en xl, 6 en xxl -->
+    <div class="col-12 col-lg-10 col-xl-8 col-xxl-6">
+      <div class="glass-card p-3 p-md-4 p-xxl-5">
+        <!-- header -->
+        <div class="d-flex align-items-center gap-3 mb-3 mb-md-4">
+            <div>
+              <div class="brand-badge"><i class="bi bi-shield-lock"></i><span>Información protegida</span></div>
+              <h1 class="h4 mt-3 mb-0">Registrarse</h1>
+            </div>
+        </div>
+
+        <form id="registerForm" novalidate>
+          <div class="row g-3 g-md-4">
+            <!-- Nombre -->
+            <div class="col-12 col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="nombre" placeholder=" " required minlength="2">
+                <label for="nombre">Nombre</label>
+                <div class="invalid-feedback">Poné al menos 2 caracteres.</div>
+              </div>
+            </div>
+
+            <!-- Apellido -->
+            <div class="col-12 col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="apellido" placeholder=" " required minlength="2">
+                <label for="apellido">Apellido</label>
+                <div class="invalid-feedback">Completá tu apellido.</div>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="email" class="form-control" id="email" placeholder=" " required>
+                <label for="email">Correo electrónico</label>
+                <div class="invalid-feedback">Ingresá un email válido.</div>
+              </div>
+              <div class="form-text mt-1"><i class="bi bi-info-circle"></i> Usalo para iniciar sesión y recuperar tu cuenta.</div>
+            </div>
+
+            <!-- Contraseña -->
+            <div class="col-12 col-md-6">
+              <div class="form-floating position-relative">
+                <input type="password" class="form-control" id="password" placeholder=" " required minlength="8">
+                <label for="password">Contraseña</label>
+                <i class="bi bi-eye-slash input-icon" id="togglePass" title="Mostrar / ocultar"></i>
+                <div class="invalid-feedback">Mínimo 8 caracteres.</div>
+              </div>
+
+              <div class="strength mt-2">
+                <div class="d-flex justify-content-between small mb-1">
+                  <span class="text-secondary">Seguridad de contraseña</span>
+                  <span id="strengthLabel" class="badge-dot">
+                    <i class="bi bi-circle-fill"></i><span>Débil</span>
+                  </span>
+                </div>
+                <div class="progress">
+                  <div id="strengthBar" class="progress-bar" role="progressbar" style="width: 10%"></div>
+                </div>
+                <div class="form-text mt-1">Usá mayúsculas, números y símbolos.</div>
+              </div>
+            </div>
+
+            <!-- Repetir -->
+            <div class="col-12 col-md-6">
+              <div class="form-floating position-relative">
+                <input type="password" class="form-control" id="password2" placeholder=" " required>
+                <label for="password2">Repetir contraseña</label>
+                <i class="bi bi-eye-slash input-icon" id="togglePass2" title="Mostrar / ocultar"></i>
+                <div class="invalid-feedback">Las contraseñas deben coincidir.</div>
+              </div>
+            </div>
+
+            <!-- Términos -->
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="1" id="terminos" required>
+                <label class="form-check-label" for="terminos">
+                  Acepto los <a href="#" class="link-muted">Términos y Condiciones</a>
+                </label>
+                <div class="invalid-feedback">Tenés que aceptar para continuar.</div>
+              </div>
+            </div>
+
+            <!-- Botón -->
+            <div class="col-12">
+              <button class="btn btn-accent w-100" type="submit">
+                <i class="bi bi-person-plus"></i> Crear cuenta
+              </button>
+            </div>
+
+            <div class="col-12"><div class="divider my-2"></div></div>
+
+            <!-- Socials -->
+            <div class="col-12 justify-content-center text-center">
+              <p>Podés iniciar sesión con:</p>
+              <div class="d-grid gap-3 d-md-flex justify-content-md-center">  
+                <button type="button" class="btn btn-outline-light"><i class="bi bi-google"></i> Google</button>
+                <button type="button" class="btn btn-outline-light"><i class="bi bi-apple"></i> Apple</button>
+              </div>
+              <p class="text-center mt-3 mb-0 text-secondary">¿Ya tenés una cuenta? <a href="login.html" class="link-muted">Iniciar sesión</a></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+  <!-- Toast demo (éxito visual, fake backend) -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastOk" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <i class="bi bi-check2-circle me-2 text-success"></i> ¡Cuenta creada! (simulado, sin back)
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Helpers DOM
+    const $ = (sel) => document.querySelector(sel);
+
+    // Mostrar/ocultar contraseña
+    function setupToggle(inputId, toggleId){
+      const input = $("#"+inputId);
+      const toggle = $("#"+toggleId);
+      toggle.addEventListener('click', ()=>{
+        const isPwd = input.getAttribute('type') === 'password';
+        input.setAttribute('type', isPwd ? 'text' : 'password');
+        toggle.classList.toggle('bi-eye');
+        toggle.classList.toggle('bi-eye-slash');
+      });
+    }
+    setupToggle('password','togglePass');
+    setupToggle('password2','togglePass2');
+
+    // Barra de fuerza de contraseña
+    const pass = $('#password');
+    const strengthBar = $('#strengthBar');
+    const strengthLabel = $('#strengthLabel');
+    function calcStrength(p){
+      let score = 0;
+      if(!p) return 0;
+      if(p.length >= 8) score++;
+      if(/[A-Z]/.test(p)) score++;
+      if(/[a-z]/.test(p)) score++;
+      if(/[0-9]/.test(p)) score++;
+      if(/[^A-Za-z0-9]/.test(p)) score++;
+      return score; // 0..5
+    }
+    pass.addEventListener('input', (e)=>{
+      const v = e.target.value;
+      const score = calcStrength(v);
+      const pct = [0,20,40,60,80,100][score];
+      strengthBar.style.width = pct + '%';
+      strengthBar.className = 'progress-bar';
+      const map = {
+        0:['Débil',''],
+        1:['Débil','bg-danger'],
+        2:['Meh','bg-warning'],
+        3:['Aceptable','bg-info'],
+        4:['Firme','bg-primary'],
+        5:['Sólida','bg-success']
+      }
+      const [txt, cls] = map[score];
+      strengthBar.classList.add(cls);
+      strengthLabel.querySelector('span').textContent = txt;
+    });
+
+    // Validación bootstrap + confirmación de contraseña
+    const form = $('#registerForm');
+    const pass2 = $('#password2');
+    function passwordsMatch(){ return pass.value && pass.value === pass2.value; }
+
+    pass2.addEventListener('input', ()=>{
+      if(!passwordsMatch()){
+        pass2.setCustomValidity('nope');
+      } else {
+        pass2.setCustomValidity('');
+      }
+    });
+
+    form.addEventListener('submit', (event) => {
+      if(!passwordsMatch()) pass2.setCustomValidity('nope');
+      else pass2.setCustomValidity('');
+
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      } else {
+        event.preventDefault(); // demo sin backend
+        // Mostrar toast de OK
+        const toast = new bootstrap.Toast(document.getElementById('toastOk'));
+        toast.show();
+        // scroll top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // reset suave
+        setTimeout(()=> form.reset(), 600);
+        strengthBar.style.width = '10%';
+        strengthBar.className = 'progress-bar';
+        strengthLabel.querySelector('span').textContent = 'Débil';
+      }
+
+      form.classList.add('was-validated');
+    }, false);
+  </script>
+</body>
+</html>
