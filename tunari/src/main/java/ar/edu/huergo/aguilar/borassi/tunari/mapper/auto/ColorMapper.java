@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.ColorDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 
 @Component
 public class ColorMapper {
