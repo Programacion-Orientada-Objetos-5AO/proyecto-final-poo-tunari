@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearVersionDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.VersionRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,6 +15,8 @@ import jakarta.persistence.EntityNotFoundException;
 public class VersionService {
     @Autowired
     private VersionRepository versionRepository;
+    @Autowired
+    private MarcaService marcaService;
 
     public List<Version> obtenerTodasLasVersiones() {
         return versionRepository.findAll();
@@ -25,13 +28,17 @@ public class VersionService {
             .orElseThrow(() -> new EntityNotFoundException("Version no encontrada."));
     }
 
-    public Version crearVersion(Version version) {
-        return versionRepository.save(version);
+    public Version crearVersion(CrearVersionDTO version) {
+        Version versionEntity = new Version();
+        versionEntity.setNombreVersion(version.nombreVersion());
+        versionEntity.setMarca(marcaService.obtenerMarcaPorId(version.marcaId()));
+        return versionRepository.save(versionEntity);
     }
 
-    public Version actualizarVersion(Long id, Version version) throws EntityNotFoundException {
+    public Version actualizarVersion(Long id, CrearVersionDTO version) throws EntityNotFoundException {
         Version versionExistente = obtenerVersionPorId(id);
-        versionExistente.setNombreVersion(version.getNombreVersion());
+        versionExistente.setNombreVersion(version.nombreVersion());
+        versionExistente.setMarca(marcaService.obtenerMarcaPorId(version.marcaId()));
         return versionRepository.save(versionExistente);
     }
     

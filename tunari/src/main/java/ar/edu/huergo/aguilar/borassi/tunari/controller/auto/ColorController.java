@@ -24,7 +24,7 @@ import ar.edu.huergo.aguilar.borassi.tunari.mapper.auto.ColorMapper;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.ColorService;
 
 @RestController //Tipo de controller, en este caso un RESTful API controller
-@RequestMapping("/colores") //El dominio con el que acciona el controller
+@RequestMapping("/api/colores") //El dominio con el que acciona el controller
 public class ColorController {
     @Autowired
     private ColorService colorService;

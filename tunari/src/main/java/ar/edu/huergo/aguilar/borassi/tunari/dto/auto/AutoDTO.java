@@ -1,11 +1,14 @@
 package ar.edu.huergo.aguilar.borassi.tunari.dto.auto;
 
-import java.util.List;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 
 public record AutoDTO(
     Long id,
-    String nombreMarca,
-    List<String> modelos,
-    List<String> colores,
-    List<String> versiones
+    Marca nombreMarca,
+    Modelo modelo,
+    Color color,
+    Version version
 ) {}

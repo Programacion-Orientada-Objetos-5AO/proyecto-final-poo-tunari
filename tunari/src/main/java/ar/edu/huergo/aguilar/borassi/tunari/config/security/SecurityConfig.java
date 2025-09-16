@@ -29,7 +29,7 @@ public class SecurityConfig {
     
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http,
-            JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
+        JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         // Configuración central de Spring Security con JWT:
         // - Deshabilitamos CSRF porque no usamos cookies/sesiones en un API stateless.
         // - Forzamos manejo de sesión sin estado (los datos de auth vienen en el JWT).
@@ -39,17 +39,13 @@ public class SecurityConfig {
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/platos/**").hasAnyRole("ADMIN", "CLIENTE")
-                        .requestMatchers("/ingredientes/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/platos/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/platos/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/platos/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/pedidos/**").hasAnyRole("ADMIN", "CLIENTE")
-                        .requestMatchers(HttpMethod.GET, "/pedidos/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
-                )
+
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar", "/api/auth/login").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/**").hasAnyRole("CLIENTE", "ADMIN")
+
+                        .anyRequest().hasRole("ADMIN")
+            )
                 .exceptionHandling(
                         exceptions -> exceptions.accessDeniedHandler(accessDeniedHandler())
                                 .authenticationEntryPoint(authenticationEntryPoint()))

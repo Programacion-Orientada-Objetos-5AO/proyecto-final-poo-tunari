@@ -18,8 +18,7 @@ public class ColorService {
     private ColorRepository colorRepository;
     @Autowired
     private MarcaService marcaService;
-    @Autowired
-    private ModeloService modeloService;
+
 
     public List<Color> obtenerTodosLosColores() {
         return colorRepository.findAll();
@@ -34,8 +33,6 @@ public class ColorService {
         Color colorEntity = new Color();
         colorEntity.setNombreColor(color.nombreColor());
         colorEntity.setMarca(marcaService.obtenerMarcaPorId(color.marcaId()));
-        List<Modelo> modelos = modeloService.resolverModeloMarcaColor(color.modelosIds());
-        colorEntity.setModelos(modelos);
         return colorRepository.save(colorEntity);
     }
 
@@ -43,8 +40,6 @@ public class ColorService {
         Color colorExistente = obtenerColorPorId(id);
         colorExistente.setNombreColor(color.nombreColor());
         colorExistente.setMarca(marcaService.obtenerMarcaPorId(color.marcaId()));
-        List<Modelo> modelos = modeloService.resolverModeloMarcaColor(color.modelosIds());
-        colorExistente.setModelos(modelos);
         return colorRepository.save(colorExistente);
     }
     

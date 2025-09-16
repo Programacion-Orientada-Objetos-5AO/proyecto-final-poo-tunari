@@ -1,25 +1,20 @@
 package ar.edu.huergo.aguilar.borassi.tunari.entity.auto;
 
-import java.util.List;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "colores")
+@Table(
+    name = "colores",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"nombreColor", "marca_id"})
+    }
+)
 public class Color {
 
     @Id
@@ -27,13 +22,11 @@ public class Color {
     private Long id;
 
     @NotBlank(message = "El nombre del color no puede estar vacío")
+    @Column(nullable = false)
     private String nombreColor;
 
-    @ManyToOne
-    @JoinColumn(name = "marca_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "marca_id", nullable = false)
+    @NotNull(message = "La marca a la cual pertenece no puede estar vacía")
     private Marca marca;
-
-    @ManyToMany(mappedBy = "colores")
-    private List<Modelo> modelos;
 }
-

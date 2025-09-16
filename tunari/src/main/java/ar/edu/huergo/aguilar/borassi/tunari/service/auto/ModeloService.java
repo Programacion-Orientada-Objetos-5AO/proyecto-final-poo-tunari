@@ -2,11 +2,16 @@ package ar.edu.huergo.aguilar.borassi.tunari.service.auto;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearModeloDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.ModeloRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -14,6 +19,13 @@ import jakarta.persistence.EntityNotFoundException;
 public class ModeloService {
     @Autowired
     private ModeloRepository modeloRepository;
+    @Autowired
+    private VersionService versionService;
+    @Autowired 
+    private ColorService colorService;
+    @Autowired
+    private MarcaService marcaService;
+
 
     public List<Modelo> obtenerTodosLosModelos() {
         return modeloRepository.findAll();
@@ -24,13 +36,27 @@ public class ModeloService {
             .orElseThrow(() -> new EntityNotFoundException("Modelo no encontrado."));
     }
 
-    public Modelo crearModelo(Modelo modelo) {
+    public Modelo crearModelo(CrearModeloDTO modeloDTO) {
+        Modelo modelo = new Modelo();
+        modelo.setNombreModelo(modeloDTO.nombreModelo());
+        List<Version> versiones = this.versionService.resolverVersion(modeloDTO.versionesIds());
+        modelo.setVersiones(versiones);
+        Marca marca = this.marcaService.obtenerMarcaPorId(modeloDTO.marcaId());
+        modelo.setMarca(marca);
+        List<Color> colores = this.colorService.resolverColor(modeloDTO.coloresIds());
+        modelo.setColores(colores);
         return modeloRepository.save(modelo);
     }
 
-    public Modelo actualizarModelo(Long id, Modelo modelo) throws EntityNotFoundException {
+    public Modelo actualizarModelo(Long id, CrearModeloDTO modeloDTO) throws EntityNotFoundException {
         Modelo modeloExistente = obtenerModeloPorId(id);
-        modeloExistente.setNombreModelo(modelo.getNombreModelo());
+        modeloExistente.setNombreModelo(modeloDTO.nombreModelo());
+        List<Version> versiones = this.versionService.resolverVersion(modeloDTO.versionesIds());
+        modeloExistente.setVersiones(versiones);
+        Marca marca = this.marcaService.obtenerMarcaPorId(modeloDTO.marcaId());
+        modeloExistente.setMarca(marca);
+        List<Color> colores = this.colorService.resolverColor(modeloDTO.coloresIds());
+        modeloExistente.setColores(colores);
         return modeloRepository.save(modeloExistente);
     }
     
