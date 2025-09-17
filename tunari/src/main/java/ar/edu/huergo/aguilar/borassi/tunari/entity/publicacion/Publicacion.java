@@ -5,6 +5,9 @@ import java.util.List;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.security.Usuario;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -20,7 +23,10 @@ import lombok.Data;
 @Table(name = "publicaciones")
 public class Publicacion {
     
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
     @ManyToOne
     @JoinColumn(name = "modelo_id")
     @NotNull(message = "El modelo no puede estar vacío")

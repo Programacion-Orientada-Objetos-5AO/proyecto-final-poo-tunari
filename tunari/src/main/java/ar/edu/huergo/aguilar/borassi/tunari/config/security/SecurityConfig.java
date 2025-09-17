@@ -3,6 +3,7 @@ package ar.edu.huergo.aguilar.borassi.tunari.config.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -13,11 +14,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.http.MediaType;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ar.edu.huergo.aguilar.borassi.tunari.repository.security.UsuarioRepository;
@@ -41,6 +42,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar", "/api/auth/login").permitAll()
+
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/img/**", "/webjars/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/**").hasAnyRole("CLIENTE", "ADMIN")
 
