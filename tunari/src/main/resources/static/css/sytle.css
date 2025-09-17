@@ -123,7 +123,7 @@ section i {
 .footer {
   background-color: var(--color-footer);
   color: var(--color-texto);
-  height: 12vh;
+  height: 16vh;
   margin-top: 10vh;
   border-top: 1px solid var(--color-secundario);
 }
