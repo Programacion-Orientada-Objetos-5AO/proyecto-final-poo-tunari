@@ -123,8 +123,8 @@ section i {
 .footer {
   background-color: var(--color-footer);
   color: var(--color-texto);
-  height: 16vh;
-  margin-top: 10vh;
+  height: 13vh;
+  margin-top: 10h;
   border-top: 1px solid var(--color-secundario);
 }
 
@@ -407,3 +407,49 @@ section i {
   margin-top: .25rem;                     /* espacio normal debajo */
 }
 
+.gradient-footer {
+    background: linear-gradient(135deg, #6c4cff 0%,  #5936ff 100%);
+}
+
+.social-icon {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #ffffff;
+}
+
+.newsletter-input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.newsletter-input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    box-shadow: none;
+}
