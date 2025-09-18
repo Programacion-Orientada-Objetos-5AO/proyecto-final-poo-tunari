@@ -301,15 +301,31 @@ section i {
 .link-muted:hover{color:#fff}
 
 /* Botón primario acento */
-.btn-accent{
+.btn-accent {
   --bs-btn-color: #fff;
   --bs-btn-bg: var(--color-acento);
   --bs-btn-border-color: var(--color-acento);
   --bs-btn-hover-bg: var(--color-hover);
   --bs-btn-hover-border-color: var(--color-hover);
   --bs-btn-focus-shadow-rgb: 108, 76, 255;
-  border-radius: 1rem;
-  padding:.75rem 1rem; font-weight:600;
+  border-radius: 0.5rem;
+  padding:.75rem 1rem;
+  font-weight:400;
+
+  /* centrado del texto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* opcional si querés controlar tamaño fijo */
+  width: 30%;
+  max-width: 150px;
+  height: 25%;
+  max-height: 100px;
+
+  margin-left: auto;
+  margin-right: auto;
+
 }
 
 /* Inputs y selects */
@@ -452,4 +468,134 @@ section i {
     border-color: rgba(255, 255, 255, 0.3);
     color: white;
     box-shadow: none;
+}
+
+.nombre-auto {
+  font-size: 1.5rem;
+  color: var(--color-texto);
+  text-decoration: none;
+}
+
+.nombre-marca-feed {
+  font-size: 1.5rem;
+  color: var(--color-texto);
+  text-decoration: none;
+}
+
+/* ===== Mini Feed Tunari ===== */
+.feed-grid {
+  /* Bootstrap ya maneja el grid; esto es look&feel */
+}
+
+.feed-card {
+  position: relative;
+  background: rgba(255,255,255,.06);
+  border: 1px solid #ffffff1a;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.feed-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0,0,0,.5);
+}
+
+/* Contenedor fijo de imagen: mismas proporciones SIEMPRE */
+.feed-media {
+  position: relative;
+  aspect-ratio: 16 / 10;    /* cambiá a 16/9 si te gusta más ancho */
+  width: 100%;
+  overflow: hidden;
+}
+
+.feed-media img {
+  width: 100%; height: 100%;
+  object-fit: cover;        /* 🔥 recorta sin deformar */
+  display: block;
+  transform: scale(1);
+  transition: transform .35s ease;
+}
+
+/* Zoom leve al hover */
+.feed-card:hover .feed-media img {
+  transform: scale(1.05);
+}
+
+/* Overlay degradé abajo para legibilidad del título */
+.feed-overlay {
+  position: absolute;
+  inset: 0;                 /* top/right/bottom/left: 0 */
+  background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.0) 60%);
+  pointer-events: none;
+}
+
+/* Título pegado abajo */
+.feed-title {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: .9rem 1rem;
+  color: var(--color-texto);
+  font-weight: 600;
+  letter-spacing: .2px;
+  text-shadow: 0 2px 12px rgba(0,0,0,.5);
+}
+
+/* Nombre de marca (arriba) */
+.nombre-marca-feed {
+  margin-bottom: .25rem;
+  font-weight: 700;
+}
+
+/* Link debajo (si lo querés fuera de la foto) */
+.feed-link {
+  display: block;
+  padding: .8rem 1rem 1rem;
+  color: var(--text);
+  text-decoration: none;
+  opacity: .9;
+}
+.feed-link:hover { opacity: 1; }
+
+/* Badges opcionales (ej: “SUV”, “2025”) */
+.feed-badge {
+  position: absolute; top: .75rem; left: .75rem;
+  padding: .3rem .6rem;
+  border-radius: 999px;
+  font-size: .8rem;
+  color: #fff;
+  background: color-mix(in oklab, var(--color-acento), transparent 20%);
+  border: 1px solid color-mix(in oklab, var(--color-acento), transparent 45%);
+  backdrop-filter: blur(4px);
+}
+
+.search-overlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.35);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: none;                 /* cerrada por defecto */
+  align-items: center; justify-content: center;
+  padding: 1.5rem;
+}
+.search-overlay.open{ display: flex; }   /* abrir/cerrar con clase */
+
+.search-box{
+  width: 90%; max-width: 600px; text-align: center;
+  border: 1px solid #ffffff1a;
+  border-radius: 16px;
+  padding: 1.5rem;
+  height: 30%;
+  max-height: 200px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.45);
+  color: var(--color-texto);
+}
+
+body.noscroll{ overflow: hidden; }
+
+.parent-container {
+  display: flex;
+  justify-content: center; /* centra horizontal */
+  align-items: center;     /* centra vertical si le das altura */
 }
