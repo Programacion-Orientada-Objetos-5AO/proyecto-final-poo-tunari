@@ -1,0 +1,601 @@
+:root {
+  --color-principal:   #111122;  /* Fondo general y navbar */
+  --color-secundario:  #1f1f5c;  /* Hero, cards, secciones */
+  --color-texto:       #ffffff;  /* Texto */
+  --color-acento:      #6c4cff;  /* Botones, acentos, hovers */
+  --color-hover:       #3f32cc;  /* Hover fuerte */
+  --color-footer:      #0d0d1a;  /* Footer */
+  --bg-1: #0f1020;
+  --bg-2: #1a1b3a;
+  --card: #14142b;
+  --text: #f8f9ff;
+  --muted: #b8b9d4;
+  --accent: #6c4cff;  /* morado */
+  --accent-hover:#5936ff;
+  --ok: #22c55e;
+  --bad:#ef4444;
+}
+
+/* Base general */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--color-principal);
+  color: var(--color-texto);
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--color-principal);
+}
+
+.navbar-brand,
+.nav-link {
+  color: var(--color-texto) !important;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-acento) !important;
+}
+
+/* Hero */
+.hero {
+  height: 80vh;
+  background-color: var(--color-secundario);
+  color: var(--color-texto);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 85%;
+}
+
+.letra-tunari{
+  font-family: 'Rasputin';
+  src: url('../fonts/Rasputin.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2.5vh;
+}
+
+/* Botón Hero con efecto vidrio */
+.btn-hero {
+  background-color: var(--color-acento);
+  border: none;
+  color: var(--color-texto);
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-hover);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease-out;
+  border-radius: inherit;
+}
+
+.btn-hero:hover::before {
+  transform: scaleX(1);
+}
+
+.btn-hero::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.4) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  transform: skewX(-20deg);
+  transition: all 0.6s ease;
+}
+
+.btn-hero:hover::after {
+  left: 120%;
+}
+
+/* Íconos secciones */
+section i {
+  color: var(--color-acento);
+}
+
+/* Footer */
+.footer {
+  background-color: var(--color-footer);
+  color: var(--color-texto);
+  height: 13vh;
+  margin-top: 10h;
+  border-top: 1px solid var(--color-secundario);
+}
+
+.icono-sesion {
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.icono-sesion::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, var(--color-acento) 0%, transparent 70%);
+  opacity: 0;
+  border-radius: 50%;
+  filter: blur(10px);
+  z-index: -1;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.icono-sesion:hover::before {
+  opacity: 0.5;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.icono-sesion svg {
+  color: var(--color-texto);
+  z-index: 2;
+  position: relative;
+}
+
+.icono-sesion:hover svg {
+  opacity: 100%;
+  transition: 0.3s ease-in-out;
+  transform: scale(1.1);
+}
+
+
+.pos-relative {
+  position: relative;
+}
+
+.user-menu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: var(--color-secundario);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 10px;
+  display: none;
+  flex-direction: column;
+  min-width: 150px;
+  z-index: 2000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  animation: fadeInDropdown 0.25s ease;
+  width: 200px;
+}
+
+.user-menu-item {
+  color: var(--color-texto);
+  padding: 8px 12px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+  border-radius: 4px;
+}
+
+.user-menu-item:hover {
+  background-color: var(--color-hover);
+}
+
+@keyframes fadeInDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cards tipo glass */
+.card.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  color: var(--color-texto);
+  max-width: 320px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card.glass-card:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+}
+
+.card-img-top {
+  height: 180px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Animaciones fade-in */
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.fade-in.delay-1 {
+  animation-delay: 0.3s;
+}
+
+.fade-in.delay-2 {
+  animation-delay: 0.6s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ====== Registro ====== */
+
+/* Fondo degradado opcional para pantallas del auth */
+.auth-bg {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #342b7e33, transparent 60%),
+    radial-gradient(1000px 800px at 110% 10%, #5b43ff22, transparent 60%),
+    linear-gradient(160deg, var(--bg-1), var(--bg-2));
+}
+
+/* Tarjeta glass genérica (para no depender de .card) */
+.glass-card {
+  background: color-mix(in oklab, var(--card), transparent 20%);
+  border: 1px solid #ffffff0f;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 40px #00000055, inset 0 1px 0 #ffffff0f;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--color-texto);
+}
+
+/* Badge junto al título */
+.brand-badge{
+  display: inline-flex; gap: .5rem; align-items: center;
+  padding: .4rem .75rem; border-radius: 999px;
+  background: #ffffff0f; border:1px solid #ffffff14;
+  font-size:.85rem; color: var(--muted);
+}
+
+/* Círculo del “logo” */
+.logo-circle{
+  width: 48px; height:48px; border-radius:999px; display:grid; place-items:center;
+  background: color-mix(in oklab, var(--color-acento), transparent 85%);
+  border:1px solid color-mix(in oklab, var(--color-acento), transparent 65%);
+  color: var(--color-acento);
+}
+
+/* Link atenuado */
+.link-muted{color:var(--muted); text-decoration:none}
+.link-muted:hover{color:#fff}
+
+/* Botón primario acento */
+.btn-accent {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--color-acento);
+  --bs-btn-border-color: var(--color-acento);
+  --bs-btn-hover-bg: var(--color-hover);
+  --bs-btn-hover-border-color: var(--color-hover);
+  --bs-btn-focus-shadow-rgb: 108, 76, 255;
+  border-radius: 0.5rem;
+  padding:.75rem 1rem;
+  font-weight:400;
+
+  /* centrado del texto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* opcional si querés controlar tamaño fijo */
+  width: 30%;
+  max-width: 150px;
+  height: 25%;
+  max-height: 100px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+/* Inputs y selects */
+.form-control, .form-select{
+  background: #0f0f25;
+  border:1px solid #ffffff24;
+  color: var(--color-texto);
+}
+
+.form-control:focus, .form-select:focus{
+  border-color: var(--color-acento);
+  box-shadow: 0 0 0 .25rem rgba(108,76,255,.25) !important;
+  background:#111132;
+  color: var(--color-texto) !important;
+}
+
+/* Textos auxiliares */
+.form-text{ color: var(--muted); }
+
+/* Separador fino */
+.divider{ height:1px; background:#ffffff1a; }
+
+/* Icono dentro del input (ojo mostrar/ocultar) */
+.input-icon{
+  position:absolute; right:.75rem; top:50%;
+  transform: translateY(-50%); cursor:pointer; color:#c9c9df;
+}
+
+/* Indicador de fuerza de contraseña */
+.strength .progress{ height:.5rem; background:#ffffff14; }
+.badge-dot{ display:inline-flex; align-items:center; gap:.5rem }
+.badge-dot i{ font-size:.5rem }
+
+/* Utilidades */
+.accent{ color: var(--color-acento); }
+
+/* Ocultar label cuando el input tiene texto */
+.form-floating input:not(:placeholder-shown) ~ label,
+.form-floating textarea:not(:placeholder-shown) ~ label,
+.form-floating select:valid ~ label {
+  display: none !important;
+}
+
+/* Ojo dentro del input */
+.input-icon {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #c9c9df;
+  z-index: 3;
+}
+
+/* Quitar íconos de validación de Bootstrap */
+.form-control.is-valid,
+.form-control.is-invalid,
+.was-validated .form-control:valid,
+.was-validated .form-control:invalid {
+  background-image: none !important;
+  background-size: 0 !important;
+}
+
+/* Bordes en error/ok */
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+  border-color: #dc3545 !important;
+}
+
+.form-control.is-valid,
+.was-validated .form-control:valid {
+  border-color: #198754 !important;
+}
+
+/* El input de .form-floating mide ~3.5rem: usamos eso para centrar el ojo */
+.form-floating > .form-control {
+  height: calc(3.5rem + 2px);            /* altura estándar Bootstrap floating */
+  padding-right: 2.75rem !important;     /* espacio para el ojito */
+}
+
+/* Centramos el ojo respecto del ALTO DEL INPUT, no del contenedor */
+.form-floating .input-icon{
+  top: 0;                                 /* arrancar arriba */
+  right: 0.75rem;
+  height: calc(3.5rem + 2px);             /* misma altura que el input */
+  transform: none;                        /* nada de translateY */
+  display: grid;                          /* centro perfecto */
+  place-items: center;                    /* …aquí */
+  z-index: 3;
+}
+
+/* Sugerencia: el feedback no debe empujar al ojo */
+.form-floating .invalid-feedback{
+  position: static;                       /* por si viene con algún override */
+  margin-top: .25rem;                     /* espacio normal debajo */
+}
+
+.gradient-footer {
+    background: linear-gradient(135deg, #6c4cff 0%,  #5936ff 100%);
+}
+
+.social-icon {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #ffffff;
+}
+
+.newsletter-input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.newsletter-input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    box-shadow: none;
+}
+
+.nombre-auto {
+  font-size: 1.5rem;
+  color: var(--color-texto);
+  text-decoration: none;
+}
+
+.nombre-marca-feed {
+  font-size: 1.5rem;
+  color: var(--color-texto);
+  text-decoration: none;
+}
+
+/* ===== Mini Feed Tunari ===== */
+.feed-grid {
+  /* Bootstrap ya maneja el grid; esto es look&feel */
+}
+
+.feed-card {
+  position: relative;
+  background: rgba(255,255,255,.06);
+  border: 1px solid #ffffff1a;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.feed-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0,0,0,.5);
+}
+
+/* Contenedor fijo de imagen: mismas proporciones SIEMPRE */
+.feed-media {
+  position: relative;
+  aspect-ratio: 16 / 10;    /* cambiá a 16/9 si te gusta más ancho */
+  width: 100%;
+  overflow: hidden;
+}
+
+.feed-media img {
+  width: 100%; height: 100%;
+  object-fit: cover;        /* 🔥 recorta sin deformar */
+  display: block;
+  transform: scale(1);
+  transition: transform .35s ease;
+}
+
+/* Zoom leve al hover */
+.feed-card:hover .feed-media img {
+  transform: scale(1.05);
+}
+
+/* Overlay degradé abajo para legibilidad del título */
+.feed-overlay {
+  position: absolute;
+  inset: 0;                 /* top/right/bottom/left: 0 */
+  background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.0) 60%);
+  pointer-events: none;
+}
+
+/* Título pegado abajo */
+.feed-title {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: .9rem 1rem;
+  color: var(--color-texto);
+  font-weight: 600;
+  letter-spacing: .2px;
+  text-shadow: 0 2px 12px rgba(0,0,0,.5);
+}
+
+/* Nombre de marca (arriba) */
+.nombre-marca-feed {
+  margin-bottom: .25rem;
+  font-weight: 700;
+}
+
+/* Link debajo (si lo querés fuera de la foto) */
+.feed-link {
+  display: block;
+  padding: .8rem 1rem 1rem;
+  color: var(--text);
+  text-decoration: none;
+  opacity: .9;
+}
+.feed-link:hover { opacity: 1; }
+
+/* Badges opcionales (ej: “SUV”, “2025”) */
+.feed-badge {
+  position: absolute; top: .75rem; left: .75rem;
+  padding: .3rem .6rem;
+  border-radius: 999px;
+  font-size: .8rem;
+  color: #fff;
+  background: color-mix(in oklab, var(--color-acento), transparent 20%);
+  border: 1px solid color-mix(in oklab, var(--color-acento), transparent 45%);
+  backdrop-filter: blur(4px);
+}
+
+.search-overlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.35);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: none;                 /* cerrada por defecto */
+  align-items: center; justify-content: center;
+  padding: 1.5rem;
+}
+.search-overlay.open{ display: flex; }   /* abrir/cerrar con clase */
+
+.search-box{
+  width: 90%; max-width: 600px; text-align: center;
+  border: 1px solid #ffffff1a;
+  border-radius: 16px;
+  padding: 1.5rem;
+  height: 30%;
+  max-height: 200px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.45);
+  color: var(--color-texto);
+}
+
+body.noscroll{ overflow: hidden; }
+
+.parent-container {
+  display: flex;
+  justify-content: center; /* centra horizontal */
+  align-items: center;     /* centra vertical si le das altura */
+}

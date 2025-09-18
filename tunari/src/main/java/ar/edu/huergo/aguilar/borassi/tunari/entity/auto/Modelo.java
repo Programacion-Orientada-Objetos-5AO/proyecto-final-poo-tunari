@@ -1,0 +1,52 @@
+package ar.edu.huergo.aguilar.borassi.tunari.entity.auto;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(
+    name = "modelos",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"nombreModelo", "marca_id"})
+    }
+)
+public class Modelo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank(message = "El nombre del modelo no puede estar vacío")
+    @Column(nullable = false)
+    private String nombreModelo;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "marca_id", nullable = false)
+    private Marca marca;
+
+    // Lado propietario de la relación ManyToMany con Version
+    @ManyToMany
+    @JoinTable(
+        name = "modelo_versiones",
+        joinColumns = @JoinColumn(name = "modelo_id"),
+        inverseJoinColumns = @JoinColumn(name = "version_id")
+    )
+    private List<Version> versiones;
+
+    @ManyToMany
+    @JoinTable(
+        name = "modelo_colores",
+        joinColumns = @JoinColumn(name = "modelo_id"),
+        inverseJoinColumns = @JoinColumn(name = "color_id"),
+        uniqueConstraints = @UniqueConstraint(columnNames = {"modelo_id","color_id"})
+    )
+    private List<Color> colores;
+}
