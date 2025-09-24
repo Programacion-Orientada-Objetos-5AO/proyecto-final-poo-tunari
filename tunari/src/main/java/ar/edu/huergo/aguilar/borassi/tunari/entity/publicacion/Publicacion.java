@@ -1,6 +1,8 @@
 package ar.edu.huergo.aguilar.borassi.tunari.entity.publicacion;
 
-import java.util.List;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CurrentTimestamp;
 
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.security.Usuario;
@@ -9,8 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -28,15 +28,15 @@ public class Publicacion {
     private Long id;
     
     @ManyToOne
-    @JoinColumn(name = "modelo_id")
+    @JoinColumn(name = "modelo_id", nullable = false)
     @NotNull(message = "El modelo no puede estar vacío")
     private Modelo modelo;
 
-    @ManyToMany
-    @JoinTable(name = "autos_agencias", 
-            joinColumns = @JoinColumn(name = "auto_id"),
-            inverseJoinColumns = @JoinColumn(name = "usuario_id"))
-    private List<Usuario> agencias;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    @NotNull(message = "El usuario no puede estar vacío")
+    private Usuario usuario;
 
-
+    @CurrentTimestamp
+    private final LocalDateTime fecha;
 }
