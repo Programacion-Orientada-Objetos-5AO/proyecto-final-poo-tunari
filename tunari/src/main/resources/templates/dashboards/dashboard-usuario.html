@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="html">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,12 +15,12 @@
   <link rel="stylesheet" href="../../static/css/style.css">
 </head>
 
-<body class="auth-bg">
+<body class="auth-bg body-full">
 
     <nav class="navbar navbar-expand-lg shadow-sm py-3">
         <div class="container">
             <!-- LOGO -->
-            <a class="navbar-brand letra-tunari">Tunari</a>
+            <a class="navbar-brand letra-tunari" href="../index.html">Tunari</a>
 
             <!-- Botón Hamburguesa -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navTunari" aria-controls="navTunari" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,12 +30,9 @@
             <!-- Links -->
             <div class="collapse navbar-collapse" id="navTunari">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link disabled" href="#">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link" href="feeds/feed-marcas.html">Marcas</a></li>
+                <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="../feeds/feed.html">Marcas</a></li>
                 <li class="nav-item">
-                <a class="nav-link" href="#" id="searchToggle">
-                    <i class="bi bi-search"></i> Buscar
-                </a>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
             </ul>
@@ -46,8 +43,8 @@
                 <i class="bi bi-person-circle" style="font-size:1.6rem;"></i>
                 </div>
                 <div id="userMenu" class="user-menu">
-                <a href="login/iniciar-sesion.html" class="user-menu-item">Iniciar sesión</a>
-                <a href="registro/registrarse.html" class="user-menu-item">Registrarse</a>
+                <a href="iniciar sesion.html" class="user-menu-item">Iniciar sesión</a>
+                <a href="registrarse.html" class="user-menu-item">Registrarse</a>
                 </div>
             </div>
             </div>
@@ -55,10 +52,10 @@
     </nav>
 
 
+
   <!-- Contenido principal -->
-  <main class="container py-5">
+  <main class="container py-5 mb-5 main-content" >
     <div class="glass-card p-4">
-      
       <!-- Tabs minimalistas -->
       <ul class="nav nav-tabs justify-content-center mb-4" id="cuentaTabs" role="tablist">
         <li class="nav-item">
@@ -117,25 +114,117 @@
         <div class="tab-pane fade" id="seguimiento">
           <h4 class="mi-perfil">Seguimiento de compra</h4>
           <p><strong>Vehículo:</strong> Ford Bronco Sport Badlands</p>
-          <p><strong>Estado:</strong></p>
-        <div class="progress-tunari">
-            <div class="progress-fill" style="width: 100%;" id="barra">Es tuyo</div>
-        </div>
-        </div>
-
+          <div class="timeline-horizontal">
+            <div class="progress-line-h" id="progressLineH"></div>
+            <div class="timeline-step-h completed">
+              <div class="circle">1</div>
+              <div class="label">Pago recibido</div>
+            </div>
+            <div class="timeline-step-h completed">
+              <div class="circle">2</div>
+              <div class="label">Vehículo en agencia</div>
+            </div>
+            <div class="timeline-step-h completed">
+              <div class="circle">3</div>
+              <div class="label">Vehículo identificado</div>
+            </div>
+            <div class="timeline-step-h completed">
+              <div class="circle">4</div>
+              <div class="label">Certificados Digitales</div>
+            </div>
+            <div class="timeline-step-h completed">
+              <div class="circle">5</div>
+              <div class="label">Patentamiento pendiente</div>
+            </div>
+            <div class="timeline-step-h completed">
+              <div class="circle">6</div>
+              <div class="label">Entregado, es tuyo</div>
+            </div>
+          </div>
       </div>
     </div>
   </main>
 
-    <script>
-    const barra = document.getElementById("barra");
-    const valor = parseInt(barra.style.width); // ej: "100" de "100%"
+  <footer class="gradient-footer text-white py-5 mt-5">
+      <div class="container">
+          <div class="row g-4">
+          <div class="col-lg-4">
+              <h5 class="fw-bold mb-3 letra-tunari" style="font-weight: normal;">Tunari</h5>
+              <p class="opacity-75">La mejor forma de elegir tu próximo auto.</p>
+              <div class="d-flex gap-2 mt-4">
+              <a href="#" class="social-icon">
+                  <i class="bi bi-instagram" style="color: #ffffff;"></i>
+              </a>
+              <a href="#" class="social-icon">
+                  <i class="bi bi-twitter" style="color: #ffffff;"></i>
+              </a>
+              <a href="#" class="social-icon">
+                  <i class="bi bi-tiktok" style="color: #ffffff;"></i>
+              </a>
+              </div>
+          </div>
 
-    if (valor === 100) {
-        barra.classList.add("full"); // cambia a verde y detiene animación
-        barra.textContent = "Es tuyo";
-    }
-    </script>
+          <div class="col-lg-2 col-md-4">
+              <h6 class="fw-bold mb-3">Links rápidos</h6>
+              <ul class="list-unstyled">
+              <li class="mb-2"><a href="#!" class="footer-link">Sobre nosotros</a></li>
+              <li class="mb-2"><a href="login/iniciar-sesion.html" class="footer-link">Iniciar sesión</a></li>
+              <li class="mb-2"><a href="registro/registrarse.html" class="footer-link">Registrar cuenta</a></li>
+              <li class="mb-2"><a href="#!" class="footer-link">Contacto</a></li>
+              </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-4">
+              <h6 class="fw-bold mb-3">Recursos</h6>
+              <ul class="list-unstyled">
+              <li class="mb-2"><a href="feeds/feed-marcas.html" class="footer-link">Vehículos</a></li>
+              <li class="mb-2"><a href="#!" class="footer-link">Repuestos</a></li>
+              <li class="mb-2"><a href="#!" class="footer-link">Cosméticos</a></li>
+              </ul>
+          </div>
+
+          <hr class="my-4 opacity-25">
+
+          <!-- Copyright -->
+          <div class="row align-items-center">
+          <div class="col-md-6 text-center text-md-start">
+              <small class="opacity-75">© 2025 Tunari. All rights reserved.</small>
+          </div>
+          <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+              <a href="#" class="footer-link me-3"><small>Términos y Condiciones</small></a>
+              <a href="#" class="footer-link me-3"><small>Eliminar cuenta</small></a>
+          </div>
+          </div>
+      </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const steps = document.querySelectorAll(".timeline-step-h");
+      const progressLine = document.getElementById("progressLineH");
+
+      // buscamos índice del último paso activo o completado
+      const lastStep = document.querySelector(".timeline-step-h.active") 
+                    || document.querySelector(".timeline-step-h.completed:last-of-type");
+
+      if (lastStep) {
+        const index = Array.from(steps).indexOf(lastStep);
+        const total = steps.length - 1;
+
+        // porcentaje de avance (0 a 100%)
+        const ratio = index / total * 100;
+
+        // arranca vacío
+        progressLine.style.width = "0%";
+        void progressLine.offsetWidth; // forzar reflow
+
+        // crece animado
+        setTimeout(() => {
+          progressLine.style.width = `${ratio}%`;
+        }, 100);
+      }
+    });
+  </script>
 
 
   <!-- Bootstrap JS -->
