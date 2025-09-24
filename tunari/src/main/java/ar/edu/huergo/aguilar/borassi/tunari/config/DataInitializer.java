@@ -21,7 +21,8 @@ public class DataInitializer {
         return args -> {
             Rol admin = rolRepository.findByNombre("ADMIN").orElseGet(() -> rolRepository.save(new Rol("ADMIN")));
             Rol cliente = rolRepository.findByNombre("CLIENTE").orElseGet(() -> rolRepository.save(new Rol("CLIENTE")));
-
+            Rol marca = rolRepository.findByNombre("MARCA").orElseGet(() -> rolRepository.save(new Rol("MARCA")));
+            
             if (usuarioRepository.findByUsername("admin@tunari.aguilar.borassi.edu.ar").isEmpty()) {
                 String adminPassword = "AdminSuperSegura@123";
                 PasswordValidator.validate(adminPassword);
