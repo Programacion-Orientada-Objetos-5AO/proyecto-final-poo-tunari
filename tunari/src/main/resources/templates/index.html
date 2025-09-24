@@ -15,14 +15,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
 <!-- CSS personalizado -->
-<link rel="stylesheet" href="../static/css/sytle.css">
+<link rel="stylesheet" href="../static/css/style.css">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg shadow-sm py-3">
         <div class="container">
             <!-- LOGO -->
-            <a class="navbar-brand letra-tunari" href="index.html">Tunari</a>
+            <a class="navbar-brand letra-tunari">Tunari</a>
 
             <!-- Botón Hamburguesa -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navTunari" aria-controls="navTunari" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,8 +32,8 @@
             <!-- Links -->
             <div class="collapse navbar-collapse" id="navTunari">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link" href="feed.html">Marcas</a></li>
+                <li class="nav-item"><a class="nav-link disabled" href="#">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="feeds/feed-marcas.html">Marcas</a></li>
                 <li class="nav-item">
                 <a class="nav-link" href="#" id="searchToggle">
                     <i class="bi bi-search"></i> Buscar
@@ -48,15 +48,14 @@
                 <i class="bi bi-person-circle" style="font-size:1.6rem;"></i>
                 </div>
                 <div id="userMenu" class="user-menu">
-                <a href="iniciar sesion.html" class="user-menu-item">Iniciar sesión</a>
-                <a href="registrarse.html" class="user-menu-item">Registrarse</a>
+                <a href="login/iniciar-sesion.html" class="user-menu-item">Iniciar sesión</a>
+                <a href="registro/registrarse.html" class="user-menu-item">Registrarse</a>
                 </div>
             </div>
             </div>
         </div>
     </nav>
 
-        <!-- 🔥 Overlay de búsqueda (UN SOLO overlay y fuera del nav) -->
         <div id="searchOverlay" class="search-overlay" aria-hidden="true">
         <div class="search-box position-relative">
             <button type="button" class="btn-close btn-close-white position-absolute end-0 top-0 m-3" id="searchClose" aria-label="Cerrar"></button>
@@ -76,7 +75,7 @@
             <p class="lead fade-in delay-1" style="margin-top: 2%; color: #E0E0E0;">
             Elegí tranquilo, nosotros te acompañamos.
             </p>
-            <a href="iniciar sesion.html" class="btn btn-hero btn-lg mt-3 fade-in delay-2">
+            <a href="login/iniciar-sesion.html" class="btn btn-hero btn-lg mt-3 fade-in delay-2">
             <span class="btn-text">Buscar mí auto</span>
             </a>
         </div>
@@ -111,7 +110,7 @@
                 </div>
             </div>
             <div class="col-md-12 mb-4" style="text-align: center; margin-top: 2.5vh;">
-                <a href="iniciar sesion.html" class="btn btn-hero btn-lg mt-3">
+                <a href="login/iniciar-sesion.html" class="btn btn-hero btn-lg mt-3">
                     <span class="btn-text">Explorar Tunari</span>
                 </a>
             </div>
@@ -141,19 +140,19 @@
                 <div class="col-lg-2 col-md-4">
                     <h6 class="fw-bold mb-3">Links rápidos</h6>
                     <ul class="list-unstyled">
-                    <li class="mb-2"><a href="#" class="footer-link">Sobre nosotros</a></li>
-                    <li class="mb-2"><a href="#" class="footer-link">Iniciar sesión</a></li>
-                    <li class="mb-2"><a href="#" class="footer-link">Registrar cuenta</a></li>
-                    <li class="mb-2"><a href="#" class="footer-link">Contacto</a></li>
+                    <li class="mb-2"><a href="#!" class="footer-link">Sobre nosotros</a></li>
+                    <li class="mb-2"><a href="login/iniciar-sesion.html" class="footer-link">Iniciar sesión</a></li>
+                    <li class="mb-2"><a href="registro/registrarse.html" class="footer-link">Registrar cuenta</a></li>
+                    <li class="mb-2"><a href="#!" class="footer-link">Contacto</a></li>
                     </ul>
                 </div>
 
                 <div class="col-lg-2 col-md-4">
                     <h6 class="fw-bold mb-3">Recursos</h6>
                     <ul class="list-unstyled">
-                    <li class="mb-2"><a href="#" class="footer-link">Vehículos</a></li>
-                    <li class="mb-2"><a href="#" class="footer-link">Repuestos</a></li>
-                    <li class="mb-2"><a href="#" class="footer-link">Cosméticos</a></li>
+                    <li class="mb-2"><a href="feeds/feed-marcas.html" class="footer-link">Vehículos</a></li>
+                    <li class="mb-2"><a href="#!" class="footer-link">Repuestos</a></li>
+                    <li class="mb-2"><a href="#!" class="footer-link">Cosméticos</a></li>
                     </ul>
                 </div>
 
@@ -248,7 +247,6 @@
             overlay.addEventListener('click', (e) => { if(e.target === overlay) closeSearch(); });
             });
         </script>
-
 
         <!-- JS Bootstrap -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
