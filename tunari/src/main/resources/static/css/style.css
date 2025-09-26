@@ -410,6 +410,33 @@ section i {
 
 }
 
+.btn-accent-actualizar-llamados {
+  color: var(--color-texto);
+  background-color: var(--color-acento);
+  --bs-btn-border-color: var(--color-acento);
+  --bs-btn-hover-bg: var(--color-hover);
+  --bs-btn-hover-border-color: var(--color-hover);
+  --bs-btn-focus-shadow-rgb: 108, 76, 255;
+  border-radius: 0.5rem;
+  padding:.75rem 1rem;
+  font-weight:400;
+
+  /* centrado del texto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* opcional si querés controlar tamaño fijo */
+  width: 100%;
+  max-width: 500px;
+  height: 80%;
+  max-height: 45px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
 /* Inputs y selects */
 .form-control, .form-select{
   background: #0f0f25;
@@ -757,12 +784,35 @@ body.noscroll{ overflow: hidden; }
   font-size: .9rem;
 }
 
-.color-dot {
-  width: 15px;
-  height: 15px;
+.color-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  color: var(--color-texto);
+  cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.color-option:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.color-option.active {
+  background: rgba(108, 76, 255, 0.15);
+  border-left: 2px solid var(--color-acento);
+}
+
+.color-circle {
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
+  border-color: var(--color-texto);
+  background: var(--color);
   display: inline-block;
-  border: 1px solid #ccc;
+  flex-shrink: 0;
 }
 
 .detalle-container {
@@ -963,4 +1013,58 @@ body.noscroll{ overflow: hidden; }
 
 .main-content {
   flex: 1; /* ocupa todo el espacio libre */
+}
+
+/* Fix para que el switch (form-switch) siempre muestre el "thumb" */
+.form-switch .form-check-input {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: contain;
+  background-color: #0f0f25; /* tu fondo oscuro */
+  border: 2px solid var(--color-acento);
+  width: 2rem;
+  height: 1rem;
+  cursor: pointer;
+  appearance: none; /* importante: usamos nuestra propia pelotita */
+  transition: background-position 0.3s ease, background-color 0.3s ease;
+}
+
+.form-switch .form-check-input:checked {
+  background-color: var(--color-acento);
+  background-position: right center; /* mueve la pelotita */
+}
+
+.version-card {
+  display: flex;                /* activa flexbox */
+  align-items: center;          /* centra vertical */
+  justify-content: center;      /* centra horizontal */
+
+  padding: 0.5rem 1rem;         /* menos padding si querés más compacto */
+  border: 2px solid var(--muted);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--color-texto);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  width: 100%;                 /* ancho fijo o max-width */
+  max-width: 150px;
+  height: 60%;                 /* alto fijo */
+  max-height: 40px;
+  text-align: center;
+}
+
+
+.version-card:hover {
+  border-color: var(--color-acento);
+  color: var(--color-acento);
+}
+
+.version-card.active {
+  background: var(--color-acento);
+  border-color: var(--color-acento);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(108, 76, 255, 0.5);
 }
