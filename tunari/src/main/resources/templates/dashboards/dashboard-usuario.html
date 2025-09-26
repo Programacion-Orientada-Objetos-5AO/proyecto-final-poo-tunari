@@ -5,13 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mi cuenta - Tunari</title>
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-  <!-- CSS personalizado -->
   <link rel="stylesheet" href="../../static/css/style.css">
 </head>
 
@@ -19,15 +15,10 @@
 
     <nav class="navbar navbar-expand-lg shadow-sm py-3">
         <div class="container">
-            <!-- LOGO -->
             <a class="navbar-brand letra-tunari" href="../index.html">Tunari</a>
-
-            <!-- Botón Hamburguesa -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navTunari" aria-controls="navTunari" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
-
-            <!-- Links -->
             <div class="collapse navbar-collapse" id="navTunari">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
@@ -36,8 +27,6 @@
                 </li>
                 <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
             </ul>
-
-            <!-- Icono usuario -->
             <div class="pos-relative ms-lg-3">
                 <div id="toggleMenu" class="icono-sesion" role="button">
                 <i class="bi bi-person-circle" style="font-size:1.6rem;"></i>
@@ -50,13 +39,8 @@
             </div>
         </div>
     </nav>
-
-
-
-  <!-- Contenido principal -->
   <main class="container py-5 mb-5 main-content" >
     <div class="glass-card p-4">
-      <!-- Tabs minimalistas -->
       <ul class="nav nav-tabs justify-content-center mb-4" id="cuentaTabs" role="tablist">
         <li class="nav-item">
           <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#perfil">
@@ -78,57 +62,35 @@
             <i class="bi bi-heart"></i> Favoritos
           </button>
         </li>
-        <li class="nav-item">
-          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#historial">
-            <i class="bi bi-clock-history"></i> Historial
-          </button>
-        </li>
       </ul>
-
-      <!-- Contenido de pestañas -->
       <div class="tab-content">
-
-        <!-- PERFIL -->
         <div class="tab-pane fade show active" id="perfil">
           <h4 class="mi-perfil">Mi perfil</h4>
             <p><strong>Nombre:</strong> Juan Pérez</p>
             <p><strong>Email:</strong> juanperez@gmail.com</p>
             <p><strong>Teléfono:</strong> +54 9 11 4440 3332</p>
-            <button class="btn btn-accent mt-3" data-bs-toggle="modal" data-bs-target="#editarPerfilModal">
+            <button class="btn btn-accent mt-3" data-bs-toggle="collapse" data-bs-target="#editarPerfilCollapse">
     Editar perfil
   </button>
-        </div>
 
-        <!-- Modal Editar Perfil -->
-        <div class="modal fade" id="editarPerfilModal" tabindex="-1">
-          <div class="modal-dialog modal-lg modal-dialog-scrollable">
-            <div class="modal-content glass-card p-3">
-              <div class="modal-header">
-                <h5 class="modal-title">Editar perfil</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-              </div>
-              <div class="modal-body">
-                <form id="formEditarPerfil">
-                  <div class="mb-3">
-                    <label for="nombrePerfil" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombrePerfil" value="Juan Pérez">
-                  </div>
-                  <div class="mb-3">
-                    <label for="emailPerfil" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="emailPerfil" value="juanperez@gmail.com">
-                  </div>
-                  <div class="mb-3">
-                    <label for="telefonoPerfil" class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" id="telefonoPerfil" value="+54 9 11 4440 3332">
-                  </div>
-                  <button type="submit" class="btn btn-accent w-100">Guardar cambios</button>
-                </form>
-              </div>
-            </div>
-          </div>
+  <div class="collapse mt-3" id="editarPerfilCollapse">
+    <form id="formEditarPerfil">
+      <div class="mb-3">
+        <label for="nombrePerfil" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombrePerfil" value="Juan Pérez">
+      </div>
+      <div class="mb-3">
+        <label for="emailPerfil" class="form-label">Email</label>
+        <input type="email" class="form-control" id="emailPerfil" value="juanperez@gmail.com">
+      </div>
+      <div class="mb-3">
+        <label for="telefonoPerfil" class="form-label">Teléfono</label>
+        <input type="tel" class="form-control" id="telefonoPerfil" value="+54 9 11 4440 3332">
+      </div>
+      <button type="submit" class="btn btn-accent-guardar-cambios mt-4">Aplicar cambios</button>
+    </form>
+  </div>
         </div>
-
-        <!-- CONSULTAS -->
         <div class="tab-pane fade" id="consultas">
           <h4 class="mi-perfil">Recibiendo llamados y correos sobre:</h4>
           <ul class="list-group mt-3">
@@ -159,11 +121,13 @@
           </button>
 
         </div>
-
-        <!-- SEGUIMIENTO -->
         <div class="tab-pane fade" id="seguimiento">
           <h4 class="mi-perfil">Seguimiento de compra</h4>
-          <p><strong>Vehículo:</strong> Ford Bronco Sport Badlands</p>
+          <p><strong>Vehículo:</strong> <span id="vehiculoNombre">Ford Bronco Sport Badlands</span></p>
+          <div class="mb-4 d-flex gap-2">
+            <input type="text" id="trackingInput" class="form-control" placeholder="Ingresá tu número de tracking">
+            <button id="buscarTracking" class="btn btn-accent">Buscar</button>
+          </div>
           <div class="timeline-horizontal">
             <div class="progress-line-h" id="progressLineH"></div>
             <div class="timeline-step-h completed">
@@ -192,50 +156,27 @@
             </div>
           </div>
       </div>
-
-      <!-- FAVORITOS -->
       <div class="tab-pane fade" id="favoritos">
         <h4 class="mi-perfil">Autos favoritos</h4>
-        <div class="row g-4 mt-3">
-          <div class="col-md-4">
-            <div class="feed-card">
-              <div class="feed-media">
-                <img src="../../static/img/mustangdh.avif" alt="Ford Mustang Dark Horse">
-                <div class="feed-overlay"></div>
-                <h5 class="feed-title">Ford Mustang Dark Horse</h5>
-              </div>
-              <a href="../detalles/detalle.html" class="feed-link">Ver detalle</a>
+        <div class="row g-4">
+          <div class="col-md-4 position-relative">
+            <div class="feed-card-favoritos">
+              <button class="btn btn-sm btn-danger remove-fav-btn position-absolute end-0 m-2 z-3" style="z-index: 1;">
+                <i class="bi bi-heart-fill"></i>
+              </button>
+              <a href="../detalles/detalle.html" class="text-decoration-none">
+                <div class="feed-media">
+                  <img src="../../static/img/mustangdh.avif" alt="Ford Mustang Dark Horse">
+                  <div class="feed-overlay"></div>
+                </div>
+              </a>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="feed-card">
-              <div class="feed-media">
-                <img src="../../static/img/m3.jpg" alt="BMW M3">
-                <div class="feed-overlay"></div>
-                <h5 class="feed-title">BMW M3</h5>
-              </div>
-              <a href="../detalles/detalle.html" class="feed-link">Ver detalle</a>
-            </div>
           </div>
         </div>
       </div>
-
-      <!-- HISTORIAL -->
-      <div class="tab-pane fade" id="historial">
-        <h4 class="mi-perfil">Historial de consultas</h4>
-        <ul class="list-group mt-3">
-          <li class="list-group-item bg-dark text-white border-0">
-            <i class="bi bi-envelope"></i> Consulta enviada por Mustang Dark Horse - 22/09/2025
-          </li>
-          <li class="list-group-item bg-dark text-white border-0">
-            <i class="bi bi-envelope"></i> Consulta enviada por BMW M3 - 25/09/2025
-          </li>
-        </ul>
-        <p class="mini-leyendas mt-3">Aquí podés ver todas las consultas realizadas anteriormente.</p>
-      </div>
     </div>
   </main>
-
   <footer class="gradient-footer text-white py-5 mt-5">
       <div class="container">
           <div class="row g-4">
@@ -254,7 +195,6 @@
               </a>
               </div>
           </div>
-
           <div class="col-lg-2 col-md-4">
               <h6 class="fw-bold mb-3">Links rápidos</h6>
               <ul class="list-unstyled">
@@ -264,7 +204,6 @@
               <li class="mb-2"><a href="#!" class="footer-link">Contacto</a></li>
               </ul>
           </div>
-
           <div class="col-lg-2 col-md-4">
               <h6 class="fw-bold mb-3">Recursos</h6>
               <ul class="list-unstyled">
@@ -273,10 +212,7 @@
               <li class="mb-2"><a href="#!" class="footer-link">Cosméticos</a></li>
               </ul>
           </div>
-
           <hr class="my-4 opacity-25">
-
-          <!-- Copyright -->
           <div class="row align-items-center">
           <div class="col-md-6 text-center text-md-start">
               <small class="opacity-75">© 2025 Tunari. All rights reserved.</small>
@@ -288,50 +224,93 @@
           </div>
       </div>
   </footer>
-
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const steps = document.querySelectorAll(".timeline-step-h");
       const progressLine = document.getElementById("progressLineH");
-
-      // buscamos índice del último paso activo o completado
       const lastStep = document.querySelector(".timeline-step-h.active") 
                     || document.querySelector(".timeline-step-h.completed:last-of-type");
-
       if (lastStep) {
         const index = Array.from(steps).indexOf(lastStep);
         const total = steps.length - 1;
-
-        // porcentaje de avance (0 a 100%)
         const ratio = index / total * 100;
-
-        // arranca vacío
         progressLine.style.width = "0%";
         void progressLine.offsetWidth; // forzar reflow
-
-        // crece animado
         setTimeout(() => {
           progressLine.style.width = `${ratio}%`;
         }, 100);
       }
     });
-
     document.getElementById("formEditarPerfil").addEventListener("submit", function(e){
       e.preventDefault();
       const nombre = document.getElementById("nombrePerfil").value;
       const email = document.getElementById("emailPerfil").value;
       const telefono = document.getElementById("telefonoPerfil").value;
-
       const perfilDiv = document.getElementById("perfil");
       perfilDiv.querySelector("p:nth-of-type(1)").innerHTML = "<strong>Nombre:</strong> " + nombre;
       perfilDiv.querySelector("p:nth-of-type(2)").innerHTML = "<strong>Email:</strong> " + email;
       perfilDiv.querySelector("p:nth-of-type(3)").innerHTML = "<strong>Teléfono:</strong> " + telefono;
-
-      bootstrap.Modal.getInstance(document.getElementById('editarPerfilModal')).hide();
+      const collapseElement = document.getElementById('editarPerfilCollapse');
+      const bsCollapse = bootstrap.Collapse.getInstance(collapseElement) || new bootstrap.Collapse(collapseElement);
+      bsCollapse.hide();
+      const form = e.target;
+      const existingAlert = form.querySelector('.alert-success');
+      if (existingAlert) {
+        existingAlert.remove();
+      }
+      const alertDiv = document.createElement('div');
+      alertDiv.className = 'alert alert-success mt-4';
+      alertDiv.textContent = 'Cambios guardados correctamente';
+      form.querySelector('button[type="submit"]').insertAdjacentElement('afterend', alertDiv);
+    });
+    document.querySelectorAll('.remove-fav-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        btn.closest('.col-md-4').remove();
+      });
+    });
+    const trackingData = {
+      "ABC123": { vehiculo: "Ford Bronco Sport Badlands", estado: 2 },
+      "DEF456": { vehiculo: "Mustang Dark Horse", estado: 4 },
+      "GHI789": { vehiculo: "Toyota Corolla", estado: 6 }
+    };
+    document.getElementById("buscarTracking").addEventListener("click", () => {
+      const input = document.getElementById("trackingInput").value.trim().toUpperCase();
+      const steps = document.querySelectorAll(".timeline-step-h");
+      steps.forEach(step => {
+        step.classList.remove("completed", "active");
+      });
+      if (trackingData[input]) {
+        const data = trackingData[input];
+        document.getElementById("vehiculoNombre").textContent = data.vehiculo;
+        const maxStep = data.estado;
+        steps.forEach((step, i) => {
+          if (i + 1 < maxStep) {
+            step.classList.add("completed");
+          } else if (i + 1 === maxStep) {
+            step.classList.add("active");
+          }
+        });
+      } else {
+        document.getElementById("vehiculoNombre").textContent = "—";
+        alert("Tracking no encontrado");
+      }
+      const lastStep = document.querySelector(".timeline-step-h.active") 
+                    || document.querySelector(".timeline-step-h.completed:last-of-type");
+      const progressLine = document.getElementById("progressLineH");
+      if (lastStep) {
+        const index = Array.from(steps).indexOf(lastStep);
+        const total = steps.length - 1;
+        const ratio = index / total * 100;
+        progressLine.style.width = "0%";
+        void progressLine.offsetWidth;
+        setTimeout(() => {
+          progressLine.style.width = `${ratio}%`;
+        }, 100);
+      }
     });
   </script>
-
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

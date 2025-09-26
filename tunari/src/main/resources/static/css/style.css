@@ -437,6 +437,34 @@ section i {
 
 }
 
+.btn-accent-guardar-cambios {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--color-acento);
+  --bs-btn-border-color: var(--color-acento);
+  --bs-btn-hover-bg: var(--color-hover);
+  --bs-btn-hover-border-color: var(--color-hover);
+  --bs-btn-focus-shadow-rgb: 108, 76, 255;
+  border-radius: 0.5rem;
+  padding:.75rem 1rem;
+  font-weight:400;
+
+  /* centrado del texto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* opcional si querés controlar tamaño fijo */
+  width: 100%;
+  max-width: 200px;
+  height: 25%;
+  max-height: 100px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+
 /* Inputs y selects */
 .form-control, .form-select{
   background: #0f0f25;
@@ -713,20 +741,22 @@ body.noscroll{ overflow: hidden; }
 .card img, .img-fluid {
   object-fit: cover;
   width: 80%;
-  max-height: 500px;   /* ajustá según tu gusto */
+  max-height: 500px;  
   height: auto;
 }
 
-/* Miniaturas */
 .thumb {
-  width: 80px; 
-  height: 60px;
+  width: 90px;
+  height: 65px;
   object-fit: cover;
   cursor: pointer;
-  transition: transform .2s ease;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 .thumb:hover {
   transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 .container-galeria-detalles {
@@ -1081,10 +1111,45 @@ body.noscroll{ overflow: hidden; }
 
 .favorite-icon {
   font-size: 1.2rem;
-  color: rgba(255,255,255,0.7);
+  color: var(--color-texto);
   cursor: pointer;
   transition: color 0.3s ease;
 }
+
 .favorite-icon.active {
   color: var(--color-acento);
+}
+
+.feed-card-favoritos {
+  position: relative;
+  background: rgba(255,255,255,.06);
+  border: 1px solid #ffffff1a;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0,0,0,.35);
+  transition: transform .25s ease, box-shadow .25s ease;
+
+  max-width: 220px;  /* más angosta */
+  width: 100%;
+  height: auto;      /* se adapta al contenido */
+}
+
+.feed-card-favoritos img {
+  width: 100%;
+  height: 140px;      /* controla solo la altura de la imagen */
+  object-fit: cover;  /* recorta manteniendo proporción */
+}
+
+/* Hover pro */
+.feed-card-favoritos:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 18px rgba(0,0,0,.4);
+}
+
+/* Carousel detalle autos */
+#galeriaAuto .carousel-item img {
+  height: 500px;          /* altura fija para todas las imágenes */
+  object-fit: cover;      /* recorta proporcionalmente sin deformar */
+  width: 100%;            /* ocupa todo el ancho */
+  border-radius: 16px;    /* opcional para bordes redondeados */
 }
