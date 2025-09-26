@@ -16,9 +16,11 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "publicaciones")
 public class Publicacion {
@@ -38,5 +40,5 @@ public class Publicacion {
     private Usuario usuario;
 
     @CurrentTimestamp
-    private final LocalDateTime fecha;
+    private LocalDateTime fecha;
 }
