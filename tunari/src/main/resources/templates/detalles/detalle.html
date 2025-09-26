@@ -20,7 +20,7 @@
     <nav class="navbar navbar-expand-lg shadow-sm py-3">
         <div class="container">
             <!-- LOGO -->
-            <a class="navbar-brand letra-tunari" href="index.html">Tunari</a>
+            <a class="navbar-brand letra-tunari" href="../index.html">Tunari</a>
 
             <!-- Botón Hamburguesa -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navTunari" aria-controls="navTunari" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,11 +31,8 @@
             <div class="collapse navbar-collapse" id="navTunari">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link" href="feed.html">Marcas</a></li>
+                <li class="nav-item"><a class="nav-link" href="../feeds/feed.html">Marcas</a></li>
                 <li class="nav-item">
-                <a class="nav-link" href="#" id="searchToggle">
-                    <i class="bi bi-search"></i> Buscar
-                </a>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
             </ul>
@@ -83,24 +80,38 @@
                 <li><i class="bi bi-speedometer2 accent"></i> 507 CV</li>
                 <li><i class="bi bi-gear accent"></i> Caja automática de 10 velocidades</li>
                 <li><i class="bi bi-droplet accent"></i> Consumo: 12,4 L/100 km</li>
-                <li><i class="bi bi-fuel-pump accent"></i> Nafta Premium</li>
+                <li><i class="bi bi-fuel-pump accent"></i> Nafta Super</li>
                 </ul>
 
                 <h5 class="mt-4">Versiones disponibles</h5>
-                <ul class="list-unstyled">
-                <li><i class="bi bi-check2 accent"></i> Dark Horse</li>
-                <li><i class="bi bi-check2 accent"></i> GT</li>
-                </ul>
-
-                <h5 class="mt-4">Colores</h5>
-                <div class="d-flex flex-column gap-2">
-                <div><span class="color-dot" style="background:#4f5965"></span> Gris Mercurio</div>
-                <div><span class="color-dot" style="background:#1f2228"></span> Negro Ebony</div>
-                <div><span class="color-dot" style="background:#ffffff"></span> Blanco Oxford</div>
+                <div class="d-flex gap-3 flex-wrap mt-4" id="versiones">
+                <div class="version-card active" data-version="Dark Horse">
+                    Dark Horse
+                </div>
+                <div class="version-card" data-version="GT">
+                    GT
+                </div>
                 </div>
 
+                <h5 class="mt-4">Colores</h5>
+                <div class="d-flex flex-column gap-3" id="colores">
+                <div class="color-option active" data-color="Gris Mercurio">
+                    <span class="color-circle" style="--color:#4f5965;"></span>
+                    Gris Mercurio
+                </div>
+                <div class="color-option" data-color="Negro Ebony">
+                    <span class="color-circle" style="--color:#1f2228;"></span>
+                    Negro Ebony
+                </div>
+                <div class="color-option" data-color="Blanco Oxford">
+                    <span class="color-circle" style="--color:#ffffff; border:1px solid #ccc;"></span>
+                    Blanco Oxford
+                </div>
+                </div>
+
+
                 <h5 class="mt-4">Disponible en:</h5>
-                <p class="mb-1"><strong>Dietrich, CABA</strong></p>
+                <p class="mb-1 mt-3"><strong>Dietrich, CABA</strong></p>
                 <p class="bi bi-geo-alt"> Av. Corrientes 4242, CABA</p>
             </div>
             </div>
@@ -125,6 +136,7 @@
                 <label class="form-check-label" for="quieroLlamada">
                 <i></i> Quiero que me llamen
                 </label>
+                <p class="leyendas">Si no seleccionás "Quiero que me llamen" solo recibirás novedades por correo.</p>
             </div>
 
             <!-- Botón -->
@@ -206,6 +218,29 @@
                 panel.classList.remove('active')
             })
         }
+    </script>
+
+    <script>
+        const versionCards = document.querySelectorAll(".version-card");
+
+        versionCards.forEach(card => {
+            card.addEventListener("click", () => {
+                versionCards.forEach(c => c.classList.remove("active"));
+                card.classList.add("active");
+                console.log("Versión seleccionada:", card.dataset.version);
+            });
+        });
+    </script>
+
+    <script>
+        const colorOptions = document.querySelectorAll(".color-option");
+        colorOptions.forEach(option => {
+        option.addEventListener("click", () => {
+            colorOptions.forEach(o => o.classList.remove("active"));
+            option.classList.add("active");
+            console.log("Color seleccionado:", option.dataset.color);
+        });
+        });
     </script>
 
 </body>
