@@ -176,6 +176,18 @@
         </div>
       </div>
     </div>
+    <!-- Toast con barra de progreso -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+      <div id="toastCambiosGuardados" class="toast align-items-center custom-toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            ✓ Cambios guardados correctamente
+          </div>
+        </div>
+        <!-- Barra de progreso -->
+        <div class="toast-progress"></div>
+      </div>
+    </div>
   </main>
   <footer class="gradient-footer text-white py-5 mt-5">
       <div class="container">
@@ -224,6 +236,7 @@
           </div>
       </div>
   </footer>
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const steps = document.querySelectorAll(".timeline-step-h");
@@ -253,15 +266,17 @@
       const collapseElement = document.getElementById('editarPerfilCollapse');
       const bsCollapse = bootstrap.Collapse.getInstance(collapseElement) || new bootstrap.Collapse(collapseElement);
       bsCollapse.hide();
-      const form = e.target;
-      const existingAlert = form.querySelector('.alert-success');
-      if (existingAlert) {
-        existingAlert.remove();
-      }
-      const alertDiv = document.createElement('div');
-      alertDiv.className = 'alert alert-success mt-4';
-      alertDiv.textContent = 'Cambios guardados correctamente';
-      form.querySelector('button[type="submit"]').insertAdjacentElement('afterend', alertDiv);
+      const toastEl = document.getElementById('toastCambiosGuardados');
+      const progressBar = toastEl.querySelector('.toast-progress');
+
+      // Reiniciar la animación de la barra (el truco del reflow)
+      progressBar.classList.remove('toast-progress'); // quitar clase
+      void progressBar.offsetWidth; // forzar reflow
+      progressBar.classList.add('toast-progress'); // volver a aplicar clase
+
+      // Mostrar el toast con duración de 3 segundos
+      const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+      toast.show();
     });
     document.querySelectorAll('.remove-fav-btn').forEach(btn => {
       btn.addEventListener('click', e => {
@@ -311,6 +326,7 @@
       }
     });
   </script>
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
