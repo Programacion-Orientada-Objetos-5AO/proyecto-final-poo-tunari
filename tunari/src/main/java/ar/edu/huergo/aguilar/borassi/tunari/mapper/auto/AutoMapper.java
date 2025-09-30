@@ -17,7 +17,8 @@ public class AutoMapper {
             auto.getMarca(),
             auto.getModelo(),
             auto.getColor(),
-            auto.getVersion()
+            auto.getVersion(),
+            auto.getNumeroChasis()
         );
     }
 

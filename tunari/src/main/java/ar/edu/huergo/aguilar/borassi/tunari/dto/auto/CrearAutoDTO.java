@@ -14,6 +14,9 @@ public record CrearAutoDTO(
     Long colorId,
 
     @NotNull(message = "Debe incluir una versión")
-    Long versionId
+    Long versionId,
+
+    @NotNull(message = "Debe incluir un número de chasis")
+    String numeroChasis
 
 ) {}

@@ -10,5 +10,6 @@ public record AutoDTO(
     Marca nombreMarca,
     Modelo modelo,
     Color color,
-    Version version
+    Version version,
+    String numeroChasis
 ) {}

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearModeloDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.ModeloDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 

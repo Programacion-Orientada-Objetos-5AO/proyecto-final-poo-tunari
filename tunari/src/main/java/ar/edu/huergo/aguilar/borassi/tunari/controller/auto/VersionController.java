@@ -14,14 +14,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearVersionDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.VersionDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.mapper.auto.VersionMapper;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.VersionService;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import jakarta.validation.Valid;
-
 
 @RestController
 @RequestMapping("/api/versiones")

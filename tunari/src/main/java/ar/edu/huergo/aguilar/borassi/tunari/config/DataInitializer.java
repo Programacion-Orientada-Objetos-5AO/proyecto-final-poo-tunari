@@ -38,6 +38,14 @@ public class DataInitializer {
                 u.setRoles(Set.of(cliente));
                 usuarioRepository.save(u);
             }
+
+            if (usuarioRepository.findByUsername("marca@tunari.aguilar.borassi.edu.ar").isEmpty()) {
+                String marcaPassword = "MarcaSuperSegura@123";
+                PasswordValidator.validate(marcaPassword);
+                Usuario u = new Usuario("marca@tunari.aguilar.borassi.edu.ar", encoder.encode(marcaPassword));
+                u.setRoles(Set.of(marca));
+                usuarioRepository.save(u);
+            }
         };
     }
 }
