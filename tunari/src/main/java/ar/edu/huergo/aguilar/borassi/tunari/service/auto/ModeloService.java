@@ -2,7 +2,6 @@ package ar.edu.huergo.aguilar.borassi.tunari.service.auto;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

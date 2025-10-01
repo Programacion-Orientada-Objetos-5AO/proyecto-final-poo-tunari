@@ -31,4 +31,6 @@ public class Agencia {
     @OneToMany
     @JoinColumn(name = "agencia_id")  // Esta columna estará en la tabla AutoStock
     private List<AutoStock> listaAutos;
+
+    //falta marca
 }

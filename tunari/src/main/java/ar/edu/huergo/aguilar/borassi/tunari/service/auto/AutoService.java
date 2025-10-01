@@ -46,12 +46,14 @@ public class AutoService {
         Modelo modelo = modeloService.obtenerModeloPorId(dto.modeloId());
         Color color = colorService.obtenerColorPorId(dto.colorId());
         Version version = versionService.obtenerVersionPorId(dto.versionId());
+        String numeroChasis = dto.numeroChasis();
 
         Auto auto = new Auto();
         auto.setMarca(marca);
         auto.setModelo(modelo);
         auto.setColor(color);       
         auto.setVersion(version);   
+        auto.setNumeroChasis(numeroChasis);
         return autoRepository.save(auto);
     }
 

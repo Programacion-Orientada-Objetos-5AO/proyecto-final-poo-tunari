@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearColorDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.ColorRepository;
 import jakarta.persistence.EntityNotFoundException;
 

@@ -16,7 +16,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 
 @DataJpaTest
-@DisplayName("Tests de Integración - IngredienteRepository")
+@DisplayName("Tests de Integración - MarcaRepository")
 class MarcaRepositoryTest {
 
     @Autowired

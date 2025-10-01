@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.MarcaDTO;
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.ActualizarMarcaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearMarcaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.mapper.auto.MarcaMapper;

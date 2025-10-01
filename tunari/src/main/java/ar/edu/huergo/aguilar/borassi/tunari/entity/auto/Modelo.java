@@ -1,9 +1,6 @@
 package ar.edu.huergo.aguilar.borassi.tunari.entity.auto;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
