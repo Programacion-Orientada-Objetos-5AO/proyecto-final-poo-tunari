@@ -32,7 +32,7 @@ class VersionRepositoryTest {
     @BeforeEach
     void setUp() {
 
-        // Crear marcas de prueba
+        // Crear versiones de prueba
         version1 = new Version();
         version1.setNombreVersion("Titanium");
         version1 = entityManager.persistAndFlush(version1);
@@ -49,9 +49,9 @@ class VersionRepositoryTest {
     }
 
     @Test
-    @DisplayName("Debería encontrar marcas por nombre conteniendo texto (case insensitive)")
+    @DisplayName("Debería encontrar versiones por nombre conteniendo texto (case insensitive)")
     void deberiaEncontrarVersionesPorNombreContaining() {
-        // When - Buscar marcas que sean Ford
+        // When - Buscar versiones que sean Titanium
         List<Version> versionesEncontradas =
                 versionRepository.findByNombreVersionContainingIgnoreCase("Titanium");
 
@@ -187,10 +187,10 @@ class VersionRepositoryTest {
         assertNotNull(todasLasVersiones);
         assertEquals(3, todasLasVersiones.size());
 
-        List<String> nombresMarcasEncontradas = todasLasVersiones.stream().map(Version::getNombreVersion).toList();
-        assertTrue(nombresMarcasEncontradas.contains("Titanium"));
-        assertTrue(nombresMarcasEncontradas.contains("Badlands"));
-        assertTrue(nombresMarcasEncontradas.contains("Exclusive"));
+        List<String> nombresVersionesEncontradas = todasLasVersiones.stream().map(Version::getNombreVersion).toList();
+        assertTrue(nombresVersionesEncontradas.contains("Titanium"));
+        assertTrue(nombresVersionesEncontradas.contains("Badlands"));
+        assertTrue(nombresVersionesEncontradas.contains("Exclusive"));
     }
 
     @Test
