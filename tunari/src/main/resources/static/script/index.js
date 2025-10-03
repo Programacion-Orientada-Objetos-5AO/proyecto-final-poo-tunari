@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ===============================
-     BÚSQUEDA (Overlay)
+  BÚSQUEDA (Overlay)
   =============================== */
   const overlay  = document.getElementById('searchOverlay');
   const btnOpen  = document.getElementById('searchToggle');
@@ -71,48 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeSearch(); });
   overlay?.addEventListener('click', (e) => { if(e.target === overlay) closeSearch(); });
 
-  /* ===============================
-     PARTICULAS
-  =============================== */
-  const canvas = document.getElementById("particles");
-  if (canvas) {
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particles = [];
-    for (let i = 0; i < 60; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 2 + 1,
-        dx: (Math.random() - 0.5) * 1.5,
-        dy: (Math.random() - 0.5) * 1.5
-      });
-    }
-
-    function drawParticles() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.fillStyle = "rgba(255,255,255,0.7)";
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-        ctx.fill();
-        p.x += p.dx;
-        p.y += p.dy;
-        if(p.x<0||p.x>canvas.width) p.dx*=-1;
-        if(p.y<0||p.y>canvas.height) p.dy*=-1;
-      });
-      requestAnimationFrame(drawParticles);
-    }
-    drawParticles();
-
-    // Recalcular al redimensionar ventana
-    window.addEventListener("resize", () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-  }
 
   /* ===============================
      ANIMACIONES AL SCROLL
@@ -130,10 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
   faders.forEach(f => observer.observe(f));
 
   /* ===============================
-     CONTADORES (STATS)
+  CONTADORES (STATS)
   =============================== */
   const counters = document.querySelectorAll(".counter");
-  const speed = 80;
+  const speed = 120;
 
   counters.forEach(counter => {
     const update = () => {
@@ -159,11 +117,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
 }); // DOMContentLoaded END
 
-document.addEventListener("DOMContentLoaded", () => {
-  const car = document.querySelector(".car");
-  const text = document.querySelector(".hero-text");
+    // Animar los contadores
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+    const target = +counter.getAttribute('data-target');
+    let count = 0;
+    const updateCount = () => {
+        if (count < target) {
+        count += Math.ceil(target / 200); 
+        counter.textContent = count > target ? target : count;
+        requestAnimationFrame(updateCount);
+        }
+    };
+    updateCount();
+    });
 
-  car.addEventListener("animationend", () => {
-    text.classList.add("show");
+    // Animaciones con scroll
+const faders = document.querySelectorAll('.fade-up, .slide-left, .slide-right');
+
+const options = {
+  threshold: 0.2, // porcentaje visible para disparar animación
+};
+
+const appearOnScroll = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('appear');
+    observer.unobserve(entry.target);
   });
+}, options);
+
+faders.forEach(el => {
+  appearOnScroll.observe(el);
 });
+
+  const sections = document.querySelectorAll('.info-section');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('appear');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+
+  

@@ -20,7 +20,7 @@
 /* Base general */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: var(--color-principal);
+  background-color: var(--bg-2);
   color: var(--color-texto);
   margin: 0;
   padding: 0;
@@ -463,7 +463,6 @@ section i {
   margin-right: auto;
 
 }
-
 
 /* Inputs y selects */
 .form-control, .form-select{
@@ -1333,4 +1332,289 @@ body.noscroll{ overflow: hidden; }
 @keyframes carMove {
   0% { left: -200px; }
   100% { left: 110%; } /* se va de la pantalla */
+}
+
+/* ===== Estilo Apple Scroll ===== */
+
+/* Hero ultra limpio */
+.hero-apple {
+  height: 100vh;
+  background: linear-gradient(135deg, #0f1020, #1f1f5c);
+  color: #fff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+}
+.hero-apple h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+}
+.hero-apple p {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  color: #ccc;
+}
+
+.hero-image img {
+  max-width: 900px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  animation: fadeInUp 1.2s ease;
+  border-radius: 100px;
+}
+
+/* Secciones largas estilo Apple */
+.apple-section {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1rem;   
+  background: var(--color-acento);
+  color: var(--color-texto);
+}
+.apple-section.bg-dark {
+  background:var(--color-principal);
+}
+.apple-section h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 1rem;
+}
+.apple-section p {
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+
+/* Imágenes de modelos alternados */
+.apple-section img {
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  transition: transform 0.4s ease;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+}
+.apple-section img:hover {
+  transform: scale(1.03);
+}
+
+/* ===== SECCIONES INFO ALTERNADAS ===== */
+.info-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40vh;           /* ocupa toda la pantalla */
+  padding: 4rem;
+  gap: 2rem;
+}
+
+.info-section .info-text {
+  flex: 1;
+  font-size: 1.2rem;
+}
+
+.info-section .info-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-section .info-img img {
+  max-width: 80%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* Alternar lados */
+.info-section.left .info-text { order: 1; }
+.info-section.left .info-img  { order: 2; }
+
+.info-section.right .info-img { order: 1; }
+.info-section.right .info-text{ order: 2; }
+
+/* Animaciones suaves */
+.info-section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease;
+}
+
+.info-section.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== BENEFICIOS ===== */
+
+/* Íconos de beneficios en info-section */
+.beneficio-icon {
+  font-size: 4rem;             /* bien grande */
+  color: var(--color-acento);  /* morado */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;                /* ocupa toda la columna */
+}
+
+.funcionamiento-icon {
+  font-size: 4rem;             /* bien grande */
+  color: var(--color-texto);  /* morado */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;                /* ocupa toda la columna */
+}
+
+/* Círculo para los íconos de beneficios */
+.icon-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--color-acento), transparent 85%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.icon-circle i {
+  font-size: 2.5rem;
+  color: var(--color-acento);
+}
+
+/* Ajustes de texto en beneficios */
+.info-text h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.info-text p {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  color: var(--color-texto);
+  font-weight: 200;
+}
+
+.mini-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+.mini-list li {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.mini-list i {
+  color: var(--color-acento);
+  margin-right: 0.5rem;
+}
+
+.btn-accent-ver-marcas {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--color-acento);
+  --bs-btn-border-color: var(--color-acento);
+  --bs-btn-hover-bg: var(--color-hover);
+  --bs-btn-hover-border-color: var(--color-hover);
+  --bs-btn-focus-shadow-rgb: 108, 76, 255;
+  border-radius: 0.5rem;
+  padding:.75rem 1rem;
+  font-weight:400;
+
+  /* centrado del texto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* opcional si querés controlar tamaño fijo */
+  width: 100%;
+  max-width: 400px;
+  height: 25%;
+  max-height: 100px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+/* ===== OPINIONES / TESTIMONIOS ===== */
+.opinion-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 180px; /* altura mínima para que no quede apretado */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.opinion-card {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.6);
+}
+
+.opinion-card {
+  font-size: 1.1rem;
+  margin-top: 1vh;
+  font-style: italic;
+  color: var(--color-texto);
+}
+
+.opinion-card {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-texto);
+}
+
+.opinion-card:hover {
+  transform: translateY(-20px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.6);
+}
+
+/* Versión compacta para secciones de contenido liviano */
+.apple-section.como-funciona,
+.apple-section.opiniones,
+.stats-section {
+  min-height: auto;     /* que mida lo que tenga adentro */
+  height: 55vh;         /* anula el 70vh */
+  padding: 3rem 1rem;   /* menos padding */
+  margin-top: 0;        /* nada de negativos */
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 180px; /* altura mínima para que no quede apretado */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+}
+.stat-card i {
+  font-size: 2.5rem;
+  color: var(--color-acento);
+  margin-bottom: 1rem;
+}
+.stat-card h2 {
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+.stat-card p {
+  color: var(--muted);
+  margin-top: 0.5rem;
 }
