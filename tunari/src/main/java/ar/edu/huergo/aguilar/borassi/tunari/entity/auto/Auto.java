@@ -10,7 +10,6 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import jakarta.persistence.OneToOne;
 
 @Data
 @AllArgsConstructor
@@ -46,10 +45,6 @@ public class Auto {
         @NotNull(message = "La versión no puede estar vacía")
         private Version version;
 
-        @OneToOne(optional = false)
-        @JoinColumn(name = "numeroChasis", nullable = false, unique = true)
-        @NotNull(message = "Debe asignarse un número de chasis UNICO e INDIVIDUAL")
-        private String numeroChasis;
 
         public Auto() {
         }

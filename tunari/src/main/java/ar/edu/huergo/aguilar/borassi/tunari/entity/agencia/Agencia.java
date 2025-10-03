@@ -2,11 +2,13 @@ package ar.edu.huergo.aguilar.borassi.tunari.entity.agencia;
 
 import java.util.List;
 
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -32,5 +34,8 @@ public class Agencia {
     @JoinColumn(name = "agencia_id")  // Esta columna estará en la tabla AutoStock
     private List<AutoStock> listaAutos;
 
-    //falta marca
+    @ManyToOne
+    @JoinColumn(name = "marca_id", nullable = false)
+    private Marca marca;
+    
 }

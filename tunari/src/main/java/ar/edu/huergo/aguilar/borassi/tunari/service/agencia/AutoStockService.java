@@ -1,0 +1,54 @@
+package ar.edu.huergo.aguilar.borassi.tunari.service.agencia;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ar.edu.huergo.aguilar.borassi.tunari.dto.agencia.CrearAutoStockDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.agencia.AutoStock;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
+import ar.edu.huergo.aguilar.borassi.tunari.repository.agencia.AutoStockRepository;
+import ar.edu.huergo.aguilar.borassi.tunari.service.auto.AutoService;
+import jakarta.persistence.EntityNotFoundException;
+
+@Service
+public class AutoStockService {
+    @Autowired
+    private AutoStockRepository autoStockRepository;
+    @Autowired
+    private AutoService autoService;
+
+
+    public List<AutoStock> obtenerTodosLosAutoStockes() {
+        return autoStockRepository.findAll();
+    }
+
+    public AutoStock obtenerAutoStockPorId(Long id) throws EntityNotFoundException {
+        return autoStockRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("AutoStock no encontrado"));
+    }
+
+    public AutoStock crearAutoStock(CrearAutoStockDTO autoStock) {
+        AutoStock autoStockEntity = new AutoStock();
+        Auto auto = autoService.resolverAuto(autoStock.autoId());
+        autoStockEntity.setAuto(auto);
+        autoStockEntity.setStock(autoStock.stock());
+        return autoStockRepository.save(autoStockEntity);
+    }
+
+    public AutoStock actualizarAutoStock(Long id, CrearAutoStockDTO autoStock) throws EntityNotFoundException {
+        AutoStock autoStockExistente = obtenerAutoStockPorId(id);
+        Auto auto = autoService.resolverAuto(autoStock.autoId());
+        autoStockExistente.setStock(autoStock.stock());
+        autoStockExistente.setAuto(auto);
+        return autoStockRepository.save(autoStockExistente);
+    }
+    
+    public void eliminarAutoStock(Long id) throws EntityNotFoundException {
+        AutoStock autoStock = obtenerAutoStockPorId(id);
+        autoStockRepository.delete(autoStock);
+    }
+
+
+}

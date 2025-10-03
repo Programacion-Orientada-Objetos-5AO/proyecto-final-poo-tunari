@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearAutoDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.AutoRepository;
 import jakarta.persistence.EntityNotFoundException;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 
 @Service
 public class AutoService {
@@ -46,20 +46,28 @@ public class AutoService {
         Modelo modelo = modeloService.obtenerModeloPorId(dto.modeloId());
         Color color = colorService.obtenerColorPorId(dto.colorId());
         Version version = versionService.obtenerVersionPorId(dto.versionId());
-        String numeroChasis = dto.numeroChasis();
+
+        if (!modeloService.chequearColorVersion(modelo, color, version)) {
+            throw new IllegalArgumentException("El color o la version seleccionada no pertenece al modelo.");  
+        }
 
         Auto auto = new Auto();
         auto.setMarca(marca);
         auto.setModelo(modelo);
         auto.setColor(color);       
         auto.setVersion(version);   
-        auto.setNumeroChasis(numeroChasis);
         return autoRepository.save(auto);
     }
 
     public void eliminarAuto(Long id) throws EntityNotFoundException {
         Auto auto = obtenerAutoPorId(id);
         autoRepository.delete(auto);
+    }
+    
+       public Auto resolverAuto(Long autoId) throws IllegalArgumentException, EntityNotFoundException {
+        Auto auto = autoRepository.findById(autoId)
+                .orElseThrow(() -> new EntityNotFoundException("Auto no encontrado."));
+        return auto;
     }
 }
 
