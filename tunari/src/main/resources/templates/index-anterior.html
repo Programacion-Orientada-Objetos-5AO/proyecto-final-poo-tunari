@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tunari - Inicio</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- CSS personalizado -->
+<link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg shadow-sm py-3">
+        <div class="container">
+            <a class="navbar-brand letra-tunari">Tunari</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navTunari" aria-controls="navTunari" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navTunari">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link disabled" href="#">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="feeds/feed-marcas.html">Marcas</a></li>
+                <li class="nav-item">
+                <a class="nav-link" href="#" id="searchToggle">
+                    <i class="bi bi-search"></i> Buscar
+                </a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+            </ul>
+
+            <div class="pos-relative ms-lg-3">
+                <button id="toggleMenu" class="icono-sesion btn btn-link p-0" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Menú usuario">
+                    <i class="bi bi-person-circle" style="font-size:1.6rem; color: #ffffff;"></i>
+                </button>
+                <div id="userMenu" class="user-menu" style="display:none;">
+                    <a href="login/iniciar-sesion.html" class="user-menu-item">Iniciar sesión</a>
+                    <a href="registro/registrarse.html" class="user-menu-item">Registrarse</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </nav>
+
+        <div id="searchOverlay" class="search-overlay" aria-hidden="true">
+        <div class="search-box position-relative">
+            <button type="button" class="btn-close btn-close-white position-absolute end-0 top-0 m-3" id="searchClose" aria-label="Cerrar"></button>
+            <h5 class="mb-3">¿Qué estás buscando?</h5>
+            <input type="text" class="form-control form-control-lg" placeholder="Autos, marcas, repuestos..." id="searchInput">
+            <button class="btn btn-accent mt-4" id="searchGo">Buscar</button>
+        </div>
+        </div>
+
+
+        <header class="hero d-flex align-items-center justify-content-center text-center">
+        <div class="container">
+            <h1 class="display-4 fade-in" style="font-size: 46px; font-weight: 450;">
+            ¿Querés comprar un auto sin preocuparte?
+            </h1>
+            <p class="lead fade-in delay-1" style="margin-top: 2%; color: #E0E0E0;">
+            Elegí tranquilo, nosotros te acompañamos.
+            </p>
+            <a href="feeds/feed-marcas.html" class="btn btn-hero btn-lg mt-3 fade-in delay-2">
+            <span class="btn-text">Buscar mí auto</span>
+            </a>
+        </div>
+        </header>
+
+        <section class="container py-5 seccion-funciona">
+        <h2 class="text-center mb-4">¿Cómo funciona?</h2>
+        <div class="row text-center text-light" style="margin-top: 4vh;">
+            <div class="col-md-4 mb-3">
+            <i class="bi bi-search" style="font-size: 2.5rem;"></i>
+            <h5 class="mt-3">Buscá una marca</h5>
+            <p style="font-weight: 200;">La que más te guste, seguro trabajamos juntos</p>
+            </div>
+            <div class="col-md-4 mb-3">
+            <i class="bi bi-geo-alt" style="font-size: 2.5rem;"></i>
+            <h5 class="mt-3">Encontrá lo que querés</h5>
+            <p style="font-weight: 200;">Acercate a la consecionaria y arrancá el proceso</p>
+            </div>
+            <div class="col-md-4 mb-3">
+            <i class="bi bi-arrow-repeat" style="font-size: 2.5rem;"></i>
+            <h5 class="mt-3">Volvé y seguí el proceso</h5>
+            <p style="font-weight: 200;">Nuestro equipo te va a mantener actualizado</p>
+            </div>
+        </div>
+        </section>
+
+        <section class="container py-5 seccion-funciona">
+            <h2 class="text-center mb-2">Acá vas a encontrar lo que necesitás.</h2>
+            <div class="row text-center text-light" style="margin-top: 4vh;">
+                <div class="col-md-12 mb-2">
+                    <p style="font-weight: 200; margin-top: 2.5vh;">En Tunari, te ofrecemos también repuestos para arreglar tu vehículo, o cosméticos para que lo dejes a punto.</p>
+                </div>
+            </div>
+            <div class="col-md-12 mb-4" style="text-align: center; margin-top: 2.5vh;">
+                <a href="feeds/feed-marcas.html" class="btn btn-hero btn-lg mt-3">
+                    <span class="btn-text">Explorar Tunari</span>
+                </a>
+            </div>
+        </section>
+
+        <footer class="gradient-footer text-white py-5">
+            <div class="container">
+                <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3 letra-tunari" style="font-weight: normal;">Tunari</h5>
+                    <p class="opacity-75">La mejor forma de elegir tu próximo auto.</p>
+                    <div class="d-flex gap-2 mt-4">
+                    <a href="#" class="social-icon">
+                        <i class="bi bi-instagram" style="color: #ffffff;"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="bi bi-twitter" style="color: #ffffff;"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="bi bi-tiktok" style="color: #ffffff;"></i>
+                    </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold mb-3">Links rápidos</h6>
+                    <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#!" class="footer-link">Sobre nosotros</a></li>
+                    <li class="mb-2"><a href="login/iniciar-sesion.html" class="footer-link">Iniciar sesión</a></li>
+                    <li class="mb-2"><a href="registro/registrarse.html" class="footer-link">Registrar cuenta</a></li>
+                    <li class="mb-2"><a href="#!" class="footer-link">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold mb-3">Recursos</h6>
+                    <ul class="list-unstyled">
+                    <li class="mb-2"><a href="feeds/feed-marcas.html" class="footer-link">Vehículos</a></li>
+                    <li class="mb-2"><a href="#!" class="footer-link">Repuestos</a></li>
+                    <li class="mb-2"><a href="#!" class="footer-link">Cosméticos</a></li>
+                    </ul>
+                </div>
+
+                <hr class="my-4 opacity-25">
+
+                <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <small class="opacity-75">© 2025 Tunari. All rights reserved.</small>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <a href="#" class="footer-link me-3"><small>Términos y Condiciones</small></a>
+                    <a href="#" class="footer-link me-3"><small>Eliminar cuenta</small></a>
+                </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+        const menuEl   = document.getElementById('userMenu');   // el DIV del menú
+        const iconEl   = document.getElementById('toggleMenu'); // el botón/ícono
+
+        function actualizarMenu() {
+            const loggedIn = localStorage.getItem('usuarioLogueado') === 'true';
+            if (loggedIn) {
+                const nombre = localStorage.getItem('usuarioNombre') || 'Usuario';
+                menuEl.innerHTML = `
+                    <a href="dashboards/dashboard-usuario.html" class="user-menu-item">Dashboard</a>
+                    <a href="#" class="user-menu-item" id="logoutBtn">Cerrar sesión</a>
+                `;
+            } else {
+                menuEl.innerHTML = `
+                    <a href="login/iniciar-sesion.html" class="user-menu-item">Iniciar sesión</a>
+                    <a href="registro/registrarse.html" class="user-menu-item">Registrarse</a>
+                `;
+            }
+            menuEl.style.display = 'none';
+        }
+
+        actualizarMenu();
+
+        iconEl.addEventListener('click', () => {
+            const isOpen = getComputedStyle(menuEl).display !== 'none';
+            menuEl.style.display = isOpen ? 'none' : 'flex';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!menuEl.contains(e.target) && !iconEl.contains(e.target)) {
+                menuEl.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target && e.target.id === 'logoutBtn') {
+                e.preventDefault();
+                localStorage.removeItem('usuarioLogueado');
+                actualizarMenu();
+                menuEl.style.display = 'none';
+                location.href = 'index.html';
+            }
+        });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            const overlay  = document.getElementById('searchOverlay');
+            const btnOpen  = document.getElementById('searchToggle');
+            const btnClose = document.getElementById('searchClose');
+            const input    = document.getElementById('searchInput');
+
+            function openSearch(){
+                overlay.classList.add('open');
+                document.body.classList.add('noscroll');
+                setTimeout(() => input && input.focus(), 50);
+            }
+            function closeSearch(){
+                overlay.classList.remove('open');
+                document.body.classList.remove('noscroll');
+            }
+
+            btnOpen?.addEventListener('click', (e) => { e.preventDefault(); openSearch(); });
+            btnClose?.addEventListener('click', closeSearch);
+            document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeSearch(); });
+            overlay.addEventListener('click', (e) => { if(e.target === overlay) closeSearch(); });
+            });
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    </body>
+</html>
