@@ -20,7 +20,7 @@ public class AutoStockService {
     private AutoService autoService;
 
 
-    public List<AutoStock> obtenerTodosLosAutoStockes() {
+    public List<AutoStock> obtenerTodosLosAutoStock() {
         return autoStockRepository.findAll();
     }
 
