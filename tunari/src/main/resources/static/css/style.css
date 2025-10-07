@@ -1618,3 +1618,125 @@ body.noscroll{ overflow: hidden; }
   color: var(--muted);
   margin-top: 0.5rem;
 }
+
+/* Reset de márgenes y padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilo del body */
+.body-forms-sesiones {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(45deg, #0f1020, #6c4cff);
+  background-size: 400% 400%;
+  animation: luz 5s infinite alternate;
+}
+
+/* Animación de luz */
+@keyframes luz {
+  0% {
+      background-position: 0% 0%;
+  }
+  50% {
+      background-position: 100% 100%;
+  }
+  100% {
+      background-position: 0% 0%;
+  }
+}
+
+.mini-leyenda-cambiar-contra {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 2rem;
+}
+
+#btnEliminar {
+  position: relative;
+  overflow: hidden;
+}
+
+#barraProgreso {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background-color: var(--color-acento);
+  border-color: var(--color-acento);
+  transition: width 0.1s linear;
+  z-index: 0;
+}
+
+#btnEliminar span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Animación de temblor */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+/* Clase para activar el temblor */
+.shake {
+  animation: shake 0.4s;
+}
+
+/* ===== BOTÓN DANGER estilo Tunari ===== */
+.btn-danger {
+  background-color: var(--bad);         /* rojo base elegante */
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+}
+
+.btn-danger:hover {
+  background-color: #c53030;            /* rojo más oscuro al hover */
+  transform: scale(1.02);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+}
+
+.btn-danger:focus,
+.btn-danger:active {
+  background-color: #c53030;
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 0 0 0.25rem rgba(108, 76, 255, 0.25); /* glow morado Tunari */
+}
+
+/* ===== Placeholder Tunari ===== */
+#confirmText::placeholder {
+  color: rgba(255, 255, 255, 0.5);      /* gris blanquecino */
+  font-style: italic;
+  transition: color 0.3s ease;
+}
+
+#confirmText:focus::placeholder {
+  color: rgba(108, 76, 255, 0.6);       /* morado tenue al foco */
+}
+.glass-card-borrar-cuenta {
+  background: color-mix(in oklab, var(--card), transparent 20%);
+  border: 1px solid #ffffff0f;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 40px #00000055, inset 0 1px 0 #ffffff0f;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--color-texto);
+  width: 600px;
+}
+
+.fade-out {
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 1s ease, transform 1s ease;
+}
