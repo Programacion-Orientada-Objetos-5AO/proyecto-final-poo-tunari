@@ -9,7 +9,7 @@ import ar.edu.huergo.aguilar.borassi.tunari.dto.agencia.CrearAgenciaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.agencia.Agencia;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.agencia.AgenciaRepository;
-import ar.edu.huergo.aguilar.borassi.tunari.service.auto.AutoService;
+import ar.edu.huergo.aguilar.borassi.tunari.service.auto.MarcaService;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -17,7 +17,7 @@ public class AgenciaService {
     @Autowired
     private AgenciaRepository agenciaRepository;
     @Autowired
-    private AutoService autoService;
+    private MarcaService marcaService;
 
 
     public List<Agencia> obtenerTodosLosAgencia() {
@@ -31,7 +31,7 @@ public class AgenciaService {
 
     public Agencia crearAgencia(CrearAgenciaDTO agencia) {
         Agencia agenciaEntity = new Agencia();
-        Auto auto = autoService.resolverAuto(agencia.autoId());
+        Auto auto = marcaService.resolverMarca(agencia.marcaId());
         agenciaEntity.setAuto(auto);
         agenciaEntity.setStock(agencia.stock());
         return agenciaRepository.save(agenciaEntity);
