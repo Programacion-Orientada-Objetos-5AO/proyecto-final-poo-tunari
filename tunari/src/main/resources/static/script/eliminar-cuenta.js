@@ -6,16 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const passInput = document.getElementById('confirmPassword');
   const textInput = document.getElementById('confirmText');
   const togglePass = document.getElementById('togglePass');
-  const confirmModalEl = document.getElementById('confirmModal');
-  const confirmModal = new bootstrap.Modal(confirmModalEl);
-  const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
   const mainContainer = document.querySelector('main');
+  const card = document.querySelector('.glass-card-borrar-cuenta');
+  const overlay = document.getElementById('redirectOverlay');
+  const overlaySeconds = document.getElementById('overlaySeconds');
+  let countdownInterval;
+
 
   let timer;
   let progreso = 0;
-  let confirmarEliminacion = false;
 
-  // Mostrar / ocultar contraseña
+  // 👁️ Mostrar / ocultar contraseña
   togglePass.addEventListener('click', () => {
     const type = passInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passInput.setAttribute('type', type);
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     togglePass.classList.toggle('bi-eye-slash');
   });
 
-  // Mantener presionado
+  // 🧨 Mantener presionado para confirmar
   btn.addEventListener('mousedown', () => {
     if (textInput.value.trim() !== 'ELIMINAR') {
       errorFeedback('Escribí "ELIMINAR" para poder borrar tu cuenta.');
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (progreso >= 100) {
         clearInterval(timer);
-        confirmModal.show(); // ✨ muestra el modal
+        confirmarEliminacion();
       }
     }, 50);
   });
@@ -63,51 +64,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ✅ Cuando el usuario confirma dentro del modal
-  confirmDeleteBtn.addEventListener('click', () => {
-    confirmarEliminacion = true;
-    confirmModal.hide(); // cierra el modal
-  });
-
-  // 🚀 Cuando el modal termina de cerrarse visualmente
-  confirmModalEl.addEventListener('hidden.bs.modal', () => {
-    if (confirmarEliminacion) {
-      // Esperar al final real de la transición de opacidad
-      confirmModalEl.addEventListener(
-        'transitionend',
-        () => {
-          eliminarCuenta();
-          confirmarEliminacion = false;
-        },
-        { once: true } // solo se ejecuta una vez
-      );
-    }
-  });
-
-  function eliminarCuenta() {
-    texto.textContent = 'Cuenta eliminada existosamente';
-    estado.textContent = 'Cuenta eliminada permanentemente';
-    estado.style.color = 'var(--ok)';
-    btn.disabled = true;
+  // 🟩 Confirmación visual + eliminación
+  function confirmarEliminacion() {
+    btn.classList.add('confirm-vibe');
+    btn.style.backgroundColor = 'var(--ok)';
+    btn.style.borderColor = 'var(--ok)';
+    texto.textContent = '¡Confirmado!';
     barra.style.backgroundColor = 'var(--ok)';
 
-    // ✨ fade-out del contenido principal
-    mainContainer.classList.add('fade-out');
-
-    // Ahora sí: contador y redirección
-    let segundos = 3;
-    estado.innerHTML = `Cuenta eliminada permanentemente, esperamos verte pronto.<br><small>Redirigiendo a Tunari en ${segundos}...</small>`;
-
-    const countdown = setInterval(() => {
-      segundos--;
-      if (segundos > 0) {
-        estado.innerHTML = `Cuenta eliminada permanentemente, esperamos verte pronto.<br><small>Redirigiendo a Tunari en ${segundos}...</small>`;
-      } else {
-        clearInterval(countdown);
-        window.location.href = "../index.html";
-      }
-    }, 1000);
+    setTimeout(() => eliminarCuenta(), 600);
   }
+
+function eliminarCuenta() {
+  texto.textContent = 'Cuenta eliminada exitosamente';
+  estado.textContent = ''; // ya no lo usamos para el contador
+  btn.disabled = true;
+  barra.style.backgroundColor = 'var(--ok)';
+
+  // 1) Fade solo de la card
+  if (card) card.classList.add('fade-out');
+
+  // 2) Mostrar overlay con contador visible
+  overlay.hidden = false;
+
+  // 3) Contador robusto
+  let segundos = 3;
+  overlaySeconds.textContent = segundos;
+
+  countdownInterval = setInterval(() => {
+    segundos--;
+    if (segundos > 0) {
+      overlaySeconds.textContent = segundos;
+    } else {
+      clearInterval(countdownInterval);
+      window.location.href = "../../templates/index.html"; // ajustá si tu ruta es otra
+    }
+  }, 1000);
+}
 
   // 🚨 Error visual
   function errorFeedback(mensaje) {
