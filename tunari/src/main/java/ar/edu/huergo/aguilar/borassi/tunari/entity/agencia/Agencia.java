@@ -38,10 +38,14 @@ public class Agencia {
     @JoinColumn(name = "marca_id", nullable = false)
     private Marca marca;
 
-    public Agencia(Long id, @NotNull(message = "El nombre es obligatorio") String nombre) {
-        this.id = id;
+    public Agencia(@NotNull(message = "El nombre es obligatorio") String nombre,
+            @NotNull(message = "La ubicacion es obligatorio") String ubicacion, Marca marca) {
         this.nombre = nombre;
+        this.ubicacion = ubicacion;
+        this.marca = marca;
     }
+
+    
     
     
 }

@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.edu.huergo.aguilar.borassi.tunari.dto.agencia.AgregarAutosAgenciaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.agencia.CrearAgenciaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.agencia.Agencia;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.agencia.AutoStock;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.agencia.AgenciaRepository;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.MarcaService;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,6 +20,8 @@ public class AgenciaService {
     private AgenciaRepository agenciaRepository;
     @Autowired
     private MarcaService marcaService;
+    @Autowired
+    private AutoStockService autoStockService;
 
 
     public List<Agencia> obtenerTodosLosAgencia() {
@@ -31,17 +35,19 @@ public class AgenciaService {
 
     public Agencia crearAgencia(CrearAgenciaDTO agencia) {
         Agencia agenciaEntity = new Agencia();
-        Auto auto = marcaService.resolverMarca(agencia.marcaId());
-        agenciaEntity.setAuto(auto);
-        agenciaEntity.setStock(agencia.stock());
+        agenciaEntity.setNombre(agencia.nombre());
+        Marca marca = marcaService.obtenerMarcaPorId(agencia.marcaId());
+        agenciaEntity.setMarca(marca);
+        agenciaEntity.setUbicacion(agencia.ubicacion());
         return agenciaRepository.save(agenciaEntity);
     }
 
     public Agencia actualizarAgencia(Long id, CrearAgenciaDTO agencia) throws EntityNotFoundException {
         Agencia agenciaExistente = obtenerAgenciaPorId(id);
-        Auto auto = autoService.resolverAuto(agencia.autoId());
-        agenciaExistente.setStock(agencia.stock());
-        agenciaExistente.setAuto(auto);
+        agenciaExistente.setNombre(agencia.nombre());
+        Marca marca = marcaService.obtenerMarcaPorId(agencia.marcaId());
+        agenciaExistente.setMarca(marca);
+        agenciaExistente.setUbicacion(agencia.ubicacion());
         return agenciaRepository.save(agenciaExistente);
     }
     
@@ -50,5 +56,10 @@ public class AgenciaService {
         agenciaRepository.delete(agencia);
     }
 
-
+    public Agencia actualizarStock(AgregarAutosAgenciaDTO agencia) throws EntityNotFoundException{
+        Agencia agenciaExistente = obtenerAgenciaPorId(agencia.idAgencia());
+        List<AutoStock> autos = autoStockService.resolverAutoStock(agencia.listaAutoStockIds());
+        agenciaExistente.getListaAutos().addAll(autos);
+        return agenciaRepository.save(agenciaExistente);
+    }
 }

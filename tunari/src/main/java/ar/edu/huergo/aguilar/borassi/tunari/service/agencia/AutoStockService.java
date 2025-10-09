@@ -1,6 +1,7 @@
 package ar.edu.huergo.aguilar.borassi.tunari.service.agencia;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,5 +51,15 @@ public class AutoStockService {
         autoStockRepository.delete(autoStock);
     }
 
-
+    public List<AutoStock> resolverAutoStock(List<Long> autoStocksIds) throws IllegalArgumentException, EntityNotFoundException {
+        if (autoStocksIds == null || autoStocksIds.isEmpty()) {
+            throw new IllegalArgumentException("Hay que ingresar un autoStock.");
+        }
+        List<AutoStock> autoStocks = autoStockRepository.findAllById(autoStocksIds);
+        if (autoStocks.size() != autoStocks.stream().filter(Objects::nonNull).distinct()
+                .count()) {
+            throw new EntityNotFoundException("Uno o más autoStocks no existen. Intente nuevamente.");
+        }
+        return autoStocks;
+    }
 }
