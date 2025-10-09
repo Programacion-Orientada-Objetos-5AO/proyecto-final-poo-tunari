@@ -13,47 +13,66 @@
   <link rel="stylesheet" href="../../static/css/style.css">
 </head>
 
-<body class="auth-bg body-forms-sesiones">
-  <main class="container py-5">
-    <div class="glass-card p-0 overflow-hidden shadow-lg" style="border-radius:1.5rem;">
+<body class="auth-bg body-full">
 
-      <!-- Cover Header -->
-      <div class="position-relative" style="background: #1f1f5c; backdrop-filter:blur(6px); height: 180px;">
-      </div>
-
-      <!-- Perfil principal -->
-      <div class="text-center position-relative" style="margin-top:-60px;">
-        <div class="position-relative d-inline-block">
-            <div class="rounded-circle border border-3 border-light d-flex align-items-center justify-content-center" style="width:120px; height:120px;">
-            <i class="bi bi-person" style="font-size:3rem; color: #ffffff;"></i>
-            </div>        
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg shadow-sm py-3">
+    <div class="container">
+      <a class="navbar-brand letra-tunari" href="../index.html">Tunari</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navTunari">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navTunari">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="../feeds/feed.html">Marcas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+        </ul>
+        <div class="pos-relative ms-lg-3">
+          <div id="toggleMenu" class="icono-sesion" role="button">
+            <i class="bi bi-person-circle" style="font-size:1.6rem;"></i>
+          </div>
+          <div id="userMenu" class="user-menu">
+            <a href="iniciar-sesion.html" class="user-menu-item">Iniciar sesión</a>
+            <a href="registrarse.html" class="user-menu-item">Registrarse</a>
+          </div>
         </div>
-        <h3 class="mt-3 mb-1">Facundo Borassi</h3>
-        <p class="mini-leyendas mb-4">Usuario Tunari</p>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PANEL DE USUARIO -->
+  <main class="container py-5 mb-5 main-content">
+    <div class="glass-card p-0 overflow-hidden shadow-lg" style="border-radius:1.5rem;">
+      <div class="text-center position-relative">
+        <h3 class="mt-5 mb-5">Estás viendo tu perfil</h3>
       </div>
 
       <div class="row g-0">
         <!-- Sidebar -->
-        <div class="col-lg-3 col-md-4 p-3 p-md-4 border-end" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(6px);">
+        <div class="col-lg-3 col-md-4 p-3 p-md-4">
           <nav class="nav flex-column nav-pills gap-2">
-            <a class="nav-link active" data-bs-toggle="pill" href="#perfil"><i class="fa-solid fa-user me-2"></i>Perfil</a>
-            <a class="nav-link" data-bs-toggle="pill" href="#seguridad"><i class="fa-solid fa-lock me-2"></i>Seguridad</a>
-            <a class="nav-link" data-bs-toggle="pill" href="#notificaciones"><i class="fa-solid fa-bell me-2"></i>Notificaciones</a>
-            <a class="nav-link" data-bs-toggle="pill" href="#actividad"><i class="fa-solid fa-chart-line me-2"></i>Actividad</a>
+            <a class="nav-link active" data-bs-toggle="pill" href="#perfil"><i class="bi bi-person me-2"></i>Perfil</a>
+            <a class="nav-link" data-bs-toggle="pill" href="#seguridad"><i class="bi bi-telephone-x me-2"></i>Administrar llamados</a>
+            <a class="nav-link" data-bs-toggle="pill" href="#notificaciones"><i class="bi bi-truck me-2"></i>Seguimiento</a>
+            <a class="nav-link" data-bs-toggle="pill" href="#actividad"><i class="bi bi-heart me-2"></i>Favoritos</a>
           </nav>
 
-          <div class="mt-5 pt-4 border-top text-center">
-            <a href="eliminar-cuenta.html" class="btn btn-danger w-100">
-              <i class="fa-solid fa-trash me-2"></i>Eliminar cuenta
+          <div class="mt-4 pt-4 border-top text-center">
+            <a href="#" class="btn-accent-cambiar-contraseña-perfil">
+              <i class="bi bi-arrow-counterclockwise me-2"></i>Cambiar contraseña
             </a>
-            <p class="mini-leyendas mt-2">Acción permanente</p>
+          </div>
+          <div class="pt-4 text-center mb-4">
+            <a href="#" class="btn-accent-cambiar-contraseña-perfil">
+              <i class="bi bi-house-slash me-2"></i>Cerrar sesión
+            </a>
           </div>
         </div>
 
-        <!-- Contenido principal -->
+        <!-- Contenido -->
         <div class="col-lg-9 col-md-8 p-4 tab-content">
-          
-          <!-- Perfil -->
+          <!-- PERFIL -->
           <div class="tab-pane fade show active" id="perfil">
             <h5 class="mb-4">Datos personales</h5>
             <div class="row g-3">
@@ -73,83 +92,69 @@
                 <label class="form-label">Teléfono</label>
                 <input type="tel" class="form-control" value="+54 11 2345 6789">
               </div>
-              <div class="col-12">
-                <label class="form-label">Bio</label>
-                <textarea class="form-control" rows="3" placeholder="Contanos algo sobre vos...">Amante de los autos, la tecnología y el diseño web.</textarea>
-              </div>
             </div>
-
-            <div class="text-center mt-4">
-              <button class="btn-accent-guardar-cambios">Guardar cambios</button>
+            <div class="text-center mt-5">
+              <button class="btn-accent-cambiar-contraseña-perfil" style="border: none;" id="formEditarPerfil">Guardar cambios</button>
             </div>
           </div>
 
-          <!-- Seguridad -->
+          <!-- ADMINISTRAR LLAMADOS -->
           <div class="tab-pane fade" id="seguridad">
-            <h5 class="mb-4">Seguridad</h5>
-            <div class="card glass-card mb-3 p-3">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <h6 class="mb-1">Autenticación en dos pasos</h6>
-                  <p class="mini-leyendas mb-0">Agregá una capa extra de seguridad</p>
-                </div>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" checked>
-                </div>
-              </div>
+            <h5 class="mb-4">Administrar llamados</h5>
+            <p class="mini-leyendas">Deseleccioná las opciones sobre las cuales NO querés recibir llamados ni correos.</p>
+            <div class="form-check form-switch mt-1">
+              <input class="form-check-input" type="checkbox" checked>
+              <label class="form-check-label">Ford Mustang Dark Horse</label>
             </div>
-            <div class="card glass-card p-3">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <h6 class="mb-1">Cambiar contraseña</h6>
-                  <p class="mini-leyendas mb-0">Último cambio: 26/08/2025</p>
-                </div>
-                <a href="#" class="btn btn-outline-light btn-sm"><i class="fa-solid fa-pen me-1"></i>Actualizar</a>
-              </div>
+            <div class="form-check form-switch mt-1">
+              <input class="form-check-input" type="checkbox" checked>
+              <label class="form-check-label">BMW M3</label>
             </div>
+            <div class="form-check form-switch mt-1">
+              <input class="form-check-input" type="checkbox" checked>
+              <label class="form-check-label">Mercedes C300 AMG</label>
+            </div>
+            <button id="btnActualizar" class="btn btn-accent-actualizar-llamados mt-4">
+              Actualizar preferencias
+            </button>
           </div>
 
-          <!-- Notificaciones -->
+          <!-- SEGUIMIENTO -->
           <div class="tab-pane fade" id="notificaciones">
-            <h5 class="mb-4">Notificaciones</h5>
-            <div class="card glass-card mb-3 p-3">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <h6 class="mb-1">Recibir actualizaciones por correo</h6>
-                  <p class="mini-leyendas mb-0">Te avisaremos de nuevas ofertas y autos destacados</p>
-                </div>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" checked>
-                </div>
-              </div>
+            <h5 class="mb-4">Seguimiento de compra</h5>
+            <p><strong>Vehículo:</strong> <span id="vehiculoNombre">Ford Bronco Sport Badlands</span></p>
+            <div class="mb-4 d-flex gap-2">
+              <input type="text" id="trackingInput" class="form-control" placeholder="Ingresá tu número de tracking">
+              <button id="buscarTracking" class="btn btn-accent">Buscar</button>
             </div>
-            <div class="card glass-card p-3">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <h6 class="mb-1">Alertas de actividad</h6>
-                  <p class="mini-leyendas mb-0">Recibirás un mail si alguien inicia sesión en tu cuenta</p>
-                </div>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox">
-                </div>
-              </div>
+            <div class="timeline-horizontal">
+              <div class="progress-line-h" id="progressLineH"></div>
+              <div class="timeline-step-h completed"><div class="circle">1</div><div class="label">Pago recibido</div></div>
+              <div class="timeline-step-h completed"><div class="circle">2</div><div class="label">Vehículo en agencia</div></div>
+              <div class="timeline-step-h completed"><div class="circle">3</div><div class="label">Vehículo identificado</div></div>
+              <div class="timeline-step-h completed"><div class="circle">4</div><div class="label">Certificados digitales</div></div>
+              <div class="timeline-step-h completed"><div class="circle">5</div><div class="label">Patentamiento</div></div>
+              <div class="timeline-step-h active"><div class="circle">6</div><div class="label">Entregado</div></div>
             </div>
           </div>
 
-          <!-- Actividad -->
+          <!-- FAVORITOS -->
           <div class="tab-pane fade" id="actividad">
-            <h5 class="mb-4">Actividad reciente</h5>
-            <div class="activity-item mb-3">
-              <h6 class="mb-1">Actualizaste tu foto de perfil</h6>
-              <p class="mini-leyendas mb-0">Hace 2 horas</p>
-            </div>
-            <div class="activity-item mb-3">
-              <h6 class="mb-1">Cambiaste tu contraseña</h6>
-              <p class="mini-leyendas mb-0">Ayer</p>
-            </div>
-            <div class="activity-item">
-              <h6 class="mb-1">Editaste tu información personal</h6>
-              <p class="mini-leyendas mb-0">Hace 3 días</p>
+            <h5 class="mb-4">Autos favoritos</h5>
+            <div class="row g-4">
+              <div class="col-md-4 position-relative">
+                <div class="feed-card-favoritos">
+                  <button class="btn btn-sm btn-danger remove-fav-btn position-absolute end-0 m-2 z-3">
+                    <i class="bi bi-heart-fill"></i>
+                  </button>
+                  <a href="../detalles/detalle.html" class="text-decoration-none">
+                    <div class="feed-media">
+                      <img src="../../static/img/mustangdh.avif" alt="Ford Mustang Dark Horse">
+                      <div class="feed-overlay"></div>
+                    </div>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -157,6 +162,106 @@
     </div>
   </main>
 
+  <!-- FOOTER -->
+  <footer class="gradient-footer text-white py-3 mt-5">
+    <div class="container text-center">
+      <p>© 2025 Tunari. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const steps = document.querySelectorAll(".timeline-step-h");
+      const progressLine = document.getElementById("progressLineH");
+      const lastStep = document.querySelector(".timeline-step-h.active") 
+                    || document.querySelector(".timeline-step-h.completed:last-of-type");
+      if (lastStep) {
+        const index = Array.from(steps).indexOf(lastStep);
+        const total = steps.length - 1;
+        const ratio = index / total * 100;
+        progressLine.style.width = "0%";
+        void progressLine.offsetWidth; // forzar reflow
+        setTimeout(() => {
+          progressLine.style.width = `${ratio}%`;
+        }, 100);
+      }
+    });
+    document.getElementById("formEditarPerfil").addEventListener("submit", function(e){
+      e.preventDefault();
+      const nombre = document.getElementById("nombrePerfil").value;
+      const email = document.getElementById("emailPerfil").value;
+      const telefono = document.getElementById("telefonoPerfil").value;
+      const perfilDiv = document.getElementById("perfil");
+      perfilDiv.querySelector("p:nth-of-type(1)").innerHTML = "<strong>Nombre:</strong> " + nombre;
+      perfilDiv.querySelector("p:nth-of-type(2)").innerHTML = "<strong>Email:</strong> " + email;
+      perfilDiv.querySelector("p:nth-of-type(3)").innerHTML = "<strong>Teléfono:</strong> " + telefono;
+      const collapseElement = document.getElementById('editarPerfilCollapse');
+      const bsCollapse = bootstrap.Collapse.getInstance(collapseElement) || new bootstrap.Collapse(collapseElement);
+      bsCollapse.hide();
+      const toastEl = document.getElementById('toastCambiosGuardados');
+      const progressBar = toastEl.querySelector('.toast-progress');
+
+      // Reiniciar la animación de la barra (el truco del reflow)
+      progressBar.classList.remove('toast-progress'); // quitar clase
+      void progressBar.offsetWidth; // forzar reflow
+      progressBar.classList.add('toast-progress'); // volver a aplicar clase
+
+      // Mostrar el toast con duración de 3 segundos
+      const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+      toast.show();
+    });
+    document.querySelectorAll('.remove-fav-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        btn.closest('.col-md-4').remove();
+      });
+    });
+    const trackingData = {
+      "ABC123": { vehiculo: "Ford Bronco Sport Badlands", estado: 2 },
+      "DEF456": { vehiculo: "Mustang Dark Horse", estado: 4 },
+      "GHI789": { vehiculo: "Toyota Corolla", estado: 6 }
+    };
+    document.getElementById("buscarTracking").addEventListener("click", () => {
+      const input = document.getElementById("trackingInput").value.trim().toUpperCase();
+      const steps = document.querySelectorAll(".timeline-step-h");
+      steps.forEach(step => {
+        step.classList.remove("completed", "active");
+      });
+      if (trackingData[input]) {
+        const data = trackingData[input];
+        document.getElementById("vehiculoNombre").textContent = data.vehiculo;
+        const maxStep = data.estado;
+        steps.forEach((step, i) => {
+          if (i + 1 < maxStep) {
+            step.classList.add("completed");
+          } else if (i + 1 === maxStep) {
+            step.classList.add("active");
+          }
+        });
+      } else {
+        document.getElementById("vehiculoNombre").textContent = "—";
+        alert("Tracking no encontrado");
+      }
+      const lastStep = document.querySelector(".timeline-step-h.active") 
+                    || document.querySelector(".timeline-step-h.completed:last-of-type");
+      const progressLine = document.getElementById("progressLineH");
+      if (lastStep) {
+        const index = Array.from(steps).indexOf(lastStep);
+        const total = steps.length - 1;
+        const ratio = index / total * 100;
+        progressLine.style.width = "0%";
+        void progressLine.offsetWidth;
+        setTimeout(() => {
+          progressLine.style.width = `${ratio}%`;
+        }, 100);
+      }
+    });
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>
