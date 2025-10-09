@@ -75,28 +75,34 @@
           <!-- PERFIL -->
           <div class="tab-pane fade show active" id="perfil">
             <h5 class="mb-4">Datos personales</h5>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label">Nombre</label>
-                <input type="text" class="form-control" value="Facundo">
+            
+            <form id="formEditarPerfil">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label" for="nombrePerfil">Nombre</label>
+                  <input type="text" class="form-control" id="nombrePerfil" value="Facundo">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="apellidoPerfil">Apellido</label>
+                  <input type="text" class="form-control" id="apellidoPerfil" value="Borassi">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="emailPerfil">Email</label>
+                  <input type="email" class="form-control" id="emailPerfil" value="facu@tunari.com">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="telefonoPerfil">Teléfono</label>
+                  <input type="tel" class="form-control" id="telefonoPerfil" value="+54 11 2345 6789">
+                </div>
               </div>
-              <div class="col-md-6">
-                <label class="form-label">Apellido</label>
-                <input type="text" class="form-control" value="Borassi">
+              <div class="text-center mt-5">
+                <button type="submit" class="btn-accent-cambiar-contraseña-perfil" style="border: none;">
+                  Guardar cambios
+                </button>
               </div>
-              <div class="col-md-6">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" value="facu@tunari.com">
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Teléfono</label>
-                <input type="tel" class="form-control" value="+54 11 2345 6789">
-              </div>
-            </div>
-            <div class="text-center mt-5">
-              <button class="btn-accent-cambiar-contraseña-perfil" style="border: none;" id="formEditarPerfil">Guardar cambios</button>
-            </div>
+            </form>
           </div>
+
 
           <!-- ADMINISTRAR LLAMADOS -->
           <div class="tab-pane fade" id="seguridad">
@@ -141,127 +147,137 @@
           <!-- FAVORITOS -->
           <div class="tab-pane fade" id="actividad">
             <h5 class="mb-4">Autos favoritos</h5>
-            <div class="row g-4">
-              <div class="col-md-4 position-relative">
-                <div class="feed-card-favoritos">
-                  <button class="btn btn-sm btn-danger remove-fav-btn position-absolute end-0 m-2 z-3">
-                    <i class="bi bi-heart-fill"></i>
-                  </button>
-                  <a href="../detalles/detalle.html" class="text-decoration-none">
-                    <div class="feed-media">
-                      <img src="../../static/img/mustangdh.avif" alt="Ford Mustang Dark Horse">
-                      <div class="feed-overlay"></div>
-                    </div>
-                  </a>
-                </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 favoritos-grid">
+            <div class="col">
+              <div class="feed-card-favoritos">
+                <button class="btn btn-sm btn-danger remove-fav-btn position-absolute end-0 m-2 z-3">
+                  <i class="bi bi-heart-fill"></i>
+                </button>
+                <a href="../detalles/detalle.html" class="text-decoration-none">
+                  <div class="feed-media">
+                    <img src="../../static/img/mustangdh.avif" alt="Ford Mustang Dark Horse">
+                    <div class="feed-overlay"></div>
+                  </div>
+                </a>
               </div>
             </div>
+          <div class="col">
+              <div class="feed-card-favoritos">
+                <button class="btn btn-sm btn-danger remove-fav-btn position-absolute end-0 m-2 z-3">
+                  <i class="bi bi-heart-fill"></i>
+                </button>
+                <a href="../detalles/detalle.html" class="text-decoration-none">
+                  <div class="feed-media">
+                    <img src="../../static/img/everest.avif" alt="Ford Mustang Dark Horse">
+                    <div class="feed-overlay"></div>
+                  </div>
+                </a>
+              </div>
+            </div><div class="col">
+              <div class="feed-card-favoritos">
+                <button class="btn btn-sm btn-danger remove-fav-btn position-absolute end-0 m-2 z-3">
+                  <i class="bi bi-heart-fill"></i>
+                </button>
+                <a href="../detalles/detalle.html" class="text-decoration-none">
+                  <div class="feed-media">
+                    <img src="../../static/img/broncosport.avif" alt="Ford Mustang Dark Horse">
+                    <div class="feed-overlay"></div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="col">
+              <div class="feed-card-favoritos">
+                <button class="btn btn-sm btn-danger remove-fav-btn position-absolute end-0 m-2 z-3">
+                  <i class="bi bi-heart-fill"></i>
+                </button>
+                <a href="../detalles/detalle.html" class="text-decoration-none">
+                  <div class="feed-media">
+                    <img src="../../static/img/f150 raptor.avif" alt="Ford Mustang Dark Horse">
+                    <div class="feed-overlay"></div>
+                  </div>
+                </a>
+              </div>
+            </div>  
+            
+          </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Toast con barra de progreso -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+      <div id="toastCambiosGuardados" class="toast align-items-center custom-toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            ✓ Cambios guardados correctamente
+          </div>
+        </div>
+        <!-- Barra de progreso -->
+        <div class="toast-progress"></div>
+      </div>
+    </div>
+
   </main>
 
   <!-- FOOTER -->
-  <footer class="gradient-footer text-white py-3 mt-5">
-    <div class="container text-center">
-      <p>© 2025 Tunari. Todos los derechos reservados.</p>
-    </div>
+  <footer class="gradient-footer text-white py-5">
+      <div class="container">
+          <div class="row g-4">
+          <div class="col-lg-4">
+              <h5 class="fw-bold mb-3 letra-tunari" style="font-weight: normal;">Tunari</h5>
+              <p class="opacity-75">La mejor forma de elegir tu próximo auto.</p>
+              <div class="d-flex gap-2 mt-4">
+              <a href="#" class="social-icon">
+                  <i class="bi bi-instagram" style="color: #ffffff;"></i>
+              </a>
+              <a href="#" class="social-icon">
+                  <i class="bi bi-twitter" style="color: #ffffff;"></i>
+              </a>
+              <a href="#" class="social-icon">
+                  <i class="bi bi-tiktok" style="color: #ffffff;"></i>
+              </a>
+              </div>
+          </div>
+
+          <div class="col-lg-2 col-md-4">
+              <h6 class="fw-bold mb-3">Links rápidos</h6>
+              <ul class="list-unstyled">
+              <li class="mb-2"><a href="#!" class="footer-link">Sobre nosotros</a></li>
+              <li class="mb-2"><a href="login/iniciar-sesion.html" class="footer-link">Iniciar sesión</a></li>
+              <li class="mb-2"><a href="registro/registrarse.html" class="footer-link">Registrar cuenta</a></li>
+              <li class="mb-2"><a href="#!" class="footer-link">Contacto</a></li>
+              </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-4">
+              <h6 class="fw-bold mb-3">Recursos</h6>
+              <ul class="list-unstyled">
+              <li class="mb-2"><a href="feeds/feed-marcas.html" class="footer-link">Vehículos</a></li>
+              <li class="mb-2"><a href="#!" class="footer-link">Repuestos</a></li>
+              <li class="mb-2"><a href="#!" class="footer-link">Cosméticos</a></li>
+              </ul>
+          </div>
+
+          <hr class="my-4 opacity-25">
+
+          <div class="row align-items-center">
+          <div class="col-md-6 text-center text-md-start">
+              <small class="opacity-75">© 2025 Tunari. All rights reserved.</small>
+          </div>
+          <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+              <a href="#" class="footer-link me-3"><small>Términos y Condiciones</small></a>
+              <a href="#" class="footer-link me-3"><small>Eliminar cuenta</small></a>
+          </div>
+          </div>
+      </div>
   </footer>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const steps = document.querySelectorAll(".timeline-step-h");
-      const progressLine = document.getElementById("progressLineH");
-      const lastStep = document.querySelector(".timeline-step-h.active") 
-                    || document.querySelector(".timeline-step-h.completed:last-of-type");
-      if (lastStep) {
-        const index = Array.from(steps).indexOf(lastStep);
-        const total = steps.length - 1;
-        const ratio = index / total * 100;
-        progressLine.style.width = "0%";
-        void progressLine.offsetWidth; // forzar reflow
-        setTimeout(() => {
-          progressLine.style.width = `${ratio}%`;
-        }, 100);
-      }
-    });
-    document.getElementById("formEditarPerfil").addEventListener("submit", function(e){
-      e.preventDefault();
-      const nombre = document.getElementById("nombrePerfil").value;
-      const email = document.getElementById("emailPerfil").value;
-      const telefono = document.getElementById("telefonoPerfil").value;
-      const perfilDiv = document.getElementById("perfil");
-      perfilDiv.querySelector("p:nth-of-type(1)").innerHTML = "<strong>Nombre:</strong> " + nombre;
-      perfilDiv.querySelector("p:nth-of-type(2)").innerHTML = "<strong>Email:</strong> " + email;
-      perfilDiv.querySelector("p:nth-of-type(3)").innerHTML = "<strong>Teléfono:</strong> " + telefono;
-      const collapseElement = document.getElementById('editarPerfilCollapse');
-      const bsCollapse = bootstrap.Collapse.getInstance(collapseElement) || new bootstrap.Collapse(collapseElement);
-      bsCollapse.hide();
-      const toastEl = document.getElementById('toastCambiosGuardados');
-      const progressBar = toastEl.querySelector('.toast-progress');
-
-      // Reiniciar la animación de la barra (el truco del reflow)
-      progressBar.classList.remove('toast-progress'); // quitar clase
-      void progressBar.offsetWidth; // forzar reflow
-      progressBar.classList.add('toast-progress'); // volver a aplicar clase
-
-      // Mostrar el toast con duración de 3 segundos
-      const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
-      toast.show();
-    });
-    document.querySelectorAll('.remove-fav-btn').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.preventDefault();
-        e.stopPropagation();
-        btn.closest('.col-md-4').remove();
-      });
-    });
-    const trackingData = {
-      "ABC123": { vehiculo: "Ford Bronco Sport Badlands", estado: 2 },
-      "DEF456": { vehiculo: "Mustang Dark Horse", estado: 4 },
-      "GHI789": { vehiculo: "Toyota Corolla", estado: 6 }
-    };
-    document.getElementById("buscarTracking").addEventListener("click", () => {
-      const input = document.getElementById("trackingInput").value.trim().toUpperCase();
-      const steps = document.querySelectorAll(".timeline-step-h");
-      steps.forEach(step => {
-        step.classList.remove("completed", "active");
-      });
-      if (trackingData[input]) {
-        const data = trackingData[input];
-        document.getElementById("vehiculoNombre").textContent = data.vehiculo;
-        const maxStep = data.estado;
-        steps.forEach((step, i) => {
-          if (i + 1 < maxStep) {
-            step.classList.add("completed");
-          } else if (i + 1 === maxStep) {
-            step.classList.add("active");
-          }
-        });
-      } else {
-        document.getElementById("vehiculoNombre").textContent = "—";
-        alert("Tracking no encontrado");
-      }
-      const lastStep = document.querySelector(".timeline-step-h.active") 
-                    || document.querySelector(".timeline-step-h.completed:last-of-type");
-      const progressLine = document.getElementById("progressLineH");
-      if (lastStep) {
-        const index = Array.from(steps).indexOf(lastStep);
-        const total = steps.length - 1;
-        const ratio = index / total * 100;
-        progressLine.style.width = "0%";
-        void progressLine.offsetWidth;
-        setTimeout(() => {
-          progressLine.style.width = `${ratio}%`;
-        }, 100);
-      }
-    });
-  </script>
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../static/script/alertas.js"></script>
+  <script src="../../static/script/dashboard-usuario.js"></script>
+
 </body>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

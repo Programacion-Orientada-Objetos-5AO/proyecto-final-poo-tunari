@@ -1143,6 +1143,25 @@ body.noscroll{ overflow: hidden; }
   box-shadow: 0 10px 18px rgba(0,0,0,.4);
 }
 
+/* ===== Tarjetas de favoritos ===== */
+.favoritos-grid {
+  margin-top: 1rem;
+}
+
+.feed-card-favoritos {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: var(--card);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%; /* asegura que todas las columnas tengan el mismo alto */
+}
+
+.feed-card-favoritos:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
 /* Carousel detalle autos */
 #galeriaAuto .carousel-item img {
   height: 500px;          /* altura fija para todas las imágenes */
@@ -1928,4 +1947,38 @@ body.noscroll{ overflow: hidden; }
   .timeline-step-h .label {
     font-size: 0.85rem;
   }
+}
+
+/* ===== SweetAlert Tunari Style ===== */
+.alerta-tunari {
+  border-radius: 1rem !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  background: rgba(17, 17, 34, 0.85); /* tono glass oscuro */
+  font-family: 'Poppins', sans-serif;
+  padding: 1.5rem !important;
+}
+
+.icono-tunari {
+  transform: scale(0.8);
+  margin: 0 auto 8px auto;
+}
+
+.titulo-tunari {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.boton-tunari {
+  border-radius: 0.6rem !important;
+  font-weight: 500 !important;
+  padding: 0.5rem 1.4rem !important;
+  text-transform: none !important;
+}
+
+.fade-out-card {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 0.3s ease;
 }
