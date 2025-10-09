@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   /* ===============================
-     MENÚ DE USUARIO / SESIÓN
+    MENÚ DE USUARIO / SESIÓN
   =============================== */
   const menuEl   = document.getElementById('userMenu');   // el DIV del menú
   const iconEl   = document.getElementById('toggleMenu'); // el botón/ícono
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* ===============================
-     ANIMACIONES AL SCROLL
+    ANIMACIONES AL SCROLL
   =============================== */
   const faders = document.querySelectorAll(".fade-up, .slide-left, .slide-right");
   const observer = new IntersectionObserver(entries => {
