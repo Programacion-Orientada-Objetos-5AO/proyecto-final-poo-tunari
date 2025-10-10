@@ -1915,6 +1915,7 @@ body.noscroll{ overflow: hidden; }
 
 /* ===== RESPONSIVE TIMELINE ===== */
 @media (max-width: 992px) {
+
   .timeline-horizontal {
     flex-direction: column;
     align-items: flex-start;
@@ -1981,4 +1982,17 @@ body.noscroll{ overflow: hidden; }
   opacity: 0;
   transform: scale(0.95);
   transition: all 0.3s ease;
+}
+
+@media (max-width: 992px) {
+  /* oculta las líneas del seguimiento en móviles/tablets */
+  .timeline-horizontal::before,
+  .progress-line-h {
+    display: none !important;
+  }
+
+  /* opcional: un poco más de separación entre pasos */
+  .timeline-step-h {
+    margin-bottom: 1.2rem;
+  }
 }
