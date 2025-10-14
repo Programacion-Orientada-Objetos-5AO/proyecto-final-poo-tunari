@@ -84,16 +84,4 @@ public class ModeloService {
         return modelo;
     }
 
-    public Boolean chequearColorVersion (Modelo modelo, Color color, Version version){
-        boolean versionPertenece = modeloRepository
-            .existsByIdAndVersiones_Id(modelo.getId(), version.getId());
-
-        boolean colorPertenece = modeloRepository
-            .existsByIdAndColores_Id(modelo.getId(), color.getId());
-        if (colorPertenece && versionPertenece) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

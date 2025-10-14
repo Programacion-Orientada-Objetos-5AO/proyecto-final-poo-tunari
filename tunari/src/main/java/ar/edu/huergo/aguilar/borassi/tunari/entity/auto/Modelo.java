@@ -46,4 +46,9 @@ public class Modelo {
         uniqueConstraints = @UniqueConstraint(columnNames = {"modelo_id","color_id"})
     )
     private List<Color> colores;
+
+    public Boolean validarAuto(Color color, Version version) {
+        //ilegilalArgumentException
+        return this.colores.contains(color) && this.versiones.contains(version);
+    }
 }

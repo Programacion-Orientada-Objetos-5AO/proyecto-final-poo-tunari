@@ -24,5 +24,13 @@ public class AutoStock {
     private Auto auto;
     @NotNull(message = "El stock es obligatorio")
     private int stock;
+    
+	public AutoStock(@NotNull(message = "El auto es obligatorio") Auto auto,
+			@NotNull(message = "El stock es obligatorio") int stock) {
+		this.auto = auto;
+		this.stock = stock;
+	}
+
+    
 
 }

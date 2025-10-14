@@ -36,4 +36,8 @@ public class Version {
     @ManyToMany(mappedBy = "versiones")
 
     private List<Modelo> modelos;
+
+    public Boolean chequearMarca(Marca marca) {
+        return this.marca.equals(marca);
+    }
 }

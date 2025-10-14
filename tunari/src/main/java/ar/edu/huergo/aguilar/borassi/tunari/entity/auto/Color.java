@@ -29,4 +29,8 @@ public class Color {
     @JoinColumn(name = "marca_id", nullable = false)
     @NotNull(message = "La marca a la cual pertenece no puede estar vacía")
     private Marca marca;
+
+    public Boolean chequearMarca(Marca marca) {
+        return this.marca.equals(marca);
+    }
 }

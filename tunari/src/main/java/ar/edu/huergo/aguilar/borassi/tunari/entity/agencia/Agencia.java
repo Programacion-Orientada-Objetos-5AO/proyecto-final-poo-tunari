@@ -2,6 +2,7 @@ package ar.edu.huergo.aguilar.borassi.tunari.entity.agencia;
 
 import java.util.List;
 
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,7 +46,22 @@ public class Agencia {
         this.marca = marca;
     }
 
-    
+    //setear stock de autos
+    public void modificarStock(Auto auto, int stock) {
+        if (auto.getMarca() != this.marca) {
+            throw new IllegalArgumentException("El auto no pertenece a la marca de la agencia.");
+        }
+        for (AutoStock autoStock : this.listaAutos) {
+            if (autoStock.getAuto().equals(auto)) {
+                autoStock.setStock(stock);
+                return;
+            }
+        }
+
+        AutoStock nuevoAutoStock = new AutoStock(auto, stock);
+        this.listaAutos.add(nuevoAutoStock);
+        return;
+    }
     
     
 }

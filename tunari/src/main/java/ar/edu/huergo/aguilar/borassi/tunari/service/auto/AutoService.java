@@ -47,10 +47,9 @@ public class AutoService {
         Color color = colorService.obtenerColorPorId(dto.colorId());
         Version version = versionService.obtenerVersionPorId(dto.versionId());
 
-        if (!modeloService.chequearColorVersion(modelo, color, version)) {
-            throw new IllegalArgumentException("El color o la version seleccionada no pertenece al modelo.");  
+        if (!modelo.validarAuto(color, version)) {
+            throw new IllegalArgumentException("El modelo no es compatible con el color o la versión proporcionados.");
         }
-
         Auto auto = new Auto();
         auto.setMarca(marca);
         auto.setModelo(modelo);
