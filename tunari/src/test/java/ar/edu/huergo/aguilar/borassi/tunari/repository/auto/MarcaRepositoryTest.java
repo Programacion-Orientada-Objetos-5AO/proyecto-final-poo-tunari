@@ -34,15 +34,15 @@ class MarcaRepositoryTest {
 
         // Crear marcas de prueba
         marca1 = new Marca();
-        marca1.setNombreMarca("Ford");
+        marca1.setNombre("Ford");
         marca1 = entityManager.persistAndFlush(marca1);
 
         marca2 = new Marca();
-        marca2.setNombreMarca("Chevrolet");
+        marca2.setNombre("Chevrolet");
         marca2 = entityManager.persistAndFlush(marca2);
 
         marca3 = new Marca();
-        marca3.setNombreMarca("Volkswagen");
+        marca3.setNombre("Volkswagen");
         marca3 = entityManager.persistAndFlush(marca3);
 
         entityManager.clear();
@@ -53,14 +53,14 @@ class MarcaRepositoryTest {
     void deberiaEncontrarMarcasPorNombreContaining() {
         // When - Buscar marcas que sean Ford
         List<Marca> marcasEncontradas =
-                marcaRepository.findByNombreMarcaContainingIgnoreCase("Ford");
+                marcaRepository.findByNombreContainingIgnoreCase("Ford");
 
         // Then
         assertNotNull(marcasEncontradas);
         assertEquals(1, marcasEncontradas.size());
 
         List<String> nombresMarcas =
-                marcasEncontradas.stream().map(Marca::getNombreMarca).toList();
+                marcasEncontradas.stream().map(Marca::getNombre).toList();
         assertTrue(nombresMarcas.contains("Ford"));
     }
 
@@ -69,11 +69,11 @@ class MarcaRepositoryTest {
     void deberiaEncontrarMarcasCaseInsensitive() {
         // When - Buscar con diferentes casos
         List<Marca> resultadoMinuscula =
-                marcaRepository.findByNombreMarcaContainingIgnoreCase("FORD");
+                marcaRepository.findByNombreContainingIgnoreCase("FORD");
         List<Marca> resultadoMayuscula =
-                marcaRepository.findByNombreMarcaContainingIgnoreCase("ford");
+                marcaRepository.findByNombreContainingIgnoreCase("ford");
         List<Marca> resultadoMixto =
-                marcaRepository.findByNombreMarcaContainingIgnoreCase("FoRD");
+                marcaRepository.findByNombreContainingIgnoreCase("FoRD");
 
         // Then - Todos deberían dar el mismo resultado
         assertEquals(1, resultadoMinuscula.size());
@@ -86,7 +86,7 @@ class MarcaRepositoryTest {
     void deberiaRetornarListaVaciaSinCoincidencias() {
         // When
         List<Marca> marcasEncontradas =
-                marcaRepository.findByNombreMarcaContainingIgnoreCase("Audi");
+                marcaRepository.findByNombreContainingIgnoreCase("Audi");
 
         // Then
         assertNotNull(marcasEncontradas);
@@ -98,16 +98,16 @@ class MarcaRepositoryTest {
     void deberiaEncontrarMarcasConBusquedaParcial() {
         // When - Buscar solo parte del nombre
         List<Marca> primerResultado =
-                marcaRepository.findByNombreMarcaContainingIgnoreCase("rd");
+                marcaRepository.findByNombreContainingIgnoreCase("rd");
         List<Marca> segundoResultado =
-                marcaRepository.findByNombreMarcaContainingIgnoreCase("Fo");
+                marcaRepository.findByNombreContainingIgnoreCase("Fo");
 
         // Then
         assertEquals(1, primerResultado.size());
-        assertEquals("Ford", primerResultado.get(0).getNombreMarca());
+        assertEquals("Ford", primerResultado.get(0).getNombre());
 
         assertEquals(1, segundoResultado.size());
-        assertEquals("Ford", segundoResultado.get(0).getNombreMarca());
+        assertEquals("Ford", segundoResultado.get(0).getNombre());
     }
 
     @Test
@@ -115,7 +115,7 @@ class MarcaRepositoryTest {
     void deberiaGuardarYRecuperarMarca() {
         // Given
         Marca nuevaMarca = new Marca();
-        nuevaMarca.setNombreMarca("Bentley");
+        nuevaMarca.setNombre("Bentley");
 
         // When
         Marca marcaGuardada = marcaRepository.save(nuevaMarca);
@@ -129,7 +129,7 @@ class MarcaRepositoryTest {
                 marcaRepository.findById(marcaGuardada.getId());
 
         assertTrue(marcaRecuperada.isPresent());
-        assertEquals("Bentley", marcaRecuperada.get().getNombreMarca());
+        assertEquals("Bentley", marcaRecuperada.get().getNombre());
     }
 
     @Test
@@ -144,20 +144,20 @@ class MarcaRepositoryTest {
         assertTrue(marcaOptional.isPresent());
 
         Marca marca = marcaOptional.get();
-        marca.setNombreMarca(nuevoNombreMarca);
+        marca.setNombre(nuevoNombreMarca);
 
         Marca marcaActualizada = marcaRepository.save(marca);
         entityManager.flush();
 
         // Then
-        assertEquals(nuevoNombreMarca, marcaActualizada.getNombreMarca());
+        assertEquals(nuevoNombreMarca, marcaActualizada.getNombre());
 
         // Verificar persistencia
         entityManager.clear();
         Optional<Marca> verificarMarca =
                 marcaRepository.findById(marca1.getId());
         assertTrue(verificarMarca.isPresent());
-        assertEquals(nuevoNombreMarca, verificarMarca.get().getNombreMarca());
+        assertEquals(nuevoNombreMarca, verificarMarca.get().getNombre());
     }
 
     @Test
@@ -187,7 +187,7 @@ class MarcaRepositoryTest {
         assertNotNull(todasLasMarcas);
         assertEquals(3, todasLasMarcas.size());
 
-        List<String> nombresMarcasEncontradas = todasLasMarcas.stream().map(Marca::getNombreMarca).toList();
+        List<String> nombresMarcasEncontradas = todasLasMarcas.stream().map(Marca::getNombre).toList();
         assertTrue(nombresMarcasEncontradas.contains("Mustang"));
         assertTrue(nombresMarcasEncontradas.contains("Chevrolet"));
         assertTrue(nombresMarcasEncontradas.contains("Bentley"));
@@ -204,7 +204,7 @@ class MarcaRepositoryTest {
 
         // Agregar un ingrediente más y verificar
         Marca nuevaMarca = new Marca();
-        nuevaMarca.setNombreMarca("Ferrari");
+        nuevaMarca.setNombre("Ferrari");
         entityManager.persistAndFlush(nuevaMarca);
 
         assertEquals(4, marcaRepository.count());
@@ -215,7 +215,7 @@ class MarcaRepositoryTest {
     void deberiaValidarRestricciones() {
         // Given - Crear ingrediente con nombre vacío
         Marca marcaInvalida = new Marca();
-        marcaInvalida.setNombreMarca(""); // Viola @NotBlank
+        marcaInvalida.setNombre(""); // Viola @NotBlank
 
         // When & Then
         assertThrows(Exception.class, () -> {
@@ -228,10 +228,10 @@ class MarcaRepositoryTest {
     void deberiaManejarNombresConEspacios() {
         // When - Buscar parte del nombre que incluye espacios
         List<Marca> resultadoMarca =
-                marcaRepository.findByNombreMarcaContainingIgnoreCase("Chevro");
+                marcaRepository.findByNombreContainingIgnoreCase("Chevro");
 
         // Then
         assertEquals(1, resultadoMarca.size());
-        assertEquals("Chevrolet", resultadoMarca.get(0).getNombreMarca());
+        assertEquals("Chevrolet", resultadoMarca.get(0).getNombre());
     }
 }

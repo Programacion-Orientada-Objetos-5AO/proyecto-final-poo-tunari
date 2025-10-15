@@ -32,7 +32,7 @@ class ColorValidationTest {
     void deberiValidarColorCorrectoSinErrores() {
         // Given
         Color color = new Color();
-        color.setNombreColor("Verde selva");
+        color.setNombre("Verde selva");
 
         // When
         Set<ConstraintViolation<Color>> violaciones = validator.validate(color);
@@ -47,7 +47,7 @@ class ColorValidationTest {
     void deberiaFallarValidacionConNombreNull() {
         // Given
         Color color = new Color();
-        color.setNombreColor(null);
+        color.setNombre(null);
 
         // When
         Set<ConstraintViolation<Color>> violaciones = validator.validate(color);
@@ -65,7 +65,7 @@ class ColorValidationTest {
     void deberiaFallarValidacionConNombreVacio() {
         // Given
         Color color = new Color();
-        color.setNombreColor("");
+        color.setNombre("");
 
         // When
         Set<ConstraintViolation<Color>> violaciones = validator.validate(color);
@@ -81,7 +81,7 @@ class ColorValidationTest {
     void deberiaFallarValidacionConNombreSoloEspacios() {
         // Given
         Color color = new Color();
-        color.setNombreColor("   ");
+        color.setNombre("   ");
 
         // When
         Set<ConstraintViolation<Color>> violaciones = validator.validate(color);
@@ -100,7 +100,7 @@ class ColorValidationTest {
     void deberiaAceptarNombresDeColoresComunes(String nombreValido) {
         // Given
         Color color = new Color();
-        color.setNombreColor(nombreValido);
+        color.setNombre(nombreValido);
 
         // When
         Set<ConstraintViolation<Color>> violaciones = validator.validate(color);
@@ -114,7 +114,7 @@ class ColorValidationTest {
     @DisplayName("Debería fallar validación con nombre muy corto")
     void deberiaFallarValidacionConNombreCorto() {
         Color color = new Color();
-        color.setNombreColor("V");
+        color.setNombre("V");
 
         Set<ConstraintViolation<Color>> violaciones = validator.validate(color);
 
@@ -129,7 +129,7 @@ class ColorValidationTest {
     @DisplayName("Debería fallar validación con nombre muy largo")
     void deberiaFallarValidacionConNombreLargo() {
         Color color = new Color();
-        color.setNombreColor("V".repeat(101));
+        color.setNombre("V".repeat(101));
 
         Set<ConstraintViolation<Color>> violaciones = validator.validate(color);
 
@@ -144,9 +144,9 @@ class ColorValidationTest {
     @DisplayName("Debería aceptar nombres en el límite válido")
     void deberiaAceptarLimitesConSize() {
         Color c1 = new Color();
-        c1.setNombreColor("VE"); // 2
+        c1.setNombre("VE"); // 2
         Color c2 = new Color();
-        c2.setNombreColor("V".repeat(100)); // 100
+        c2.setNombre("V".repeat(100)); // 100
 
         assertTrue(validator.validate(c1).isEmpty());
         assertTrue(validator.validate(c2).isEmpty());

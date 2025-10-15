@@ -46,7 +46,7 @@ class ModeloServiceTest {
     void setUp() {
         modeloEjemplo = new Modelo();
         modeloEjemplo.setId(1L);
-        modeloEjemplo.setNombreModelo("Bronco Sport");
+        modeloEjemplo.setNombre("Bronco Sport");
     }
 
     @Test
@@ -62,7 +62,7 @@ class ModeloServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
-        assertEquals("Bronco Sport", resultado.get(0).getNombreModelo());
+        assertEquals("Bronco Sport", resultado.get(0).getNombre());
         verify(modeloRepository, times(1)).findAll();
     }
 
@@ -79,7 +79,7 @@ class ModeloServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
-        assertEquals("Bronco Sport", resultado.getNombreModelo());
+        assertEquals("Bronco Sport", resultado.getNombre());
         verify(modeloRepository, times(1)).findById(id);
     }
 
@@ -105,7 +105,7 @@ class ModeloServiceTest {
         CrearModeloDTO dto = new CrearModeloDTO("Bronco Sport 2025", 1L, List.of(2L, 3L), List.of(4L, 1000L) );
         Modelo guardado = new Modelo();
         guardado.setId(10L);
-        guardado.setNombreModelo("Bronco Sport");
+        guardado.setNombre("Bronco Sport");
 
         when(modeloRepository.save(any(Modelo.class))).thenReturn(guardado);
 
@@ -115,7 +115,7 @@ class ModeloServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(10L, resultado.getId());
-        assertEquals("Bronco Sport", resultado.getNombreModelo());
+        assertEquals("Bronco Sport", resultado.getNombre());
         verify(modeloRepository, times(1)).save(any(Modelo.class));
     }
 
@@ -128,7 +128,7 @@ class ModeloServiceTest {
 
         Modelo devueltoPorSave = new Modelo();
         devueltoPorSave.setId(1L);
-        devueltoPorSave.setNombreModelo("Bronco Sport 2025");
+        devueltoPorSave.setNombre("Bronco Sport 2025");
         when(modeloRepository.save(any(Modelo.class))).thenReturn(devueltoPorSave);
 
         CrearModeloDTO dto = new CrearModeloDTO("Bronco Sport 2025", 1L, List.of(2L, 3L), List.of(4L, 1000L) );
@@ -139,9 +139,9 @@ class ModeloServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
-        assertEquals("Bronco Sport 2025", resultado.getNombreModelo());
+        assertEquals("Bronco Sport 2025", resultado.getNombre());
         // también chequeamos que en la entidad cargada se haya seteado el nombre
-        assertEquals("Bronco Sport 2025", modeloEjemplo.getNombreModelo());
+        assertEquals("Bronco Sport 2025", modeloEjemplo.getNombre());
         verify(modeloRepository, times(1)).findById(id);
         verify(modeloRepository, times(1)).save(modeloEjemplo);
     }

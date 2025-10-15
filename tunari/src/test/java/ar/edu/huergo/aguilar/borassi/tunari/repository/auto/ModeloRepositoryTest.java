@@ -34,15 +34,15 @@ class ModeloRepositoryTest {
 
         // Crear modelos de prueba
         modelo1 = new Modelo();
-        modelo1.setNombreModelo("Ford Bronco Sport");
+        modelo1.setNombre("Ford Bronco Sport");
         modelo1 = entityManager.persistAndFlush(modelo1);
 
         modelo2 = new Modelo();
-        modelo2.setNombreModelo("Volkswagen Virtus");
+        modelo2.setNombre("Volkswagen Virtus");
         modelo2 = entityManager.persistAndFlush(modelo2);
 
         modelo3 = new Modelo();
-        modelo3.setNombreModelo("Volkswagen Taos");
+        modelo3.setNombre("Volkswagen Taos");
         modelo3 = entityManager.persistAndFlush(modelo3);
 
         entityManager.clear();
@@ -53,14 +53,14 @@ class ModeloRepositoryTest {
     void deberiaEncontrarModelosPorNombreContaining() {
         // When - Buscar modelos que sean Ford Bronco Sport
         List<Modelo> modelosEncontrados =
-                modeloRepository.findByNombreModeloContainingIgnoreCase("Ford Bronco Sport");
+                modeloRepository.findByNombreContainingIgnoreCase("Ford Bronco Sport");
 
         // Then
         assertNotNull(modelosEncontrados);
         assertEquals(1, modelosEncontrados.size());
 
         List<String> nombresModelos =
-                modelosEncontrados.stream().map(Modelo::getNombreModelo).toList();
+                modelosEncontrados.stream().map(Modelo::getNombre).toList();
         assertTrue(nombresModelos.contains("Ford Bronco Sport"));
     }
 
@@ -69,11 +69,11 @@ class ModeloRepositoryTest {
     void deberiaEncontrarModelosCaseInsensitive() {
         // When - Buscar con diferentes casos
         List<Modelo> resultadoMinuscula =
-                modeloRepository.findByNombreModeloContainingIgnoreCase("FORD BRONCO SPORT");
+                modeloRepository.findByNombreContainingIgnoreCase("FORD BRONCO SPORT");
         List<Modelo> resultadoMayuscula =
-                modeloRepository.findByNombreModeloContainingIgnoreCase("ford bronco sport");
+                modeloRepository.findByNombreContainingIgnoreCase("ford bronco sport");
         List<Modelo> resultadoMixto =
-                modeloRepository.findByNombreModeloContainingIgnoreCase("FoRD BrONco SPOrt");
+                modeloRepository.findByNombreContainingIgnoreCase("FoRD BrONco SPOrt");
 
         // Then - Todos deberían dar el mismo resultado
         assertEquals(1, resultadoMinuscula.size());
@@ -86,7 +86,7 @@ class ModeloRepositoryTest {
     void deberiaRetornarListaVaciaSinCoincidencias() {
         // When
         List<Modelo> modelosEncontrados =
-                modeloRepository.findByNombreModeloContainingIgnoreCase("Chevrolet Cruze");
+                modeloRepository.findByNombreContainingIgnoreCase("Chevrolet Cruze");
 
         // Then
         assertNotNull(modelosEncontrados);
@@ -98,16 +98,16 @@ class ModeloRepositoryTest {
     void deberiaEncontrarModelosConBusquedaParcial() {
         // When - Buscar solo parte del nombre
         List<Modelo> primerResultado =
-                modeloRepository.findByNombreModeloContainingIgnoreCase("tr");
+                modeloRepository.findByNombreContainingIgnoreCase("tr");
         List<Modelo> segundoResultado =
-                modeloRepository.findByNombreModeloContainingIgnoreCase("Vo");
+                modeloRepository.findByNombreContainingIgnoreCase("Vo");
 
         // Then
         assertEquals(1, primerResultado.size());
-        assertEquals("Ford Bronco Sport", primerResultado.get(0).getNombreModelo());
+        assertEquals("Ford Bronco Sport", primerResultado.get(0).getNombre());
 
         assertEquals(1, segundoResultado.size());
-        assertEquals("Volskwagen Virtus", segundoResultado.get(0).getNombreModelo());
+        assertEquals("Volskwagen Virtus", segundoResultado.get(0).getNombre());
     }
 
     @Test
@@ -115,7 +115,7 @@ class ModeloRepositoryTest {
     void deberiaGuardarYRecuperarModelo() {
         // Given
         Modelo nuevoModelo = new Modelo();
-        nuevoModelo.setNombreModelo("Audi S3");
+        nuevoModelo.setNombre("Audi S3");
 
         // When
         Modelo modeloGuardado = modeloRepository.save(nuevoModelo);
@@ -129,7 +129,7 @@ class ModeloRepositoryTest {
                 modeloRepository.findById(modeloGuardado.getId());
 
         assertTrue(modeloRecuperado.isPresent());
-        assertEquals("Audi S3", modeloRecuperado.get().getNombreModelo());
+        assertEquals("Audi S3", modeloRecuperado.get().getNombre());
     }
 
     @Test
@@ -144,20 +144,20 @@ class ModeloRepositoryTest {
         assertTrue(modeloOptional.isPresent());
 
         Modelo modelo = modeloOptional.get();
-        modelo.setNombreModelo(nuevoNombreModelo);
+        modelo.setNombre(nuevoNombreModelo);
 
         Modelo modeloActualizado = modeloRepository.save(modelo);
         entityManager.flush();
 
         // Then
-        assertEquals(nuevoNombreModelo, modeloActualizado.getNombreModelo());
+        assertEquals(nuevoNombreModelo, modeloActualizado.getNombre());
 
         // Verificar persistencia
         entityManager.clear();
         Optional<Modelo> verificarModelo =
                 modeloRepository.findById(modelo1.getId());
         assertTrue(verificarModelo.isPresent());
-        assertEquals(nuevoNombreModelo, verificarModelo.get().getNombreModelo());
+        assertEquals(nuevoNombreModelo, verificarModelo.get().getNombre());
     }
 
     @Test
@@ -187,7 +187,7 @@ class ModeloRepositoryTest {
         assertNotNull(todosLosModelos);
         assertEquals(3, todosLosModelos.size());
 
-        List<String> nombresModelosEncotrados = todosLosModelos.stream().map(Modelo::getNombreModelo).toList();
+        List<String> nombresModelosEncotrados = todosLosModelos.stream().map(Modelo::getNombre).toList();
         assertTrue(nombresModelosEncotrados.contains("Ford Bronco Sport"));
         assertTrue(nombresModelosEncotrados.contains("Volkswagen Virtus"));
         assertTrue(nombresModelosEncotrados.contains("Audi S3"));
@@ -204,7 +204,7 @@ class ModeloRepositoryTest {
 
         // Agregar un ingrediente más y verificar
         Modelo nuevoModelo = new Modelo();
-        nuevoModelo.setNombreModelo("BMW M3");
+        nuevoModelo.setNombre("BMW M3");
         entityManager.persistAndFlush(nuevoModelo);
 
         assertEquals(4, modeloRepository.count());
@@ -215,7 +215,7 @@ class ModeloRepositoryTest {
     void deberiaValidarRestricciones() {
         // Given - Crear ingrediente con nombre vacío
         Modelo modeloInvalido = new Modelo();
-        modeloInvalido.setNombreModelo(""); // Viola @NotBlank
+        modeloInvalido.setNombre(""); // Viola @NotBlank
 
         // When & Then
         assertThrows(Exception.class, () -> {
@@ -228,10 +228,10 @@ class ModeloRepositoryTest {
     void deberiaManejarNombresConEspacios() {
         // When - Buscar parte del nombre que incluye espacios
         List<Modelo> resultadoModelo =
-                modeloRepository.findByNombreModeloContainingIgnoreCase("Ford B");
+                modeloRepository.findByNombreContainingIgnoreCase("Ford B");
 
         // Then
         assertEquals(1, resultadoModelo.size());
-        assertEquals("Ford Bronco Sport", resultadoModelo.get(0).getNombreModelo());
+        assertEquals("Ford Bronco Sport", resultadoModelo.get(0).getNombre());
     }
 }

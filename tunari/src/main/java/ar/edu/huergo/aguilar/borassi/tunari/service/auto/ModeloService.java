@@ -37,7 +37,7 @@ public class ModeloService {
 
     public Modelo crearModelo(CrearModeloDTO modeloDTO) {
         Modelo modelo = new Modelo();
-        modelo.setNombreModelo(modeloDTO.nombreModelo());
+        modelo.setNombre(modeloDTO.nombreModelo());
         List<Version> versiones = this.versionService.resolverVersion(modeloDTO.versionesIds());
         modelo.setVersiones(versiones);
         Marca marca = this.marcaService.obtenerMarcaPorId(modeloDTO.marcaId());
@@ -49,7 +49,7 @@ public class ModeloService {
 
     public Modelo actualizarModelo(Long id, CrearModeloDTO modeloDTO) throws EntityNotFoundException {
         Modelo modeloExistente = obtenerModeloPorId(id);
-        modeloExistente.setNombreModelo(modeloDTO.nombreModelo());
+        modeloExistente.setNombre(modeloDTO.nombreModelo());
         List<Version> versiones = this.versionService.resolverVersion(modeloDTO.versionesIds());
         modeloExistente.setVersiones(versiones);
         Marca marca = this.marcaService.obtenerMarcaPorId(modeloDTO.marcaId());

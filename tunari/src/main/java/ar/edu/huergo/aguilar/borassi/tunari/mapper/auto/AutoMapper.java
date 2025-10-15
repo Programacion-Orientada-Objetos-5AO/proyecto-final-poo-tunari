@@ -14,10 +14,10 @@ public class AutoMapper {
     public AutoDTO toDTO(Auto auto) {
         return new AutoDTO(
             auto.getId(),
-            auto.getMarca().getNombreMarca(),
-            auto.getModelo().getNombreModelo(),
-            auto.getColor().getNombreColor(),
-            auto.getVersion().getNombreVersion()
+            auto.getMarca().getNombre(),
+            auto.getModelo().getNombre(),
+            auto.getColor().getNombre(),
+            auto.getVersion().getNombre()
         );
     }
 

@@ -34,15 +34,15 @@ class VersionRepositoryTest {
 
         // Crear versiones de prueba
         version1 = new Version();
-        version1.setNombreVersion("Titanium");
+        version1.setNombre("Titanium");
         version1 = entityManager.persistAndFlush(version1);
 
         version2 = new Version();
-        version2.setNombreVersion("Badlands");
+        version2.setNombre("Badlands");
         version2 = entityManager.persistAndFlush(version2);
 
         version3 = new Version();
-        version3.setNombreVersion("Exclusive");
+        version3.setNombre("Exclusive");
         version3 = entityManager.persistAndFlush(version3);
 
         entityManager.clear();
@@ -53,14 +53,14 @@ class VersionRepositoryTest {
     void deberiaEncontrarVersionesPorNombreContaining() {
         // When - Buscar versiones que sean Titanium
         List<Version> versionesEncontradas =
-                versionRepository.findByNombreVersionContainingIgnoreCase("Titanium");
+                versionRepository.findByNombreContainingIgnoreCase("Titanium");
 
         // Then
         assertNotNull(versionesEncontradas);
         assertEquals(1, versionesEncontradas.size());
 
         List<String> nombresVersiones =
-                versionesEncontradas.stream().map(Version::getNombreVersion).toList();
+                versionesEncontradas.stream().map(Version::getNombre).toList();
         assertTrue(nombresVersiones.contains("Titanium"));
     }
 
@@ -69,11 +69,11 @@ class VersionRepositoryTest {
     void deberiaEncontrarVersionCaseInsensitive() {
         // When - Buscar con diferentes casos
         List<Version> resultadoMinuscula =
-                versionRepository.findByNombreVersionContainingIgnoreCase("TITANIUM");
+                versionRepository.findByNombreContainingIgnoreCase("TITANIUM");
         List<Version> resultadoMayuscula =
-                versionRepository.findByNombreVersionContainingIgnoreCase("titanium");
+                versionRepository.findByNombreContainingIgnoreCase("titanium");
         List<Version> resultadoMixto =
-                versionRepository.findByNombreVersionContainingIgnoreCase("TiTaniuM");
+                versionRepository.findByNombreContainingIgnoreCase("TiTaniuM");
 
         // Then - Todos deberían dar el mismo resultado
         assertEquals(1, resultadoMinuscula.size());
@@ -86,7 +86,7 @@ class VersionRepositoryTest {
     void deberiaRetornarListaVaciaSinCoincidencias() {
         // When
         List<Version> versionesEncontradas =
-                versionRepository.findByNombreVersionContainingIgnoreCase("GT Line");
+                versionRepository.findByNombreContainingIgnoreCase("GT Line");
 
         // Then
         assertNotNull(versionesEncontradas);
@@ -98,16 +98,16 @@ class VersionRepositoryTest {
     void deberiaEncontrarVersionConBusquedaParcial() {
         // When - Buscar solo parte del nombre
         List<Version> primerResultado =
-                versionRepository.findByNombreVersionContainingIgnoreCase("um");
+                versionRepository.findByNombreContainingIgnoreCase("um");
         List<Version> segundoResultado =
-                versionRepository.findByNombreVersionContainingIgnoreCase("Ti");
+                versionRepository.findByNombreContainingIgnoreCase("Ti");
 
         // Then
         assertEquals(1, primerResultado.size());
-        assertEquals("Titanium", primerResultado.get(0).getNombreVersion());
+        assertEquals("Titanium", primerResultado.get(0).getNombre());
 
         assertEquals(1, segundoResultado.size());
-        assertEquals("Titanium", segundoResultado.get(0).getNombreVersion());
+        assertEquals("Titanium", segundoResultado.get(0).getNombre());
     }
 
     @Test
@@ -115,7 +115,7 @@ class VersionRepositoryTest {
     void deberiaGuardarYRecuperarVersion() {
         // Given
         Version nuevaVersion = new Version();
-        nuevaVersion.setNombreVersion("Highline");
+        nuevaVersion.setNombre("Highline");
 
         // When
         Version versionGuardada = versionRepository.save(nuevaVersion);
@@ -129,7 +129,7 @@ class VersionRepositoryTest {
                 versionRepository.findById(versionGuardada.getId());
 
         assertTrue(versionRecuperada.isPresent());
-        assertEquals("Highline", versionRecuperada.get().getNombreVersion());
+        assertEquals("Highline", versionRecuperada.get().getNombre());
     }
 
     @Test
@@ -144,20 +144,20 @@ class VersionRepositoryTest {
         assertTrue(versionOptional.isPresent());
 
         Version version = versionOptional.get();
-        version.setNombreVersion(nuevoNombreVersion);
+        version.setNombre(nuevoNombreVersion);
 
         Version versionActualizada = versionRepository.save(version);
         entityManager.flush();
 
         // Then
-        assertEquals(nuevoNombreVersion, versionActualizada.getNombreVersion());
+        assertEquals(nuevoNombreVersion, versionActualizada.getNombre());
 
         // Verificar persistencia
         entityManager.clear();
         Optional<Version> verificarVersion =
                 versionRepository.findById(version1.getId());
         assertTrue(verificarVersion.isPresent());
-        assertEquals(nuevoNombreVersion, verificarVersion.get().getNombreVersion());
+        assertEquals(nuevoNombreVersion, verificarVersion.get().getNombre());
     }
 
     @Test
@@ -187,7 +187,7 @@ class VersionRepositoryTest {
         assertNotNull(todasLasVersiones);
         assertEquals(3, todasLasVersiones.size());
 
-        List<String> nombresVersionesEncontradas = todasLasVersiones.stream().map(Version::getNombreVersion).toList();
+        List<String> nombresVersionesEncontradas = todasLasVersiones.stream().map(Version::getNombre).toList();
         assertTrue(nombresVersionesEncontradas.contains("Titanium"));
         assertTrue(nombresVersionesEncontradas.contains("Badlands"));
         assertTrue(nombresVersionesEncontradas.contains("Exclusive"));
@@ -204,7 +204,7 @@ class VersionRepositoryTest {
 
         // Agregar un ingrediente más y verificar
         Version nuevaVersion = new Version();
-        nuevaVersion.setNombreVersion("LT");
+        nuevaVersion.setNombre("LT");
         entityManager.persistAndFlush(nuevaVersion);
 
         assertEquals(4, versionRepository.count());
@@ -215,7 +215,7 @@ class VersionRepositoryTest {
     void deberiaValidarRestricciones() {
         // Given - Crear ingrediente con nombre vacío
         Version versionInvalida = new Version();
-        versionInvalida.setNombreVersion(""); // Viola @NotBlank
+        versionInvalida.setNombre(""); // Viola @NotBlank
 
         // When & Then
         assertThrows(Exception.class, () -> {
@@ -228,10 +228,10 @@ class VersionRepositoryTest {
     void deberiaManejarNombresConEspacios() {
         // When - Buscar parte del nombre que incluye espacios
         List<Version> resultadoVersion =
-                versionRepository.findByNombreVersionContainingIgnoreCase("Titan ");
+                versionRepository.findByNombreContainingIgnoreCase("Titan ");
 
         // Then
         assertEquals(1, resultadoVersion.size());
-        assertEquals("Titanium", resultadoVersion.get(0).getNombreVersion());
+        assertEquals("Titanium", resultadoVersion.get(0).getNombre());
     }
 }

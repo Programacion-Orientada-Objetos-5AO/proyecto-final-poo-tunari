@@ -32,7 +32,7 @@ class MarcaValidationTest {
     void deberiaValidarMarcaCorrectaSinErrores() {
         // Given
         Marca marca = new Marca();
-        marca.setNombreMarca("Toyota");
+        marca.setNombre("Toyota");
 
         // When
         Set<ConstraintViolation<Marca>> violaciones = validator.validate(marca);
@@ -47,7 +47,7 @@ class MarcaValidationTest {
     void deberiaFallarValidacionConNombreNull() {
         // Given
         Marca marca = new Marca();
-        marca.setNombreMarca(null);
+        marca.setNombre(null);
 
         // When
         Set<ConstraintViolation<Marca>> violaciones = validator.validate(marca);
@@ -65,7 +65,7 @@ class MarcaValidationTest {
     void deberiaFallarValidacionConNombreVacio() {
         // Given
         Marca marca = new Marca();
-        marca.setNombreMarca("");
+        marca.setNombre("");
 
         // When
         Set<ConstraintViolation<Marca>> violaciones = validator.validate(marca);
@@ -81,7 +81,7 @@ class MarcaValidationTest {
     void deberiaFallarValidacionConNombreSoloEspacios() {
         // Given
         Marca marca = new Marca();
-        marca.setNombreMarca("   ");
+        marca.setNombre("   ");
 
         // When
         Set<ConstraintViolation<Marca>> violaciones = validator.validate(marca);
@@ -100,7 +100,7 @@ class MarcaValidationTest {
     void deberiaAceptarNombresDeMarcasComunes(String nombreValido) {
         // Given
         Marca marca = new Marca();
-        marca.setNombreMarca(nombreValido);
+        marca.setNombre(nombreValido);
 
         // When
         Set<ConstraintViolation<Marca>> violaciones = validator.validate(marca);
@@ -114,7 +114,7 @@ class MarcaValidationTest {
     @DisplayName("Debería fallar validación con nombre muy corto")
     void deberiaFallarValidacionConNombreCorto() {
         Marca marca = new Marca();
-        marca.setNombreMarca("A");
+        marca.setNombre("A");
 
         Set<ConstraintViolation<Marca>> violaciones = validator.validate(marca);
 
@@ -129,7 +129,7 @@ class MarcaValidationTest {
     @DisplayName("Debería fallar validación con nombre muy largo")
     void deberiaFallarValidacionConNombreLargo() {
         Marca marca = new Marca();
-        marca.setNombreMarca("A".repeat(101));
+        marca.setNombre("A".repeat(101));
 
         Set<ConstraintViolation<Marca>> violaciones = validator.validate(marca);
 
@@ -144,9 +144,9 @@ class MarcaValidationTest {
     @DisplayName("Debería aceptar nombres en el límite válido")
     void deberiaAceptarLimitesConSize() {
         Marca m1 = new Marca();
-        m1.setNombreMarca("AB"); // 2
+        m1.setNombre("AB"); // 2
         Marca m2 = new Marca();
-        m2.setNombreMarca("A".repeat(100)); // 100
+        m2.setNombre("A".repeat(100)); // 100
 
         assertTrue(validator.validate(m1).isEmpty());
         assertTrue(validator.validate(m2).isEmpty());

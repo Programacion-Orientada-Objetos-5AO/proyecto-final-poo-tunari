@@ -11,7 +11,7 @@ import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 @Repository
 public interface ModeloRepository extends JpaRepository<Modelo, Long> {
     // Método para buscar colores por nombre, ignorando mayúsculas y minúsculas
-    List<Modelo> findByNombreModeloContainingIgnoreCase(String nombreModelo);
+    List<Modelo> findByNombreContainingIgnoreCase(String nombre);
     boolean existsByIdAndVersiones_Id(Long modeloId, Long versionId);
     boolean existsByIdAndColores_Id(Long modeloId, Long colorId);
 }

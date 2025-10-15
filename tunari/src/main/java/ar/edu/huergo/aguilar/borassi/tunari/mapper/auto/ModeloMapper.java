@@ -17,19 +17,19 @@ public class ModeloMapper {
     public ModeloDTO toDTO(Modelo modelo) {
         return new ModeloDTO(
             modelo.getId(),
-            modelo.getNombreModelo(),
+            modelo.getNombre(),
             modelo.getMarca() != null ? modelo.getMarca().getId() : null,
-            modelo.getMarca() != null ? modelo.getMarca().getNombreMarca() : null,
+            modelo.getMarca() != null ? modelo.getMarca().getNombre() : null,
             modelo.getVersiones() == null ? List.of() :
-                modelo.getVersiones().stream().map(Version::getNombreVersion).toList(),
+                modelo.getVersiones().stream().map(Version::getNombre).toList(),
             modelo.getColores() == null ? List.of() :
-                modelo.getColores().stream().map(Color::getNombreColor).toList()
+                modelo.getColores().stream().map(Color::getNombre).toList()
         );
     }
 
     public Modelo toEntity(CrearModeloDTO dto) {
         Modelo modelo = new Modelo();
-        modelo.setNombreModelo(dto.nombreModelo());          
+        modelo.setNombre(dto.nombreModelo());          
         return modelo;
     }
 

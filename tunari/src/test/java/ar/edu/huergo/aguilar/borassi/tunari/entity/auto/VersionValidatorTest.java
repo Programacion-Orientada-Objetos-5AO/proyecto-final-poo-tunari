@@ -32,7 +32,7 @@ class VersionValidatorTest {
     void deberiValidarVersionCorrectoSinErrores() {
         // Given
         Version version = new Version();
-        version.setNombreVersion("Titanium");
+        version.setNombre("Titanium");
 
         // When
         Set<ConstraintViolation<Version>> violaciones = validator.validate(version);
@@ -47,7 +47,7 @@ class VersionValidatorTest {
     void deberiaFallarValidacionConNombreNull() {
         // Given
         Version version = new Version();
-        version.setNombreVersion(null);
+        version.setNombre(null);
 
         // When
         Set<ConstraintViolation<Version>> violaciones = validator.validate(version);
@@ -65,7 +65,7 @@ class VersionValidatorTest {
     void deberiaFallarValidacionConNombreVacio() {
         // Given
         Version version = new Version();
-        version.setNombreVersion("");
+        version.setNombre("");
 
         // When
         Set<ConstraintViolation<Version>> violaciones = validator.validate(version);
@@ -81,7 +81,7 @@ class VersionValidatorTest {
     void deberiaFallarValidacionConNombreSoloEspacios() {
         // Given
         Version version = new Version();
-        version.setNombreVersion("   ");
+        version.setNombre("   ");
 
         // When
         Set<ConstraintViolation<Version>> violaciones = validator.validate(version);
@@ -100,7 +100,7 @@ class VersionValidatorTest {
     void deberiaAceptarNombresDeVersionesComunes(String nombreValido) {
         // Given
         Version version = new Version();
-        version.setNombreVersion(nombreValido);
+        version.setNombre(nombreValido);
 
         // When
         Set<ConstraintViolation<Version>> violaciones = validator.validate(version);
@@ -114,7 +114,7 @@ class VersionValidatorTest {
     @DisplayName("Debería fallar validación con nombre muy corto")
     void deberiaFallarValidacionConNombreCorto() {
         Version version = new Version();
-        version.setNombreVersion("T");
+        version.setNombre("T");
 
         Set<ConstraintViolation<Version>> violaciones = validator.validate(version);
 
@@ -129,7 +129,7 @@ class VersionValidatorTest {
     @DisplayName("Debería fallar validación con nombre muy largo")
     void deberiaFallarValidacionConNombreLargo() {
         Version version = new Version();
-        version.setNombreVersion("T".repeat(101));
+        version.setNombre("T".repeat(101));
 
         Set<ConstraintViolation<Version>> violaciones = validator.validate(version);
 
@@ -144,9 +144,9 @@ class VersionValidatorTest {
     @DisplayName("Debería aceptar nombres en el límite válido")
     void deberiaAceptarLimitesConSize() {
         Version v1 = new Version();
-        v1.setNombreVersion("Ti"); // 2
+        v1.setNombre("Ti"); // 2
         Version v2 = new Version();
-        v2.setNombreVersion("T".repeat(100)); // 100
+        v2.setNombre("T".repeat(100)); // 100
 
         assertTrue(validator.validate(v1).isEmpty());
         assertTrue(validator.validate(v2).isEmpty());

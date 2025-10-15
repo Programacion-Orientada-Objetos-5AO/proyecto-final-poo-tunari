@@ -20,15 +20,15 @@ public class MarcaMapper {
 
         return new MarcaDTO(
             marca.getId(),
-            marca.getNombreMarca(),
-            modelos.stream().map(Modelo::getNombreModelo).toList(),  
-            colores.stream().map(Color::getNombreColor).toList()     
+            marca.getNombre(),
+            modelos.stream().map(Modelo::getNombre).toList(),  
+            colores.stream().map(Color::getNombre).toList()     
         );
     }
 
     public Marca toEntity(CrearMarcaDTO dto, List<Modelo> modelos, List<Color> colores) {
         Marca marca = new Marca();
-        marca.setNombreMarca(dto.nombreMarca());
+        marca.setNombre(dto.nombreMarca());
         marca.setModelos(modelos);
         marca.setColores(colores);
         return marca;

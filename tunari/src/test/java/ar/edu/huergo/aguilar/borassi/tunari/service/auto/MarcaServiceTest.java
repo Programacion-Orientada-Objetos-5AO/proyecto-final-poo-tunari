@@ -37,7 +37,7 @@ class MarcaServiceTest {
     void setUp() {
         marcaEjemplo = new Marca();
         marcaEjemplo.setId(1L);
-        marcaEjemplo.setNombreMarca("Toyota");
+        marcaEjemplo.setNombre("Toyota");
     }
 
     @Test
@@ -53,7 +53,7 @@ class MarcaServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
-        assertEquals("Toyota", resultado.get(0).getNombreMarca());
+        assertEquals("Toyota", resultado.get(0).getNombre());
         verify(marcaRepository, times(1)).findAll();
     }
 
@@ -70,7 +70,7 @@ class MarcaServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
-        assertEquals("Toyota", resultado.getNombreMarca());
+        assertEquals("Toyota", resultado.getNombre());
         verify(marcaRepository, times(1)).findById(id);
     }
 
@@ -96,7 +96,7 @@ class MarcaServiceTest {
         CrearMarcaDTO dto = new CrearMarcaDTO("Honda");
         Marca guardada = new Marca();
         guardada.setId(10L);
-        guardada.setNombreMarca("Honda");
+        guardada.setNombre("Honda");
 
         when(marcaRepository.save(any(Marca.class))).thenReturn(guardada);
 
@@ -106,7 +106,7 @@ class MarcaServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(10L, resultado.getId());
-        assertEquals("Honda", resultado.getNombreMarca());
+        assertEquals("Honda", resultado.getNombre());
         verify(marcaRepository, times(1)).save(any(Marca.class));
     }
 
@@ -119,7 +119,7 @@ class MarcaServiceTest {
 
         Marca devueltaPorSave = new Marca();
         devueltaPorSave.setId(1L);
-        devueltaPorSave.setNombreMarca("Toyota Actualizada");
+        devueltaPorSave.setNombre("Toyota Actualizada");
         when(marcaRepository.save(any(Marca.class))).thenReturn(devueltaPorSave);
 
         CrearMarcaDTO dto = new CrearMarcaDTO("Toyota Actualizada");
@@ -130,9 +130,9 @@ class MarcaServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
-        assertEquals("Toyota Actualizada", resultado.getNombreMarca());
+        assertEquals("Toyota Actualizada", resultado.getNombre());
         // también chequeamos que en la entidad cargada se haya seteado el nombre
-        assertEquals("Toyota Actualizada", marcaEjemplo.getNombreMarca());
+        assertEquals("Toyota Actualizada", marcaEjemplo.getNombre());
         verify(marcaRepository, times(1)).findById(id);
         verify(marcaRepository, times(1)).save(marcaEjemplo);
     }

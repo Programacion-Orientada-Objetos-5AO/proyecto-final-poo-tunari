@@ -1,10 +1,22 @@
 package ar.edu.huergo.aguilar.borassi.tunari.entity.auto;
 
 import java.util.List;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +25,7 @@ import lombok.*;
 @Table(
     name = "versiones",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"nombreVersion", "marca_id"})
+        @UniqueConstraint(columnNames = {"nombre", "marca_id"})
     }
 )
 public class Version {
@@ -24,7 +36,7 @@ public class Version {
 
     @NotBlank(message = "El nombre de la versión no puede estar vacío")
     @Column(nullable = false)
-    private String nombreVersion;
+    private String nombre;
 
     // Cada versión pertenece a una marca
     @ManyToOne(optional = false)
@@ -37,7 +49,7 @@ public class Version {
 
     private List<Modelo> modelos;
 
-    public Boolean chequearMarca(Marca marca) {
+    public Boolean validarMarca(Marca marca) {
         return this.marca.equals(marca);
     }
 }

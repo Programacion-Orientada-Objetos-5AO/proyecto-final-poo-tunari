@@ -40,7 +40,7 @@ class VersionServiceTest {
     void setUp() {
         versionEjemplo = new Version();
         versionEjemplo.setId(1L);
-        versionEjemplo.setNombreVersion("Titanium");
+        versionEjemplo.setNombre("Titanium");
     }
 
     @Test
@@ -56,7 +56,7 @@ class VersionServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
-        assertEquals("Titanium", resultado.get(0).getNombreVersion());
+        assertEquals("Titanium", resultado.get(0).getNombre());
         verify(versionRepository, times(1)).findAll();
     }
 
@@ -73,7 +73,7 @@ class VersionServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
-        assertEquals("Titanium", resultado.getNombreVersion());
+        assertEquals("Titanium", resultado.getNombre());
         verify(versionRepository, times(1)).findById(id);
     }
 
@@ -99,7 +99,7 @@ class VersionServiceTest {
         CrearVersionDTO dto = new CrearVersionDTO("Titanium", 1l);
         Version guardada = new Version();
         guardada.setId(10L);
-        guardada.setNombreVersion("Titanium");
+        guardada.setNombre("Titanium");
 
         when(versionRepository.save(any(Version.class))).thenReturn(guardada);
 
@@ -109,7 +109,7 @@ class VersionServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(10L, resultado.getId());
-        assertEquals("Titanium", resultado.getNombreVersion());
+        assertEquals("Titanium", resultado.getNombre());
         verify(versionRepository, times(1)).save(any(Version.class));
     }
 
@@ -122,7 +122,7 @@ class VersionServiceTest {
 
         Version devueltaPorSave = new Version();
         devueltaPorSave.setId(1L);
-        devueltaPorSave.setNombreVersion("Titanium actualizado");
+        devueltaPorSave.setNombre("Titanium actualizado");
         when(versionRepository.save(any(Version.class))).thenReturn(devueltaPorSave);
 
         CrearVersionDTO dto = new CrearVersionDTO("Titanium actualizado", 1l);
@@ -133,9 +133,9 @@ class VersionServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
-        assertEquals("Titanium actualizado", resultado.getNombreVersion());
+        assertEquals("Titanium actualizado", resultado.getNombre());
         // también chequeamos que en la entidad cargada se haya seteado el nombre
-        assertEquals("Titanium actualizado", versionEjemplo.getNombreVersion());
+        assertEquals("Titanium actualizado", versionEjemplo.getNombre());
         verify(versionRepository, times(1)).findById(id);
         verify(versionRepository, times(1)).save(versionEjemplo);
     }

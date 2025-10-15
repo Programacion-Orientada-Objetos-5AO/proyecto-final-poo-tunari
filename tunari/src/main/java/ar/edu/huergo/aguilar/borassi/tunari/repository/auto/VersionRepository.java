@@ -9,5 +9,5 @@ import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 @Repository
 public interface VersionRepository extends JpaRepository<Version, Long> {
     // Metodo para buscar versiones por nombre, ignorando mayusculas y minusculas
-    java.util.List<Version> findByNombreVersionContainingIgnoreCase(String nombreVersion);
+    java.util.List<Version> findByNombreContainingIgnoreCase(String nombre);
 }

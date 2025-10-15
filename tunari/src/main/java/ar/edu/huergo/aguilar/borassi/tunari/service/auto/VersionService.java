@@ -30,14 +30,14 @@ public class VersionService {
 
     public Version crearVersion(CrearVersionDTO version) {
         Version versionEntity = new Version();
-        versionEntity.setNombreVersion(version.nombreVersion());
+        versionEntity.setNombre(version.nombreVersion());
         versionEntity.setMarca(marcaService.obtenerMarcaPorId(version.marcaId()));
         return versionRepository.save(versionEntity);
     }
 
     public Version actualizarVersion(Long id, CrearVersionDTO version) throws EntityNotFoundException {
         Version versionExistente = obtenerVersionPorId(id);
-        versionExistente.setNombreVersion(version.nombreVersion());
+        versionExistente.setNombre(version.nombreVersion());
         versionExistente.setMarca(marcaService.obtenerMarcaPorId(version.marcaId()));
         return versionRepository.save(versionExistente);
     }

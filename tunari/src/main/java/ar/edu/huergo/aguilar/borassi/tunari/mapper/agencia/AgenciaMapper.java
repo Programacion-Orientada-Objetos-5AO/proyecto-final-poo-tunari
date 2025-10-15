@@ -20,7 +20,7 @@ public class AgenciaMapper {
             agencia.getNombre(),
             agencia.getUbicacion(),
             autoStockMapper.toDTOList(agencia.getListaAutos()),
-            agencia.getMarca().getNombreMarca()
+            agencia.getMarca().getNombre()
         );
     }
 

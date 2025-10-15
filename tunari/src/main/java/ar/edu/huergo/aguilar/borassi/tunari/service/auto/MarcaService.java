@@ -29,14 +29,14 @@ public class MarcaService {
 
     public Marca crearMarca(CrearMarcaDTO dto) {
         Marca marca = new Marca();
-        marca.setNombreMarca(dto.nombreMarca());
+        marca.setNombre(dto.nombreMarca());
 
         return marcaRepository.save(marca);
     }
 
     public Marca actualizarMarca(Long id, CrearMarcaDTO dto) {
         Marca marca = obtenerMarcaPorId(id);
-        marca.setNombreMarca(dto.nombreMarca());
+        marca.setNombre(dto.nombreMarca());
 
         return marcaRepository.save(marca);
     }

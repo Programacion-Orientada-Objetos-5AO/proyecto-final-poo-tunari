@@ -34,15 +34,15 @@ class ColorRepositoryTest {
 
         // Crear marcas de prueba
         color1 = new Color();
-        color1.setNombreColor("Verde selva");
+        color1.setNombre("Verde selva");
         color1 = entityManager.persistAndFlush(color1);
 
         color2 = new Color();
-        color2.setNombreColor("Celeste cielo");
+        color2.setNombre("Celeste cielo");
         color2 = entityManager.persistAndFlush(color2);
 
         color3 = new Color();
-        color3.setNombreColor("Amarillo abeja");
+        color3.setNombre("Amarillo abeja");
         color3 = entityManager.persistAndFlush(color3);
 
         entityManager.clear();
@@ -53,14 +53,14 @@ class ColorRepositoryTest {
     void deberiaEncontrarColorPorNombreContaining() {
         // When - Buscar colores que sean Verde Selva
         List<Color> coloresEncontrados =
-                colorRepository.findByNombreColorContainingIgnoreCase("Verde selva");
+                colorRepository.findByNombreContainingIgnoreCase("Verde selva");
 
         // Then
         assertNotNull(coloresEncontrados);
         assertEquals(1, coloresEncontrados.size());
 
         List<String> nombresColores =
-                coloresEncontrados.stream().map(Color::getNombreColor).toList();
+                coloresEncontrados.stream().map(Color::getNombre).toList();
         assertTrue(nombresColores.contains("Verde selva"));
     }
 
@@ -69,11 +69,11 @@ class ColorRepositoryTest {
     void deberiaEncontrarColorCaseInsensitive() {
         // When - Buscar con diferentes casos
         List<Color> resultadoMinuscula =
-                colorRepository.findByNombreColorContainingIgnoreCase("VERDE SELVA");
+                colorRepository.findByNombreContainingIgnoreCase("VERDE SELVA");
         List<Color> resultadoMayuscula =
-                colorRepository.findByNombreColorContainingIgnoreCase("verde selva");
+                colorRepository.findByNombreContainingIgnoreCase("verde selva");
         List<Color> resultadoMixto =
-                colorRepository.findByNombreColorContainingIgnoreCase("VeRDe SelVa");
+                colorRepository.findByNombreContainingIgnoreCase("VeRDe SelVa");
 
         // Then - Todos deberían dar el mismo resultado
         assertEquals(1, resultadoMinuscula.size());
@@ -86,7 +86,7 @@ class ColorRepositoryTest {
     void deberiaRetornarListaVaciaSinCoincidencias() {
         // When
         List<Color> coloresEncontrados =
-                colorRepository.findByNombreColorContainingIgnoreCase("Rosa pastel");
+                colorRepository.findByNombreContainingIgnoreCase("Rosa pastel");
 
         // Then
         assertNotNull(coloresEncontrados);
@@ -98,16 +98,16 @@ class ColorRepositoryTest {
     void deberiaEncontrarColoresConBusquedaParcial() {
         // When - Buscar solo parte del nombre
         List<Color> primerResultado =
-                colorRepository.findByNombreColorContainingIgnoreCase("Ve");
+                colorRepository.findByNombreContainingIgnoreCase("Ve");
         List<Color> segundoResultado =
-                colorRepository.findByNombreColorContainingIgnoreCase("Verd");
+                colorRepository.findByNombreContainingIgnoreCase("Verd");
 
         // Then
         assertEquals(1, primerResultado.size());
-        assertEquals("Verde selva", primerResultado.get(0).getNombreColor());
+        assertEquals("Verde selva", primerResultado.get(0).getNombre());
 
         assertEquals(1, segundoResultado.size());
-        assertEquals("Verde selva", segundoResultado.get(0).getNombreColor());
+        assertEquals("Verde selva", segundoResultado.get(0).getNombre());
     }
 
     @Test
@@ -115,7 +115,7 @@ class ColorRepositoryTest {
     void deberiaGuardarYRecuperarColor() {
         // Given
         Color nuevoColor = new Color();
-        nuevoColor.setNombreColor("Azul marino");
+        nuevoColor.setNombre("Azul marino");
 
         // When
         Color colorGuardado = colorRepository.save(nuevoColor);
@@ -129,7 +129,7 @@ class ColorRepositoryTest {
                 colorRepository.findById(colorGuardado.getId());
 
         assertTrue(colorRecuperado.isPresent());
-        assertEquals("Azul marino", colorRecuperado.get().getNombreColor());
+        assertEquals("Azul marino", colorRecuperado.get().getNombre());
     }
 
     @Test
@@ -144,20 +144,20 @@ class ColorRepositoryTest {
         assertTrue(colorOptional.isPresent());
 
         Color color = colorOptional.get();
-        color.setNombreColor(nuevoNombreColor);
+        color.setNombre(nuevoNombreColor);
 
         Color colorActualizado = colorRepository.save(color);
         entityManager.flush();
 
         // Then
-        assertEquals(nuevoNombreColor, colorActualizado.getNombreColor());
+        assertEquals(nuevoNombreColor, colorActualizado.getNombre());
 
         // Verificar persistencia
         entityManager.clear();
         Optional<Color> verificarColor =
                 colorRepository.findById(color1.getId());
         assertTrue(verificarColor.isPresent());
-        assertEquals(nuevoNombreColor, verificarColor.get().getNombreColor());
+        assertEquals(nuevoNombreColor, verificarColor.get().getNombre());
     }
 
     @Test
@@ -187,7 +187,7 @@ class ColorRepositoryTest {
         assertNotNull(todosLosColores);
         assertEquals(3, todosLosColores.size());
 
-        List<String> nombresColoresEncontrados = todosLosColores.stream().map(Color::getNombreColor).toList();
+        List<String> nombresColoresEncontrados = todosLosColores.stream().map(Color::getNombre).toList();
         assertTrue(nombresColoresEncontrados.contains("Verde selva"));
         assertTrue(nombresColoresEncontrados.contains("Amarillo abeja"));
         assertTrue(nombresColoresEncontrados.contains("Celeste cielo"));
@@ -204,7 +204,7 @@ class ColorRepositoryTest {
 
         // Agregar un ingrediente más y verificar
         Color nuevoColor = new Color();
-        nuevoColor.setNombreColor("Blanco perlado");
+        nuevoColor.setNombre("Blanco perlado");
         entityManager.persistAndFlush(nuevoColor);
 
         assertEquals(4, colorRepository.count());
@@ -215,7 +215,7 @@ class ColorRepositoryTest {
     void deberiaValidarRestricciones() {
         // Given - Crear ingrediente con nombre vacío
         Color colorInvalido = new Color();
-        colorInvalido.setNombreColor(""); // Viola @NotBlank
+        colorInvalido.setNombre(""); // Viola @NotBlank
 
         // When & Then
         assertThrows(Exception.class, () -> {
@@ -228,10 +228,10 @@ class ColorRepositoryTest {
     void deberiaManejarNombresConEspacios() {
         // When - Buscar parte del nombre que incluye espacios
         List<Color> resultadoColor =
-                colorRepository.findByNombreColorContainingIgnoreCase("Verd");
+                colorRepository.findByNombreContainingIgnoreCase("Verd");
 
         // Then
         assertEquals(1, resultadoColor.size());
-        assertEquals("Verde selva", resultadoColor.get(0).getNombreColor());
+        assertEquals("Verde selva", resultadoColor.get(0).getNombre());
     }
 }

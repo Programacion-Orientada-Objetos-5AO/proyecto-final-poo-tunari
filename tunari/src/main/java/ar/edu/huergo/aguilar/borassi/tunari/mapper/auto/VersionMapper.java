@@ -13,14 +13,14 @@ public class VersionMapper {
     public VersionDTO toDTO(Version version) {
         return new VersionDTO(
             version.getId(),
-            version.getMarca().getNombreMarca(),
-            version.getNombreVersion()
+            version.getMarca().getNombre(),
+            version.getNombre()
         );
     }
 
     public Version toEntity(VersionDTO dto) {
         Version version = new Version();
-        version.setNombreVersion(dto.nombreVersion());
+        version.setNombre(dto.nombreVersion());
         return version;
     }
 

@@ -40,7 +40,7 @@ class ColorServiceTest {
     void setUp() {
         colorEjemplo = new Color();
         colorEjemplo.setId(1L);
-        colorEjemplo.setNombreColor("Gris titanio");
+        colorEjemplo.setNombre("Gris titanio");
     }
 
     @Test
@@ -56,7 +56,7 @@ class ColorServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
-        assertEquals("Gris titanio", resultado.get(0).getNombreColor());
+        assertEquals("Gris titanio", resultado.get(0).getNombre());
         verify(colorRepository, times(1)).findAll();
     }
 
@@ -73,7 +73,7 @@ class ColorServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
-        assertEquals("Gris titanio", resultado.getNombreColor());
+        assertEquals("Gris titanio", resultado.getNombre());
         verify(colorRepository, times(1)).findById(id);
     }
 
@@ -99,7 +99,7 @@ class ColorServiceTest {
         CrearColorDTO dto = new CrearColorDTO("Gris titanio", 1L);
         Color colorGuardado = new Color();
         colorGuardado.setId(10L);
-        colorGuardado.setNombreColor("Gris topo");
+        colorGuardado.setNombre("Gris topo");
 
         when(colorRepository.save(any(Color.class))).thenReturn(colorGuardado);
 
@@ -109,7 +109,7 @@ class ColorServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(10L, resultado.getId());
-        assertEquals("Gris topo", resultado.getNombreColor());
+        assertEquals("Gris topo", resultado.getNombre());
         verify(colorRepository, times(1)).save(any(Color.class));
     }
 
@@ -122,7 +122,7 @@ class ColorServiceTest {
 
         Color devueltoPorSave = new Color();
         devueltoPorSave.setId(1L);
-        devueltoPorSave.setNombreColor("Gris elefante actualizado");
+        devueltoPorSave.setNombre("Gris elefante actualizado");
         when(colorRepository.save(any(Color.class))).thenReturn(devueltoPorSave);
 
         CrearColorDTO dto = new CrearColorDTO("Gris elefante actualizado", 1L);
@@ -133,9 +133,9 @@ class ColorServiceTest {
         // Then
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
-        assertEquals("Gris elefante actualizado", resultado.getNombreColor());
+        assertEquals("Gris elefante actualizado", resultado.getNombre());
         // también chequeamos que en la entidad cargada se haya seteado el nombre
-        assertEquals("Gris elefante actualizado", colorEjemplo.getNombreColor());
+        assertEquals("Gris elefante actualizado", colorEjemplo.getNombre());
         verify(colorRepository, times(1)).findById(id);
         verify(colorRepository, times(1)).save(colorEjemplo);
     }

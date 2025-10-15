@@ -32,7 +32,7 @@ class ModeloValidatorTest {
     void deberiValidarModleoCorrectoSinErrores() {
         // Given
         Modelo modelo = new Modelo();
-        modelo.setNombreModelo("Ford Bronco Sport");
+        modelo.setNombre("Ford Bronco Sport");
 
         // When
         Set<ConstraintViolation<Modelo>> violaciones = validator.validate(modelo);
@@ -47,7 +47,7 @@ class ModeloValidatorTest {
     void deberiaFallarValidacionConNombreNull() {
         // Given
         Modelo modelo = new Modelo();
-        modelo.setNombreModelo(null);
+        modelo.setNombre(null);
 
         // When
         Set<ConstraintViolation<Modelo>> violaciones = validator.validate(modelo);
@@ -65,7 +65,7 @@ class ModeloValidatorTest {
     void deberiaFallarValidacionConNombreVacio() {
         // Given
         Modelo modelo = new Modelo();
-        modelo.setNombreModelo("");
+        modelo.setNombre("");
 
         // When
         Set<ConstraintViolation<Modelo>> violaciones = validator.validate(modelo);
@@ -81,7 +81,7 @@ class ModeloValidatorTest {
     void deberiaFallarValidacionConNombreSoloEspacios() {
         // Given
         Modelo modelo = new Modelo();
-        modelo.setNombreModelo("   ");
+        modelo.setNombre("   ");
 
         // When
         Set<ConstraintViolation<Modelo>> violaciones = validator.validate(modelo);
@@ -100,7 +100,7 @@ class ModeloValidatorTest {
     void deberiaAceptarNombresDeColoresComunes(String nombreValido) {
         // Given
         Modelo modelo = new Modelo();
-        modelo.setNombreModelo(nombreValido);
+        modelo.setNombre(nombreValido);
 
         // When
         Set<ConstraintViolation<Modelo>> violaciones = validator.validate(modelo);
@@ -114,7 +114,7 @@ class ModeloValidatorTest {
     @DisplayName("Debería fallar validación con nombre muy corto")
     void deberiaFallarValidacionConNombreCorto() {
         Modelo modelo = new Modelo();
-        modelo.setNombreModelo("F");
+        modelo.setNombre("F");
 
         Set<ConstraintViolation<Modelo>> violaciones = validator.validate(modelo);
 
@@ -129,7 +129,7 @@ class ModeloValidatorTest {
     @DisplayName("Debería fallar validación con nombre muy largo")
     void deberiaFallarValidacionConNombreLargo() {
         Modelo modelo = new Modelo();
-        modelo.setNombreModelo("F".repeat(101));
+        modelo.setNombre("F".repeat(101));
 
         Set<ConstraintViolation<Modelo>> violaciones = validator.validate(modelo);
 
@@ -144,9 +144,9 @@ class ModeloValidatorTest {
     @DisplayName("Debería aceptar nombres en el límite válido")
     void deberiaAceptarLimitesConSize() {
         Modelo m1 = new Modelo();
-        m1.setNombreModelo("FO"); // 2
+        m1.setNombre("FO"); // 2
         Modelo m2 = new Modelo();
-        m2.setNombreModelo("F".repeat(100)); // 100
+        m2.setNombre("F".repeat(100)); // 100
 
         assertTrue(validator.validate(m1).isEmpty());
         assertTrue(validator.validate(m2).isEmpty());

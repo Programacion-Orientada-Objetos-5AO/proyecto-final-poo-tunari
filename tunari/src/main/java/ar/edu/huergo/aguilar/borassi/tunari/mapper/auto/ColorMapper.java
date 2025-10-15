@@ -13,8 +13,8 @@ public class ColorMapper {
     public ColorDTO toDTO(Color color) {
         return new ColorDTO(
             color.getId(),
-            color.getMarca().getNombreMarca(),
-            color.getNombreColor()
+            color.getMarca().getNombre(),
+            color.getNombre()
         );
     }
 
