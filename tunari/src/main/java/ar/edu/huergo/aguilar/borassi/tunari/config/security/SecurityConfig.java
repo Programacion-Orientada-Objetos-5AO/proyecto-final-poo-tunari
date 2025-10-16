@@ -23,84 +23,46 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ar.edu.huergo.aguilar.borassi.tunari.repository.security.UsuarioRepository;
 
+
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-
+    
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http,
-            JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
+        JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
+        // Configuración central de Spring Security con JWT:
+        // - Deshabilitamos CSRF porque no usamos cookies/sesiones en un API stateless.
+        // - Forzamos manejo de sesión sin estado (los datos de auth vienen en el JWT).
+        // - Permitimos libre acceso solo al login, el resto requiere autenticación y roles.
+        // - Registramos nuestro filtro JWT antes del filtro de usuario/contraseña.
+        http.csrf(csrf -> csrf.disable())
+                .sessionManagement(
+                        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
 
-        http.csrf(csrf -> csrf
-                // Habilitamos CSRF solo para vistas web (Thymeleaf), lo ignoramos en la API
-                .csrfTokenRepository(org.springframework.security.web.csrf.CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers("/api/**"))
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar", "/api/auth/login").permitAll()
 
-            .sessionManagement(session -> session
-                // API usa JWT (stateless), web usa sesiones normales
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(false))
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/img/**", "/webjars/**").permitAll()
 
-            .authorizeHttpRequests(auth -> auth
-                // --- RUTAS PÚBLICAS ---
-                .requestMatchers(
-                    "/web/", 
-                    "/web/inicio", 
-                    "/web/login", 
-                    "/web/registro", 
-                    "/web/acerca",
-                    "/css/**", 
-                    "/script/**", 
-                    "/images/**", 
-                    "/favicon.ico"
-                ).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/**").hasAnyRole("CLIENTE", "ADMIN")
 
-                // --- RUTAS PROTEGIDAS ---
-                .requestMatchers("/web/dashboard/**", "/web/perfil/**").authenticated()
-
-                // --- API pública ---
-                .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar").permitAll()
-
-                // --- API protegida ---
-                .requestMatchers("/api/**").authenticated()
-
-                // Todo lo demás requiere autenticación
-                .anyRequest().authenticated())
-
-            // --- LOGIN WEB PERSONALIZADO ---
-            .formLogin(form -> form
-                .loginPage("/web/login")             // Página de login Thymeleaf
-                .loginProcessingUrl("/web/login")    // Endpoint POST que procesa el login
-                .defaultSuccessUrl("/web/inicio", true) // Redirige al iniciar sesión correctamente
-                .failureUrl("/web/login?error")      // Redirige si falla el login
-                .permitAll())
-
-            // --- LOGOUT PERSONALIZADO ---
-            .logout(logout -> logout
-                .logoutUrl("/web/logout")
-                .logoutSuccessUrl("/web/login?logout")
-                .permitAll())
-
-            // --- MANEJO DE ERRORES ---
-            .exceptionHandling(exceptions -> exceptions
-                .accessDeniedHandler(accessDeniedHandler())
-                .authenticationEntryPoint(authenticationEntryPoint()))
-
-            // --- FILTRO JWT PARA API ---
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
+                        .anyRequest().hasRole("ADMIN")
+            )
+                .exceptionHandling(
+                        exceptions -> exceptions.accessDeniedHandler(accessDeniedHandler())
+                                .authenticationEntryPoint(authenticationEntryPoint()))
+                .addFilterBefore(jwtAuthenticationFilter,
+                        UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
-    // --- ENCODER DE CONTRASEÑAS ---
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // --- HANDLER: Acceso denegado ---
     @Bean
     AccessDeniedHandler accessDeniedHandler() {
         return (request, response, accessDeniedException) -> {
@@ -108,18 +70,14 @@ public class SecurityConfig {
             response.setContentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE);
 
             ObjectMapper mapper = new ObjectMapper();
-            String jsonResponse = mapper.writeValueAsString(java.util.Map.of(
-                "type", "https://http.dev/problems/access-denied",
-                "title", "Acceso denegado",
-                "status", 403,
-                "detail", "No tenés permisos para acceder a este recurso"
-            ));
+            String jsonResponse = mapper.writeValueAsString(java.util.Map.of("type",
+                    "https://http.dev/problems/access-denied", "title", "Acceso denegado", "status",
+                    403, "detail", "No tienes permisos para acceder a este recurso"));
 
             response.getWriter().write(jsonResponse);
         };
     }
 
-    // --- HANDLER: Usuario no autenticado ---
     @Bean
     AuthenticationEntryPoint authenticationEntryPoint() {
         return (request, response, authException) -> {
@@ -127,44 +85,44 @@ public class SecurityConfig {
             response.setContentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE);
 
             ObjectMapper mapper = new ObjectMapper();
-            String jsonResponse = mapper.writeValueAsString(java.util.Map.of(
-                "type", "https://http.dev/problems/unauthorized",
-                "title", "No autorizado",
-                "status", 401,
-                "detail", "Credenciales inválidas o faltantes"
-            ));
+            String jsonResponse = mapper.writeValueAsString(java.util.Map.of("type",
+                    "https://http.dev/problems/unauthorized", "title", "No autorizado", "status",
+                    401, "detail", "Credenciales inválidas o faltantes"));
 
             response.getWriter().write(jsonResponse);
         };
     }
 
-    // --- CARGA DE USUARIO DESDE BASE ---
     @Bean
     UserDetailsService userDetailsService(UsuarioRepository usuarioRepository) {
+        // Adaptamos nuestra entidad Usuario a UserDetails de Spring Security.
         return username -> usuarioRepository.findByUsername(username)
                 .map(usuario -> org.springframework.security.core.userdetails.User
-                        .withUsername(usuario.getUsername())
-                        .password(usuario.getPassword())
-                        .roles(usuario.getRoles().stream()
-                            .map(r -> r.getNombre())
-                            .toArray(String[]::new))
+                        .withUsername(usuario.getUsername()).password(usuario.getPassword())
+                        .roles(usuario.getRoles().stream().map(r -> r.getNombre())
+                                .toArray(String[]::new))
                         .build())
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+                .orElseThrow(
+                        () -> new UsernameNotFoundException("Usuario no encontrado: " + username));
     }
 
-    // --- AUTENTICACIÓN LOCAL ---
     @Bean
     DaoAuthenticationProvider daoAuthenticationProvider(UserDetailsService userDetailsService,
             PasswordEncoder passwordEncoder) {
+        // Provider de autenticación que usa nuestro UserDetailsService y el encoder
+        // para validar credentials en /api/auth/login.
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }
 
-    // --- AUTH MANAGER ---
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)
             throws Exception {
+        // Exponemos el AuthenticationManager que usará el controlador de login.
         return configuration.getAuthenticationManager();
     }
 }
+
+
+
