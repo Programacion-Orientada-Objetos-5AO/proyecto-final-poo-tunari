@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.publicacion.PublicacionDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.dto.publicacion.CrearPublicacionDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.publicacion.Publicacion;
 
 import ar.edu.huergo.aguilar.borassi.tunari.repository.publicacion.PublicacionRepository;
@@ -16,7 +16,7 @@ public class PublicacionService {
     @Autowired
     private PublicacionRepository publicacionRepository;
 
-    public List<Publicacion> obtenerTodosLosPublicacions() {
+    public List<Publicacion> obtenerTodasLasPublicaciones() {
         return publicacionRepository.findAll();
     }
 
@@ -25,7 +25,7 @@ public class PublicacionService {
                 .orElseThrow(() -> new EntityNotFoundException("Publicacion no encontrada."));
     }
 
-    public Publicacion crearPublicacion(PublicacionDTO dto) {
+    public Publicacion crearPublicacion(CrearPublicacionDTO dto) {
         Publicacion publicacion = new Publicacion();   
         return publicacionRepository.save(publicacion);
     }
