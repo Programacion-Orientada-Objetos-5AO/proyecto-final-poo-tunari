@@ -36,25 +36,34 @@ public class SecurityConfig {
         // - Forzamos manejo de sesión sin estado (los datos de auth vienen en el JWT).
         // - Permitimos libre acceso solo al login, el resto requiere autenticación y roles.
         // - Registramos nuestro filtro JWT antes del filtro de usuario/contraseña.
-        http.csrf(csrf -> csrf.disable())
-                .sessionManagement(
-                        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
+        http
+    .csrf(csrf -> csrf.disable())
+    .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+    .authorizeHttpRequests(auth -> auth
+        // Rutas públicas (no requieren autenticación)
+        .requestMatchers(
+            "/",                         // index
+            "/auth/**",                  // login y registro Thymeleaf
+            "/api/auth/**",              // login API
+            "/api/usuarios/registrar",   // registro API
+            "/css/**", "/js/**", "/script/**", "/img/**", "/webjars/**", "/favicon.ico"
+        ).permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar", "/api/auth/login").permitAll()
+        // (Opcional) rutas públicas para feeds
+        .requestMatchers(HttpMethod.GET, "/feeds/**").permitAll()
 
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("/css/**", "/js/**", "/img/**", "/webjars/**").permitAll()
+        // Cualquier otra ruta GET requiere estar logueado
+        .requestMatchers(HttpMethod.GET, "/**").hasAnyRole("CLIENTE", "ADMIN")
 
-                        .requestMatchers(HttpMethod.GET, "/**").hasAnyRole("CLIENTE", "ADMIN")
+        // Cualquier otra request (POST, PUT, DELETE) solo admin
+        .anyRequest().hasRole("ADMIN")
+    )
+    .exceptionHandling(exceptions -> exceptions
+        .accessDeniedHandler(accessDeniedHandler())
+        .authenticationEntryPoint(authenticationEntryPoint())
+    )
+    .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-                        .anyRequest().hasRole("ADMIN")
-            )
-                .exceptionHandling(
-                        exceptions -> exceptions.accessDeniedHandler(accessDeniedHandler())
-                                .authenticationEntryPoint(authenticationEntryPoint()))
-                .addFilterBefore(jwtAuthenticationFilter,
-                        UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

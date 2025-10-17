@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,70 +13,69 @@
 
   <!-- Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="icon" href="data:,">
 
   <!-- CSS personalizado -->
-  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body>
   <!-- NAVBAR minimalista -->
   <nav class="navbar navbar-expand-lg shadow-sm py-3">
     <div class="container">
-      <a class="navbar-brand letra-tunari">Tunari</a>
+      <a class="navbar-brand letra-tunari" th:href="@{/}">Tunari</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navTunari">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navTunari">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="feeds/feed-marcas.html">Marcas</a></li>
+          <li class="nav-item"><a class="nav-link active" th:href="@{/}">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/feeds/marcas}">Marcas</a></li>
           <li class="nav-item"><a class="nav-link" href="#" id="searchToggle"><i class="bi bi-search"></i> Buscar</a></li>
         </ul>
       </div>
+
       <div class="pos-relative ms-lg-3">
-        <button id="toggleMenu" class="icono-sesion btn btn-link p-0" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Menú usuario">
+        <button id="toggleMenu" class="icono-sesion btn btn-link p-0" type="button">
           <i class="bi bi-person-circle" style="font-size:1.6rem; color: #ffffff;"></i>
-          </button>
-          <div id="userMenu" class="user-menu" style="display:none;">
-              <a href="login/iniciar-sesion.html" class="user-menu-item">Iniciar sesión</a>
-              <a href="registro/registrarse.html" class="user-menu-item">Registrarse</a>
-          </div>
+        </button>
+        <div id="userMenu" class="user-menu" style="display:none;">
+          <a th:href="@{/auth/login}" class="user-menu-item">Iniciar sesión</a>
+          <a th:href="@{/auth/register}" class="user-menu-item">Registrarse</a>
         </div>
+      </div>
     </div>
   </nav>
 
-  <!-- HERO estilo Apple -->
+  <!-- HERO -->
   <header class="hero-apple">
     <div class="hero-content">
       <h1 class="headline">¿Querés comprar un auto sin preocuparte?</h1>
       <p class="subheadline">Elegí tranquilo, nosotros te acompañamos.</p>
-    <a href="feeds/feed-marcas.html" class="btn btn-hero btn-lg mt-4">Explorar ahora</a>
+      <a th:href="@{/feeds/marcas}" class="btn btn-hero btn-lg mt-4">Explorar ahora</a>
     </div>
   </header>
 
-<!-- BENEFICIOS estilo info-section -->
-<section class="info-section left">
-  <div class="info-text">
-    <h2>Seguro</h2>
-    <p>Agencias oficiales verificadas.</p>
-    <p class="mini-leyenda">Cada concesionaria pasa por un control de calidad y respaldo oficial.</p>
-  </div>
-  <div class="info-img">
-    <div class="icon-circle">
-      <i class="bi bi-shield-check"></i>
-    </div>
-  </div>
-</section>
+    <!-- BENEFICIOS -->
+    <section class="info-section left">
+      <div class="info-text">
+        <h2>Seguro</h2>
+        <p>Agencias oficiales verificadas.</p>
+        <p class="mini-leyenda">Cada concesionaria pasa por un control de calidad y respaldo oficial.</p>
+      </div>
+      <div class="info-img">
+        <div class="icon-circle"><i class="bi bi-shield-check"></i></div>
+      </div>
+    </section>
 
     <section class="info-section right">
       <div class="info-img">
-        <div class="icon-circle">
-          <i class="bi bi-lightning-charge"></i>
-        </div>
+        <div class="icon-circle"><i class="bi bi-lightning-charge"></i></div>
       </div>
       <div class="info-text">
         <h2>Rápido</h2>
         <p>Seguimiento en tiempo real.</p>
-        <p class="mini-leyenda">Conocé el estado de la compra de tu vehículo de forma rápida, segura y, sobre todo, transparente.</p>
+        <p class="mini-leyenda">Conocé el estado de la compra de tu vehículo de forma rápida, segura y transparente.</p>
       </div>
     </section>
 
@@ -87,56 +86,122 @@
         <p class="mini-leyenda">Opciones cosméticas y mecánicas para que tu auto refleje tu estilo.</p>
       </div>
       <div class="info-img">
-        <div class="icon-circle">
-          <i class="bi bi-stars"></i>
-        </div>
+        <div class="icon-circle"><i class="bi bi-stars"></i></div>
       </div>
     </section>
 
     <section class="info-section right">
       <div class="info-img">
-        <div class="icon-circle">
-          <i class="bi bi-database"></i>
-        </div>
+        <div class="icon-circle"><i class="bi bi-database"></i></div>
       </div>
       <div class="info-text">
         <h2>Actualizado</h2>
         <p>Stock en tiempo real.</p>
         <p class="mini-leyenda">Las marcas y agencias mantienen la información cargada al instante.</p>
         <ul class="mini-list">
-        <li><i class="bi bi-check"></i> Concesionarias oficiales</li>
-        <li><i class="bi bi-check"></i> Respaldadas por garantía</li>
+          <li><i class="bi bi-check"></i> Concesionarias oficiales</li>
+          <li><i class="bi bi-check"></i> Respaldadas por garantía</li>
         </ul>
-      <a href="feeds/feed-marcas.html" class="btn btn-accent-ver-marcas mt-4" style="margin: 0;">Ver marcas disponibles</a>
+        <a th:href="@{/feeds/marcas}" class="btn btn-accent-ver-marcas mt-4" style="margin: 0;">Ver marcas disponibles</a>
       </div>
     </section>
 
-    <section class="apple-section opiniones text-center">
-      <div class="container">
-        <h2 class="fade-up">Lo que dicen nuestros usuarios</h2>
-        <div class="row g-5 mt-5">
-          <div class="col-md-4">
-            <div class="opinion-card p-4">
-              <p>“Pude seguir mi auto en todo momento, fue como rastrear un paquete. Increíble.”</p>
-              <h6>- Martín, comprador de un DS4</h6>
-            </div>
+  <!-- SECCIONES DE INFO -->
+  <section class="info-section left">
+    <div class="info-text">
+      <h2>Seguro</h2>
+      <p>Agencias oficiales verificadas.</p>
+      <p class="mini-leyenda">
+        Cada concesionaria pasa por un control de calidad y respaldo oficial.
+      </p>
+    </div>
+    <div class="info-img">
+      <div class="icon-circle">
+        <i class="bi bi-shield-check"></i>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-section right">
+    <div class="info-img">
+      <div class="icon-circle">
+        <i class="bi bi-lightning-charge"></i>
+      </div>
+    </div>
+    <div class="info-text">
+      <h2>Rápido</h2>
+      <p>Seguimiento en tiempo real.</p>
+      <p class="mini-leyenda">
+        Conocé el estado de la compra de tu vehículo de forma rápida, segura y, sobre todo, transparente.
+      </p>
+    </div>
+  </section>
+
+  <section class="info-section left">
+    <div class="info-text">
+      <h2>Personalizado</h2>
+      <p>Accesorios originales y repuestos.</p>
+      <p class="mini-leyenda">
+        Opciones cosméticas y mecánicas para que tu auto refleje tu estilo.
+      </p>
+    </div>
+    <div class="info-img">
+      <div class="icon-circle">
+        <i class="bi bi-stars"></i>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-section right">
+    <div class="info-img">
+      <div class="icon-circle">
+        <i class="bi bi-database"></i>
+      </div>
+    </div>
+    <div class="info-text">
+      <h2>Actualizado</h2>
+      <p>Stock en tiempo real.</p>
+      <p class="mini-leyenda">
+        Las marcas y agencias mantienen la información cargada al instante.
+      </p>
+      <ul class="mini-list">
+        <li><i class="bi bi-check"></i> Concesionarias oficiales</li>
+        <li><i class="bi bi-check"></i> Respaldadas por garantía</li>
+      </ul>
+      <a th:href="@{/feeds/marcas}" class="btn btn-accent-ver-marcas mt-4" style="margin: 0;">
+        Ver marcas disponibles
+      </a>
+    </div>
+  </section>
+
+  <!-- OPINIONES -->
+  <section class="apple-section opiniones text-center">
+    <div class="container">
+      <h2 class="fade-up">Lo que dicen nuestros usuarios</h2>
+      <div class="row g-5 mt-5">
+        <div class="col-md-4">
+          <div class="opinion-card p-4">
+            <p>“Pude seguir mi auto en todo momento, fue como rastrear un paquete. Increíble.”</p>
+            <h6>- Martín, comprador de un DS4</h6>
           </div>
-          <div class="col-md-4">
-            <div class="opinion-card p-4">
-              <p>“Me sentí tranquilo sabiendo que lo que veía estaba disponible donde decía.”</p>
-              <h6>- Germán, en proceso de compra...</h6>
-            </div>
+        </div>
+        <div class="col-md-4">
+          <div class="opinion-card p-4">
+            <p>“Me sentí tranquilo sabiendo que lo que veía estaba disponible donde decía.”</p>
+            <h6>- Germán, en proceso de compra...</h6>
           </div>
-          <div class="col-md-4">
-            <div class="opinion-card p-4">
-              <p>“Las agencias verificadas me dieron confianza, cero sorpresas.”</p>
-              <h6>- Lucas, comprador de un Giullieta</h6>
-            </div>
+        </div>
+        <div class="col-md-4">
+          <div class="opinion-card p-4">
+            <p>“Las agencias verificadas me dieron confianza, cero sorpresas.”</p>
+            <h6>- Lucas, comprador de un Giullieta</h6>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
+  <!-- CÓMO FUNCIONA -->
   <section class="apple-section como-funciona text-center">
     <div class="container">
       <h2 class="fade-up mt-0">Cómo funciona Tunari</h2>
@@ -165,12 +230,13 @@
     </div>
   </section>
 
+  <!-- ESTADÍSTICAS -->
   <section class="stats-section text-center mt-2">
     <div class="container">
       <h2 class="mb-2 mt-5">Nuestros números</h2>
       <div class="row g-4 mt-5">
         <div class="col-md-4">
-          <a href="../templates/feeds/feed.html" style="text-decoration: none; color: inherit;">
+          <a th:href="@{/feeds/autos}" style="text-decoration: none; color: inherit;">
             <div class="stat-card">
               <i class="bi bi-car-front-fill"></i>
               <h2 class="counter" data-target="+35000">0</h2>
@@ -178,8 +244,9 @@
             </div>
           </a>
         </div>
+
         <div class="col-md-4">
-          <a href="../templates/feeds/feed-marcas.html" style="text-decoration: none; color: inherit;">
+          <a th:href="@{/feeds/marcas}" style="text-decoration: none; color: inherit;">
             <div class="stat-card">
               <i class="bi bi-building"></i>
               <h2 class="counter" data-target="+60">0</h2>
@@ -187,77 +254,73 @@
             </div>
           </a>
         </div>
+
         <div class="col-md-4">
-          <a href="../templates/login/iniciar-sesion.html" style="text-decoration: none; color: inherit;">
-          <div class="stat-card">
-            <i class="bi bi-people"></i>
+          <a th:href="@{/auth/login}" style="text-decoration: none; color: inherit;">
+            <div class="stat-card">
+              <i class="bi bi-people"></i>
               <h2 class="counter" data-target="+10000">0</h2>
               <p>Usuarios activos</p>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
     </div>
   </section>
-
-  <footer class="gradient-footer text-white py-5">
-      <div class="container">
-          <div class="row g-4">
-          <div class="col-lg-4">
-              <h5 class="fw-bold mb-3 letra-tunari" style="font-weight: normal;">Tunari</h5>
-              <p class="opacity-75">La mejor forma de elegir tu próximo auto.</p>
-              <div class="d-flex gap-2 mt-4">
-              <a href="#" class="social-icon">
-                  <i class="bi bi-instagram" style="color: #ffffff;"></i>
-              </a>
-              <a href="#" class="social-icon">
-                  <i class="bi bi-twitter" style="color: #ffffff;"></i>
-              </a>
-              <a href="#" class="social-icon">
-                  <i class="bi bi-tiktok" style="color: #ffffff;"></i>
-              </a>
-              </div>
+  
+  <!-- FOOTER -->
+  <footer class="gradient-footer text-white py-5 mt-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h5 class="fw-bold mb-3 letra-tunari" style="font-weight: normal;">Tunari</h5>
+          <p class="opacity-75">La mejor forma de elegir tu próximo auto.</p>
+          <div class="d-flex gap-2 mt-4">
+            <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-tiktok"></i></a>
           </div>
+        </div>
 
-          <div class="col-lg-2 col-md-4">
-              <h6 class="fw-bold mb-3">Links rápidos</h6>
-              <ul class="list-unstyled">
-              <li class="mb-2"><a href="#!" class="footer-link">Sobre nosotros</a></li>
-              <li class="mb-2"><a href="login/iniciar-sesion.html" class="footer-link">Iniciar sesión</a></li>
-              <li class="mb-2"><a href="registro/registrarse.html" class="footer-link">Registrar cuenta</a></li>
-              <li class="mb-2"><a href="#!" class="footer-link">Contacto</a></li>
-              </ul>
-          </div>
+        <div class="col-lg-2 col-md-4">
+          <h6 class="fw-bold mb-3">Links rápidos</h6>
+          <ul class="list-unstyled">
+            <li><a href="#" class="footer-link">Sobre nosotros</a></li>
+            <li><a th:href="@{/auth/login}" class="footer-link">Iniciar sesión</a></li>
+            <li><a th:href="@{/auth/register}" class="footer-link">Registrar cuenta</a></li>
+            <li><a href="#" class="footer-link">Contacto</a></li>
+          </ul>
+        </div>
 
-          <div class="col-lg-2 col-md-4">
-              <h6 class="fw-bold mb-3">Recursos</h6>
-              <ul class="list-unstyled">
-              <li class="mb-2"><a href="feeds/feed-marcas.html" class="footer-link">Vehículos</a></li>
-              <li class="mb-2"><a href="#!" class="footer-link">Repuestos</a></li>
-              <li class="mb-2"><a href="#!" class="footer-link">Cosméticos</a></li>
-              </ul>
-          </div>
+        <div class="col-lg-2 col-md-4">
+          <h6 class="fw-bold mb-3">Recursos</h6>
+          <ul class="list-unstyled">
+            <li><a th:href="@{/feeds/marcas}" class="footer-link">Vehículos</a></li>
+            <li><a href="#" class="footer-link">Repuestos</a></li>
+            <li><a href="#" class="footer-link">Cosméticos</a></li>
+          </ul>
+        </div>
 
-          <hr class="my-4 opacity-25">
+        <hr class="my-4 opacity-25">
 
-          <div class="row align-items-center">
+        <div class="row align-items-center">
           <div class="col-md-6 text-center text-md-start">
-              <small class="opacity-75">© 2025 Tunari. All rights reserved.</small>
+            <small class="opacity-75">© 2025 Tunari. All rights reserved.</small>
           </div>
           <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-              <a href="#" class="footer-link me-3"><small>Términos y Condiciones</small></a>
-              <a href="#" class="footer-link me-3"><small>Eliminar cuenta</small></a>
+            <a href="#" class="footer-link me-3"><small>Términos y Condiciones</small></a>
+            <a href="#" class="footer-link me-3"><small>Eliminar cuenta</small></a>
           </div>
-          </div>
+        </div>
       </div>
+    </div>
   </footer>
 
-  <!-- JS Bootstrap + animaciones -->
+  <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../static/script/index.js"></script>
+  <script th:src="@{/script/index.js}"></script>
   <script src="https://unpkg.com/scrollreveal"></script>
   <script>
-    // Animaciones con ScrollReveal
     ScrollReveal().reveal('.fade-up', { duration: 1000, origin: 'bottom', distance: '50px' });
     ScrollReveal().reveal('.slide-left', { duration: 1000, origin: 'left', distance: '50px' });
     ScrollReveal().reveal('.slide-right', { duration: 1000, origin: 'right', distance: '50px' });
