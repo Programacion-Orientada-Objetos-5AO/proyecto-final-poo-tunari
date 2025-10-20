@@ -43,8 +43,7 @@ public class SecurityConfig {
                     "/auth/register", 
                     "/auth/login", 
                     "/auth/registrarse",      
-                    "/auth/**",
-                    "/favicon.ico"
+                    "/auth/**"
                 ).permitAll()
                 .requestMatchers("/css/**", "/js/**", "/script/**", "/img/**", "/fonts/**").permitAll()
 
