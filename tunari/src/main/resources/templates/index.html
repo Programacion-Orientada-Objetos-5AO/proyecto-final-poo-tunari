@@ -13,8 +13,8 @@
 
   <!-- Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="icon" href="data:,">
-
+  <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+  
   <!-- CSS personalizado -->
   <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -41,7 +41,7 @@
         </button>
         <div id="userMenu" class="user-menu" style="display:none;">
           <a th:href="@{/auth/login}" class="user-menu-item">Iniciar sesión</a>
-          <a th:href="@{/auth/register}" class="user-menu-item">Registrarse</a>
+          <a th:href="@{/auth/registrarse}" class="btn btn-primary">Registrarse</a>
         </div>
       </div>
     </div>
@@ -105,74 +105,6 @@
         <a th:href="@{/feeds/marcas}" class="btn btn-accent-ver-marcas mt-4" style="margin: 0;">Ver marcas disponibles</a>
       </div>
     </section>
-
-  <!-- SECCIONES DE INFO -->
-  <section class="info-section left">
-    <div class="info-text">
-      <h2>Seguro</h2>
-      <p>Agencias oficiales verificadas.</p>
-      <p class="mini-leyenda">
-        Cada concesionaria pasa por un control de calidad y respaldo oficial.
-      </p>
-    </div>
-    <div class="info-img">
-      <div class="icon-circle">
-        <i class="bi bi-shield-check"></i>
-      </div>
-    </div>
-  </section>
-
-  <section class="info-section right">
-    <div class="info-img">
-      <div class="icon-circle">
-        <i class="bi bi-lightning-charge"></i>
-      </div>
-    </div>
-    <div class="info-text">
-      <h2>Rápido</h2>
-      <p>Seguimiento en tiempo real.</p>
-      <p class="mini-leyenda">
-        Conocé el estado de la compra de tu vehículo de forma rápida, segura y, sobre todo, transparente.
-      </p>
-    </div>
-  </section>
-
-  <section class="info-section left">
-    <div class="info-text">
-      <h2>Personalizado</h2>
-      <p>Accesorios originales y repuestos.</p>
-      <p class="mini-leyenda">
-        Opciones cosméticas y mecánicas para que tu auto refleje tu estilo.
-      </p>
-    </div>
-    <div class="info-img">
-      <div class="icon-circle">
-        <i class="bi bi-stars"></i>
-      </div>
-    </div>
-  </section>
-
-  <section class="info-section right">
-    <div class="info-img">
-      <div class="icon-circle">
-        <i class="bi bi-database"></i>
-      </div>
-    </div>
-    <div class="info-text">
-      <h2>Actualizado</h2>
-      <p>Stock en tiempo real.</p>
-      <p class="mini-leyenda">
-        Las marcas y agencias mantienen la información cargada al instante.
-      </p>
-      <ul class="mini-list">
-        <li><i class="bi bi-check"></i> Concesionarias oficiales</li>
-        <li><i class="bi bi-check"></i> Respaldadas por garantía</li>
-      </ul>
-      <a th:href="@{/feeds/marcas}" class="btn btn-accent-ver-marcas mt-4" style="margin: 0;">
-        Ver marcas disponibles
-      </a>
-    </div>
-  </section>
 
   <!-- OPINIONES -->
   <section class="apple-section opiniones text-center">

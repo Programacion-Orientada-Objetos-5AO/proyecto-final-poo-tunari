@@ -15,10 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
               <a href="#" class="user-menu-item" id="logoutBtn">Cerrar sesión</a>
           `;
       } else {
-          menuEl.innerHTML = `
-              <a href="login/iniciar-sesion.html" class="user-menu-item">Iniciar sesión</a>
-              <a href="registro/registrarse.html" class="user-menu-item">Registrarse</a>
-          `;
+        menuEl.innerHTML = `
+            <a href="${window.location.origin}/auth/login" class="user-menu-item">Iniciar sesión</a>
+            <a href="${window.location.origin}/auth/registrarse" class="user-menu-item">Registrarse</a>
+        `;
       }
       menuEl.style.display = 'none';
   }

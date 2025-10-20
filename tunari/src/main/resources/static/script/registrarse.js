@@ -1,3 +1,12 @@
+    // Fondo animado (partículas)
+    function initBackground() {
+      if(window.particlesJS){
+        particlesJS.load('background', 'particles.json', function() {
+          console.log('callback - particles.js config loaded');
+        });
+      }
+    }
+
     // Helpers DOM
     const $ = (sel) => document.querySelector(sel);
 
@@ -84,3 +93,6 @@
 
       form.classList.add('was-validated');
     }, false);
+
+    // Inicializar fondo animado
+    initBackground();

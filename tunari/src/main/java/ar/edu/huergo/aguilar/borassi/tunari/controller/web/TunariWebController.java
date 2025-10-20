@@ -24,7 +24,7 @@ import jakarta.validation.Valid;
  * Controlador web para manejar las vistas HTML (Thymeleaf) de Tunari
  */
 @Controller
-@RequestMapping("/web")
+@RequestMapping("")
 public class TunariWebController {
 
     @Autowired
@@ -43,14 +43,13 @@ public class TunariWebController {
         if (error != null) {
             model.addAttribute("error", "Usuario o contraseña incorrectos");
         }
-        return "auth/login"; // busca templates/auth/login.html
+        return "auth/iniciar-sesion"; // busca templates/auth/iniciar-sesion.html
     }
 
-    // 🟠 Página de registro
-    @GetMapping("/registro")
-    public String registro(Model model) {
-        model.addAttribute("usuario", new Usuario());
-        return "auth/registro"; // busca templates/auth/registro.html
+    @GetMapping("/auth/registrarse")
+    public String mostrarFormulario(Model model) {
+        model.addAttribute("usuario", new Usuario()); 
+        return "auth/registrarse";
     }
 
     // 🟡 Procesar el formulario de registro
@@ -59,18 +58,18 @@ public class TunariWebController {
                                    BindingResult result,
                                    RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            return "auth/registro";
+            return "auth/registrarse";
         }
 
         try {
             usuarioService.registrar(usuario, usuario.getUsername(), usuario.getPassword());
             redirectAttributes.addFlashAttribute("success", 
                 "Usuario registrado exitosamente. Podés iniciar sesión.");
-            return "redirect:/web/login";
+            return "redirect:/iniciar-sesion";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", 
                 "Error al registrar usuario: " + e.getMessage());
-            return "redirect:/web/registro";
+            return "redirect:/registrarse";
         }
     }
 
