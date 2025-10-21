@@ -47,9 +47,7 @@ public class AutoService {
         Color color = colorService.obtenerColorPorId(dto.colorId());
         Version version = versionService.obtenerVersionPorId(dto.versionId());
 
-        if (!modelo.validarAuto(color, version)) {
-            throw new IllegalArgumentException("El modelo no es compatible con el color o la versión proporcionados.");
-        }
+        modelo.validarAuto(color, version);
         Auto auto = new Auto();
         auto.setMarca(marca);
         auto.setModelo(modelo);
@@ -63,7 +61,7 @@ public class AutoService {
         autoRepository.delete(auto);
     }
     
-       public Auto resolverAuto(Long autoId) throws IllegalArgumentException, EntityNotFoundException {
+    public Auto resolverAuto(Long autoId) throws IllegalArgumentException, EntityNotFoundException {
         Auto auto = autoRepository.findById(autoId)
                 .orElseThrow(() -> new EntityNotFoundException("Auto no encontrado."));
         return auto;

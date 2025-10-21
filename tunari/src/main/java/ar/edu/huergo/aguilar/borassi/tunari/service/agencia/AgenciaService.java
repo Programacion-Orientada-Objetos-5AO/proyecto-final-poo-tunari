@@ -26,7 +26,7 @@ public class AgenciaService {
     private AutoService autoService;
 
 
-    public List<Agencia> obtenerTodosLosAgencia() {
+    public List<Agencia> obtenerTodasLasAgencias() {
         return agenciaRepository.findAll();
     }
 
@@ -64,4 +64,5 @@ public class AgenciaService {
         agenciaExistente.modificarStock(auto, autoStock.nuevoStock());
         return agenciaRepository.save(agenciaExistente);
     }
+
 }

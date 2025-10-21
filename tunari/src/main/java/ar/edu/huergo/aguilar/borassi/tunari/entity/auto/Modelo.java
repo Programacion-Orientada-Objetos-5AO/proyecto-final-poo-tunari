@@ -51,7 +51,12 @@ public class Modelo {
     )
     private List<Color> colores;
 
-    public Boolean validarAuto(Color color, Version version) {
-        return this.colores.contains(color) && this.versiones.contains(version);
+    
+    public void validarAuto(Color color, Version version) {
+        if (this.colores.contains(color) && this.versiones.contains(version)) {
+            return;
+        } else {
+            throw new IllegalArgumentException("La version o el color no pertenecen al modelo");
+        }
     }
 }

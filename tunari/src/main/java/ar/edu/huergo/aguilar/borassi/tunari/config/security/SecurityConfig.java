@@ -2,6 +2,7 @@ package ar.edu.huergo.aguilar.borassi.tunari.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -39,16 +40,22 @@ public class SecurityConfig {
                     "/", 
                     "/index", 
                     "/registrarse", 
-                    "/iniciar-sesion", 
-                    "/auth/register", 
-                    "/auth/login", 
-                    "/auth/registrarse",      
-                    "/auth/**"
+                    "/iniciar-sesion",
+                    // si mantenés endpoints legacy web:
+                    "/auth/register",
+                    "/auth/login",
+                    "/auth/registrarse",
+                    "/auth/**",
+
+                    // *** API de auth REAL ***
+                    "/api/auth/**"
                 ).permitAll()
                 .requestMatchers("/css/**", "/js/**", "/script/**", "/img/**", "/fonts/**").permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // preflight CORS
 
                 // --- RUTAS PRIVADAS ---
-                .anyRequest().authenticated()
+                .requestMatchers(HttpMethod.GET, "/**").hasAnyRole("CLIENTE", "ADMIN")
+                .anyRequest().hasRole("ADMIN")
             )
             .exceptionHandling(exceptions -> exceptions
                 .accessDeniedHandler(accessDeniedHandler())

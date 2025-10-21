@@ -1,5 +1,7 @@
 package ar.edu.huergo.aguilar.borassi.tunari.entity.auto;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -45,6 +47,32 @@ public class Auto {
         @NotNull(message = "La versión no puede estar vacía")
         private Version version;
 
+
+        public Auto(@NotNull(message = "El modelo no puede estar vacío") Modelo modelo,
+                @NotNull(message = "El color no puede estar vacío") Color color,
+                @NotNull(message = "La versión no puede estar vacía") Version version) {
+            this.modelo = modelo;
+            this.color = color;
+            this.version = version;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof Auto other)) return false;
+
+            Long modeloIdThis  = this.modelo  != null ? this.modelo.getId()  : null;
+            Long versionIdThis = this.version != null ? this.version.getId() : null;
+            Long colorIdThis   = this.color   != null ? this.color.getId()   : null;
+
+            Long modeloIdOther  = other.modelo  != null ? other.modelo.getId()  : null;
+            Long versionIdOther = other.version != null ? other.version.getId() : null;
+            Long colorIdOther   = other.color   != null ? other.color.getId()   : null;
+
+            return Objects.equals(modeloIdThis, modeloIdOther)
+            && Objects.equals(versionIdThis, versionIdOther)
+            && Objects.equals(colorIdThis, colorIdOther);
+        }
 
         public Auto() {
         }

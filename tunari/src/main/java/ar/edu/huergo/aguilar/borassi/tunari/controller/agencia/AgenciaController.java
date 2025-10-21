@@ -38,7 +38,7 @@ public class AgenciaController {
      // GET /agencias
     @GetMapping
     public ResponseEntity<List<MostrarAgenciaDTO>> obtenerTodosLosAgencias() {
-        List<Agencia> agencias = this.agenciaService.obtenerTodosLosAgencia();
+        List<Agencia> agencias = this.agenciaService.obtenerTodasLasAgencias();
         return ResponseEntity.ok(this.agenciaMapper.toDTOList(agencias));
     }
 
