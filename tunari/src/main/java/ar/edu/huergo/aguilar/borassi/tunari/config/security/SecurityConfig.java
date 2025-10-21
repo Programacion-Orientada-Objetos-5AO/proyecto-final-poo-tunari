@@ -2,11 +2,6 @@ package ar.edu.huergo.aguilar.borassi.tunari.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-<<<<<<< Updated upstream
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-=======
->>>>>>> Stashed changes
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,25 +23,6 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/", 
                     "/index", 
-<<<<<<< Updated upstream
-                    "/registrarse", 
-                    "/iniciar-sesion",
-                    // si mantenés endpoints legacy web:
-                    "/auth/register",
-                    "/auth/login",
-                    "/auth/registrarse",
-                    "/auth/**",
-
-                    // *** API de auth REAL ***
-                    "/api/auth/**"
-                ).permitAll()
-                .requestMatchers("/css/**", "/js/**", "/script/**", "/img/**", "/fonts/**").permitAll()
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // preflight CORS
-
-                // --- RUTAS PRIVADAS ---
-                .requestMatchers(HttpMethod.GET, "/**").hasAnyRole("CLIENTE", "ADMIN")
-                .anyRequest().hasRole("ADMIN")
-=======
                     "/auth/**", 
                     "/css/**", 
                     "/js/**", 
@@ -55,7 +31,6 @@ public class SecurityConfig {
                     "favicon.*"
                 ).permitAll()
                 .anyRequest().authenticated()
->>>>>>> Stashed changes
             )
 
             // Login personalizado
