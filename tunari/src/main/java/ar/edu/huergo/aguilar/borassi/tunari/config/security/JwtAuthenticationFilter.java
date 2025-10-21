@@ -30,6 +30,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String path = request.getServletPath();
 
+        if (path.startsWith("/auth/registrarse") || path.startsWith("/auth/iniciar-sesion") || path.startsWith("/auth/register") || path.startsWith("/auth/login")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // Ignora rutas públicas y recursos estáticos
         if (path.startsWith("/auth") || path.equals("/") ||
             path.startsWith("/css") || path.startsWith("/js") ||
