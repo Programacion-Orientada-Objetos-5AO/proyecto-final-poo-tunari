@@ -16,54 +16,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.VehiculoDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearVehiculoDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.VehiculoDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
+import ar.edu.huergo.aguilar.borassi.tunari.mapper.auto.VehiculoMapper;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.VehiculoService;
 import jakarta.validation.Valid;
-import ar.edu.huergo.aguilar.borassi.tunari.mapper.auto.VehiculoMapper;
 
 @RestController //Tipo de controller, en este caso un RESTful API controller
-@RequestMapping("/autos") //El dominio con el que acciona el controller
+@RequestMapping("/vehiculos") //El dominio con el que acciona el controller
 public class VehiculoController {
 
     @Autowired
-    private VehiculoService autoService;
+    private VehiculoService vehiculoService;
 
     @Autowired
-    private VehiculoMapper autoMapper;
+    private VehiculoMapper vehiculoMapper;
 
-     // GET /autos
+     // GET /vehiculos
     @GetMapping
-    public ResponseEntity<List<VehiculoDTO>> obtenerTodosLosAutos() {
-        List<Vehiculo> autos = this.autoService.obtenerTodosLosAutos();
-        return ResponseEntity.ok(this.autoMapper.toDTOList(autos));
+    public ResponseEntity<List<VehiculoDTO>> obtenerTodosLosVehiculos() {
+        List<Vehiculo> vehiculos = this.vehiculoService.obtenerTodosLosVehiculos();
+        return ResponseEntity.ok(this.vehiculoMapper.toDTOList(vehiculos));
     }
 
-    // GET /autos/{id}
+    // GET /vehiculos/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<VehiculoDTO> obtenerAutoPorId(@PathVariable Long id) {
-        Vehiculo auto = this.autoService.obtenerAutoPorId(id);
-        return ResponseEntity.ok(this.autoMapper.toDTO(auto));
+    public ResponseEntity<VehiculoDTO> obtenerVehiculoPorId(@PathVariable Long id) {
+        Vehiculo vehiculo = this.vehiculoService.obtenerVehiculoPorId(id);
+        return ResponseEntity.ok(this.vehiculoMapper.toDTO(vehiculo));
     }
 
-    // POST /autos
+    // POST /vehiculos
     @PostMapping
     public ResponseEntity<VehiculoDTO> crearAuto(@RequestBody @Valid CrearVehiculoDTO dto) {
-        Vehiculo creado = this.autoService.crearAuto(dto);
+        Vehiculo creado = this.vehiculoService.crearVehiculo(dto);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(creado.getId())
                 .toUri();
 
-        return ResponseEntity.created(location).body(this.autoMapper.toDTO(creado));
+        return ResponseEntity.created(location).body(this.vehiculoMapper.toDTO(creado));
     }
 
-    // DELETE /autos/{id}
+    // DELETE /vehiculos/{id}
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarAuto(@PathVariable Long id) {
-        this.autoService.eliminarAuto(id);
+    public ResponseEntity<Void> eliminarVehiculo(@PathVariable Long id) {
+        this.vehiculoService.eliminarVehiculo(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

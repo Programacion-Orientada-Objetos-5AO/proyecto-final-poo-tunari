@@ -5,15 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.agencia.ModificarStockAgenciaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.agencia.CrearAgenciaDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.dto.agencia.ModificarStockAgenciaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.agencia.Agencia;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.agencia.AutoStock;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.agencia.AgenciaRepository;
-import ar.edu.huergo.aguilar.borassi.tunari.service.auto.VehiculoService;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.MarcaService;
+import ar.edu.huergo.aguilar.borassi.tunari.service.auto.VehiculoService;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -23,7 +22,7 @@ public class AgenciaService {
     @Autowired
     private MarcaService marcaService;
     @Autowired
-    private VehiculoService autoService;
+    private VehiculoService vehiculoService;
 
 
     public List<Agencia> obtenerTodasLasAgencias() {
@@ -60,7 +59,7 @@ public class AgenciaService {
 
     public Agencia actualizarStock(ModificarStockAgenciaDTO autoStock) throws EntityNotFoundException{
         Agencia agenciaExistente = obtenerAgenciaPorId(autoStock.idAgencia());
-        Vehiculo auto = autoService.resolverAuto(autoStock.idAuto());
+        Vehiculo auto = vehiculoService.resolverVehiculo(autoStock.idAuto());
         agenciaExistente.modificarStock(auto, autoStock.nuevoStock());
         return agenciaRepository.save(agenciaExistente);
     }

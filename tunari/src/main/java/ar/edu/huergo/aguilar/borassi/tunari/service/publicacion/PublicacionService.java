@@ -9,16 +9,16 @@ import org.springframework.stereotype.Service;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.publicacion.CrearPublicacionDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.agencia.Agencia;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.agencia.AutoStock;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.publicacion.Publicacion;
+import ar.edu.huergo.aguilar.borassi.tunari.repository.publicacion.PublicacionRepository;
+import ar.edu.huergo.aguilar.borassi.tunari.service.agencia.AgenciaService;
+import ar.edu.huergo.aguilar.borassi.tunari.service.auto.ColorService;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.ModeloService;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.VersionService;
-import ar.edu.huergo.aguilar.borassi.tunari.service.auto.ColorService;
-import ar.edu.huergo.aguilar.borassi.tunari.service.agencia.AgenciaService;
-import ar.edu.huergo.aguilar.borassi.tunari.repository.publicacion.PublicacionRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -60,7 +60,7 @@ public class PublicacionService {
     Modelo modelo = modeloService.obtenerModeloPorId(modeloId);
     Color color = colorService.obtenerColorPorId(colorId);
     Version version = versionService.obtenerVersionPorId(versionId);
-    modelo.validarAuto(color, version);
+    modelo.validarVehiculo(color, version);
 
     Vehiculo filtro = new Vehiculo(modelo, color, version);
 
