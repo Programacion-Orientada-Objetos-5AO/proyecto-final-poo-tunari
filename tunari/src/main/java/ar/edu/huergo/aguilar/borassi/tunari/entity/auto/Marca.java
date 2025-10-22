@@ -14,6 +14,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import jakarta.persistence.CascadeType;
 
 @Data
 @NoArgsConstructor
@@ -31,12 +32,25 @@ public class Marca {
     @Column(nullable = false, unique = true)
     private String nombre;
 
-    @OneToMany(mappedBy = "marca")
+    @OneToMany(
+    mappedBy = "marca",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+    )
     private List<Modelo> modelos;
 
-    @OneToMany(mappedBy = "marca")
+    @OneToMany(
+    mappedBy = "marca",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+    )
     private List<Version> versiones;
 
-    @OneToMany(mappedBy = "marca")
+    @OneToMany(
+    mappedBy = "marca",
+    cascade = CascadeType.ALL,      // aplica a todas las operaciones (persist, remove, etc.)
+    orphanRemoval = true            // borra colores huérfanos automáticamente
+    )
     private List<Color> colores;
+
 }
