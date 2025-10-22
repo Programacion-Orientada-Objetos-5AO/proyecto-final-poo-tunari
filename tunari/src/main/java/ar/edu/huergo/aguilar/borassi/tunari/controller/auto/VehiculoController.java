@@ -16,41 +16,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.AutoDTO;
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearAutoDTO;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
-import ar.edu.huergo.aguilar.borassi.tunari.service.auto.AutoService;
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.VehiculoDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearVehiculoDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
+import ar.edu.huergo.aguilar.borassi.tunari.service.auto.VehiculoService;
 import jakarta.validation.Valid;
-import ar.edu.huergo.aguilar.borassi.tunari.mapper.auto.AutoMapper;
+import ar.edu.huergo.aguilar.borassi.tunari.mapper.auto.VehiculoMapper;
 
 @RestController //Tipo de controller, en este caso un RESTful API controller
 @RequestMapping("/autos") //El dominio con el que acciona el controller
-public class AutoController {
+public class VehiculoController {
 
     @Autowired
-    private AutoService autoService;
+    private VehiculoService autoService;
 
     @Autowired
-    private AutoMapper autoMapper;
+    private VehiculoMapper autoMapper;
 
      // GET /autos
     @GetMapping
-    public ResponseEntity<List<AutoDTO>> obtenerTodosLosAutos() {
-        List<Auto> autos = this.autoService.obtenerTodosLosAutos();
+    public ResponseEntity<List<VehiculoDTO>> obtenerTodosLosAutos() {
+        List<Vehiculo> autos = this.autoService.obtenerTodosLosAutos();
         return ResponseEntity.ok(this.autoMapper.toDTOList(autos));
     }
 
     // GET /autos/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<AutoDTO> obtenerAutoPorId(@PathVariable Long id) {
-        Auto auto = this.autoService.obtenerAutoPorId(id);
+    public ResponseEntity<VehiculoDTO> obtenerAutoPorId(@PathVariable Long id) {
+        Vehiculo auto = this.autoService.obtenerAutoPorId(id);
         return ResponseEntity.ok(this.autoMapper.toDTO(auto));
     }
 
     // POST /autos
     @PostMapping
-    public ResponseEntity<AutoDTO> crearAuto(@RequestBody @Valid CrearAutoDTO dto) {
-        Auto creado = this.autoService.crearAuto(dto);
+    public ResponseEntity<VehiculoDTO> crearAuto(@RequestBody @Valid CrearVehiculoDTO dto) {
+        Vehiculo creado = this.autoService.crearAuto(dto);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

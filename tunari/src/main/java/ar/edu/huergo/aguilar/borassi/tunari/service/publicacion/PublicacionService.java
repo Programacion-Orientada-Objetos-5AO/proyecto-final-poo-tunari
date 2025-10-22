@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.publicacion.CrearPublicacionDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.agencia.Agencia;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.agencia.AutoStock;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
@@ -62,7 +62,7 @@ public class PublicacionService {
     Version version = versionService.obtenerVersionPorId(versionId);
     modelo.validarAuto(color, version);
 
-    Auto filtro = new Auto(modelo, color, version);
+    Vehiculo filtro = new Vehiculo(modelo, color, version);
 
     List<Agencia> agenciasConAuto = new ArrayList<>();
 

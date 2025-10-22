@@ -9,10 +9,10 @@ import ar.edu.huergo.aguilar.borassi.tunari.dto.agencia.ModificarStockAgenciaDTO
 import ar.edu.huergo.aguilar.borassi.tunari.dto.agencia.CrearAgenciaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.agencia.Agencia;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.agencia.AutoStock;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.agencia.AgenciaRepository;
-import ar.edu.huergo.aguilar.borassi.tunari.service.auto.AutoService;
+import ar.edu.huergo.aguilar.borassi.tunari.service.auto.VehiculoService;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.MarcaService;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -23,7 +23,7 @@ public class AgenciaService {
     @Autowired
     private MarcaService marcaService;
     @Autowired
-    private AutoService autoService;
+    private VehiculoService autoService;
 
 
     public List<Agencia> obtenerTodasLasAgencias() {
@@ -60,7 +60,7 @@ public class AgenciaService {
 
     public Agencia actualizarStock(ModificarStockAgenciaDTO autoStock) throws EntityNotFoundException{
         Agencia agenciaExistente = obtenerAgenciaPorId(autoStock.idAgencia());
-        Auto auto = autoService.resolverAuto(autoStock.idAuto());
+        Vehiculo auto = autoService.resolverAuto(autoStock.idAuto());
         agenciaExistente.modificarStock(auto, autoStock.nuevoStock());
         return agenciaRepository.save(agenciaExistente);
     }

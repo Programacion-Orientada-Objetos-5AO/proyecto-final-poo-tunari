@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.AutoDTO;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.VehiculoDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
 
 
 @Component
-public class AutoMapper {
+public class VehiculoMapper {
 
-    public AutoDTO toDTO(Auto auto) {
-        return new AutoDTO(
+    public VehiculoDTO toDTO(Vehiculo auto) {
+        return new VehiculoDTO(
             auto.getId(),
             auto.getMarca().getNombre(),
             auto.getModelo().getNombre(),
@@ -21,7 +21,7 @@ public class AutoMapper {
         );
     }
 
-    public List<AutoDTO> toDTOList(List<Auto> autos) {
+    public List<VehiculoDTO> toDTOList(List<Vehiculo> autos) {
         return autos.stream()
             .map(this::toDTO)
             .toList();

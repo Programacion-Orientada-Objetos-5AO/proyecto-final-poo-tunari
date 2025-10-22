@@ -5,20 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearAutoDTO;
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearVehiculoDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
-import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.AutoRepository;
+import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.VehiculoRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class AutoService {
+public class VehiculoService {
 
     @Autowired
-    private AutoRepository autoRepository;
+    private VehiculoRepository autoRepository;
 
     @Autowired
     private ModeloService modeloService;
@@ -32,23 +32,23 @@ public class AutoService {
     @Autowired
     private MarcaService marcaService;
 
-    public List<Auto> obtenerTodosLosAutos() {
+    public List<Vehiculo> obtenerTodosLosAutos() {
         return autoRepository.findAll();
     }
 
-    public Auto obtenerAutoPorId(Long id) throws EntityNotFoundException {
+    public Vehiculo obtenerAutoPorId(Long id) throws EntityNotFoundException {
         return autoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Auto no encontrado."));
     }
 
-    public Auto crearAuto(CrearAutoDTO dto) {
-        Marca marca = marcaService.obtenerMarcaPorId(dto.marcaId());
-        Modelo modelo = modeloService.obtenerModeloPorId(dto.modeloId());
-        Color color = colorService.obtenerColorPorId(dto.colorId());
-        Version version = versionService.obtenerVersionPorId(dto.versionId());
+    public Vehiculo crearAuto(CrearVehiculoDTO dto) {
+        Marca marca = marcaService.obtenerMarcaPorId(dto.getMarcaId());
+        Modelo modelo = modeloService.obtenerModeloPorId(dto.getModeloId());
+        Color color = colorService.obtenerColorPorId(dto.getColorId());
+        Version version = versionService.obtenerVersionPorId(dto.getVersionId());
 
         modelo.validarAuto(color, version);
-        Auto auto = new Auto();
+        Vehiculo auto = new Vehiculo();
         auto.setMarca(marca);
         auto.setModelo(modelo);
         auto.setColor(color);       
@@ -57,12 +57,12 @@ public class AutoService {
     }
 
     public void eliminarAuto(Long id) throws EntityNotFoundException {
-        Auto auto = obtenerAutoPorId(id);
+        Vehiculo auto = obtenerAutoPorId(id);
         autoRepository.delete(auto);
     }
     
-    public Auto resolverAuto(Long autoId) throws IllegalArgumentException, EntityNotFoundException {
-        Auto auto = autoRepository.findById(autoId)
+    public Vehiculo resolverAuto(Long autoId) throws IllegalArgumentException, EntityNotFoundException {
+        Vehiculo auto = autoRepository.findById(autoId)
                 .orElseThrow(() -> new EntityNotFoundException("Auto no encontrado."));
         return auto;
     }

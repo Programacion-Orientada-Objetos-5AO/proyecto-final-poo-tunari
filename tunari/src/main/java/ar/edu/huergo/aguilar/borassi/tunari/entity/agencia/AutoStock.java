@@ -1,6 +1,6 @@
 package ar.edu.huergo.aguilar.borassi.tunari.entity.agencia;
 
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,13 +28,13 @@ public class AutoStock {
     @NotNull(message = "El auto es obligatorio")
     @ManyToOne(optional = false)
     @JoinColumn(name = "auto_id", nullable = false)
-    private Auto auto;
+    private Vehiculo auto;
 
     @NotNull(message = "El stock es obligatorio")
     @Column(nullable = false)
     private int stock;
 
-    public AutoStock(@NotNull Auto auto, @NotNull int stock) {
+    public AutoStock(@NotNull Vehiculo auto, @NotNull int stock) {
         this.auto = auto;
         this.stock = stock;
     }

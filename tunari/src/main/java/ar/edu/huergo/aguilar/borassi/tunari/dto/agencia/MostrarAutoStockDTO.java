@@ -1,7 +1,7 @@
 package ar.edu.huergo.aguilar.borassi.tunari.dto.agencia;
 
-import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
 
-public record MostrarAutoStockDTO(Auto auto, int stock) {
+public record MostrarAutoStockDTO(Vehiculo auto, int stock) {
     
 }
