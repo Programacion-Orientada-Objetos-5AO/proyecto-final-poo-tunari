@@ -3,18 +3,24 @@ package ar.edu.huergo.aguilar.borassi.tunari.controller.auto;
 import java.net.URI;
 import java.util.List;
 
-import jakarta.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.MarcaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearMarcaDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.MarcaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.mapper.auto.MarcaMapper;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.MarcaService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/marcas")
@@ -43,7 +49,8 @@ public class MarcaController {
     // POST /marcas
     @PostMapping
     public ResponseEntity<String> crearMarca(@RequestBody @Valid CrearMarcaDTO dto) {
-        Marca marcaCreada = marcaService.crearMarca(dto);
+        Marca marcaCreada = marcaMapper.toEntity(dto);
+        marcaCreada = marcaService.crearMarca(marcaCreada);
 
         URI location = ServletUriComponentsBuilder
             .fromCurrentRequest()
@@ -57,7 +64,7 @@ public class MarcaController {
     // PUT /marcas/{id}
     @PutMapping("/{id}")
     public ResponseEntity<MarcaDTO> actualizarMarca(@PathVariable Long id, @RequestBody @Valid CrearMarcaDTO dto) {
-        Marca actualizada = marcaService.actualizarMarca(id, dto);
+        Marca actualizada = marcaService.actualizarMarca(id, dto.nombreMarca());
         return ResponseEntity.ok(marcaMapper.toDTO(actualizada));
     }
 

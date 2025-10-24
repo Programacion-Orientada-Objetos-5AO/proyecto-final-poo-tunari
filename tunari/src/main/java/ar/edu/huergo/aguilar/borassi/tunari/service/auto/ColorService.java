@@ -28,17 +28,15 @@ public class ColorService {
             .orElseThrow(() -> new EntityNotFoundException("Color no encontrado"));
     }
 
-    public Color crearColor(CrearColorDTO color) {
-        Color colorEntity = new Color();
-        colorEntity.setNombre(color.nombreColor());
-        colorEntity.setMarca(marcaService.obtenerMarcaPorId(color.marcaId()));
-        return colorRepository.save(colorEntity);
+    public Color crearColor(Color color, Long marcaId) throws EntityNotFoundException {;
+        color.setMarca(marcaService.obtenerMarcaPorId(marcaId));
+        return colorRepository.save(color);
     }
 
-    public Color actualizarColor(Long id, CrearColorDTO color) throws EntityNotFoundException {
+    public Color actualizarColor(Long id, String nombre, Long marcaId) throws EntityNotFoundException {
         Color colorExistente = obtenerColorPorId(id);
-        colorExistente.setNombre(color.nombreColor());
-        colorExistente.setMarca(marcaService.obtenerMarcaPorId(color.marcaId()));
+        colorExistente.setNombre(nombre);
+        colorExistente.setMarca(marcaService.obtenerMarcaPorId(marcaId));
         return colorRepository.save(colorExistente);
     }
     
