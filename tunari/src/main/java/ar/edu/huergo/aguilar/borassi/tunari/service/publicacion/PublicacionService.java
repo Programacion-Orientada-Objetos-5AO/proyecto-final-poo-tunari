@@ -44,7 +44,14 @@ public class PublicacionService {
     }
 
     public Publicacion crearPublicacion(CrearPublicacionDTO dto) {
-        Publicacion publicacion = new Publicacion();   
+        // Busca el modelo usando el ID del DTO
+        Modelo modelo = modeloService.obtenerModeloPorId(dto.modeloId());
+
+        // Crea una nueva publicación y le asigna el modelo
+        Publicacion publicacion = new Publicacion();
+        publicacion.setModelo(modelo);
+
+        // Guarda y devuelve la publicación
         return publicacionRepository.save(publicacion);
     }
 

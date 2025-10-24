@@ -1,81 +1,60 @@
 package ar.edu.huergo.aguilar.borassi.tunari.entity.auto;
 
 import java.util.Objects;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "autos")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_vehiculo", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "vehiculos")
 public class Vehiculo {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        // Un auto pertenece a UNA marca
-        @ManyToOne(optional = false)
-        @JoinColumn(name = "marca_id", nullable = false)
-        @NotNull(message = "La marca no puede estar vacía")
-        private Marca marca;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "marca_id", nullable = false)
+    @NotNull(message = "La marca no puede estar vacía")
+    private Marca marca;
 
-        // Un auto pertenece a UN modelo
-        @ManyToOne(optional = false)
-        @JoinColumn(name = "modelo_id", nullable = false)
-        @NotNull(message = "El modelo no puede estar vacío")
-        private Modelo modelo;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "modelo_id", nullable = false)
+    @NotNull(message = "El modelo no puede estar vacío")
+    private Modelo modelo;
 
-        // Un auto tiene UN color
-        @ManyToOne(optional = false)
-        @JoinColumn(name = "color_id", nullable = false)
-        @NotNull(message = "El color no puede estar vacío")
-        private Color color;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "color_id", nullable = false)
+    @NotNull(message = "El color no puede estar vacío")
+    private Color color;
 
-        // Un auto tiene UNA versión
-        @ManyToOne(optional = false)
-        @JoinColumn(name = "version_id", nullable = false)
-        @NotNull(message = "La versión no puede estar vacía")
-        private Version version;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "version_id", nullable = false)
+    @NotNull(message = "La versión no puede estar vacía")
+    private Version version;
 
+    public Vehiculo(@NotNull Modelo modelo,
+                    @NotNull Color color,
+                    @NotNull Version version) {
+        this.modelo = modelo;
+        this.color = color;
+        this.version = version;
+    }
 
-        public Vehiculo(@NotNull(message = "El modelo no puede estar vacío") Modelo modelo,
-                @NotNull(message = "El color no puede estar vacío") Color color,
-                @NotNull(message = "La versión no puede estar vacía") Version version) {
-            this.modelo = modelo;
-            this.color = color;
-            this.version = version;
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vehiculo other)) return false;
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof Vehiculo other)) return false;
-
-            Long modeloIdThis  = this.modelo.getId();
-            Long versionIdThis = this.version.getId();
-            Long colorIdThis   = this.color.getId();
-
-            Long modeloIdOther  = other.modelo.getId();
-            Long versionIdOther = other.version.getId();
-            Long colorIdOther   = other.color.getId();
-
-
-            return Objects.equals(modeloIdThis, modeloIdOther)
-            && Objects.equals(versionIdThis, versionIdOther)
-            && Objects.equals(colorIdThis, colorIdOther);
-        }
-
-        public Vehiculo() {
-        }
-
+        return Objects.equals(modelo.getId(), other.modelo.getId()) &&
+               Objects.equals(version.getId(), other.version.getId()) &&
+               Objects.equals(color.getId(), other.color.getId());
+    }
 }
