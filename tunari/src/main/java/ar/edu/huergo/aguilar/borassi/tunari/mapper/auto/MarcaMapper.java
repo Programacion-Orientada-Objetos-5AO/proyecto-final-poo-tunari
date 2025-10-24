@@ -26,11 +26,9 @@ public class MarcaMapper {
         );
     }
 
-    public Marca toEntity(CrearMarcaDTO dto, List<Modelo> modelos, List<Color> colores) {
+    public Marca toEntity(CrearMarcaDTO dto) {
         Marca marca = new Marca();
         marca.setNombre(dto.nombreMarca());
-        marca.setModelos(modelos);
-        marca.setColores(colores);
         return marca;
     }
 

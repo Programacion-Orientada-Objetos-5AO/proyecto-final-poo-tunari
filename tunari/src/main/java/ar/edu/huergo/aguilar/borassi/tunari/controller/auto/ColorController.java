@@ -44,7 +44,8 @@ public class ColorController {
 
     @PostMapping
     public ResponseEntity<String> crearColor(@RequestBody CrearColorDTO colorDto) {
-        this.colorService.crearColor(colorDto);
+        Color color = colorMapper.toEntity(colorDto);
+        color = this.colorService.crearColor(color, colorDto.marcaId());
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
             .buildAndExpand(colorDto.nombreColor())
@@ -55,7 +56,9 @@ public class ColorController {
     
     @PutMapping("/{id}")
     public ResponseEntity<ColorDTO> actualizarColor(@PathVariable Long id, @RequestBody CrearColorDTO colorDto) throws NotFoundException {
-        return ResponseEntity.ok(colorMapper.toDTO(colorService.actualizarColor(id, colorDto)));
+        String nombre = colorDto.nombreColor();
+        Long marcaId = colorDto.marcaId();
+        return ResponseEntity.ok(colorMapper.toDTO(colorService.actualizarColor(id, nombre, marcaId)));
     }
 
     @DeleteMapping("/{id}")

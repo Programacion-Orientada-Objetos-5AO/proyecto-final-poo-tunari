@@ -29,7 +29,7 @@ public class ModeloMapper {
 
     public Modelo toEntity(CrearModeloDTO dto) {
         Modelo modelo = new Modelo();
-        modelo.setNombre(dto.nombreModelo());          
+        modelo.setNombre(dto.nombre());          
         return modelo;
     }
 

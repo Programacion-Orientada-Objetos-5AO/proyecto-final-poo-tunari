@@ -27,17 +27,13 @@ public class MarcaService {
             .orElseThrow(() -> new EntityNotFoundException("Marca no encontrada."));
     }
 
-    public Marca crearMarca(CrearMarcaDTO dto) {
-        Marca marca = new Marca();
-        marca.setNombre(dto.nombreMarca());
-
+    public Marca crearMarca(Marca marca) {
         return marcaRepository.save(marca);
     }
 
-    public Marca actualizarMarca(Long id, CrearMarcaDTO dto) {
+    public Marca actualizarMarca(Long id, String nombre) {
         Marca marca = obtenerMarcaPorId(id);
-        marca.setNombre(dto.nombreMarca());
-
+        marca.setNombre(nombre);
         return marcaRepository.save(marca);
     }
 

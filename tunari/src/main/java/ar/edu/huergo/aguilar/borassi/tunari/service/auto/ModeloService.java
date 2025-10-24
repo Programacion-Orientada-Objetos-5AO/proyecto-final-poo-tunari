@@ -35,26 +35,24 @@ public class ModeloService {
             .orElseThrow(() -> new EntityNotFoundException("Modelo no encontrado."));
     }
 
-    public Modelo crearModelo(CrearModeloDTO modeloDTO) {
-        Modelo modelo = new Modelo();
-        modelo.setNombre(modeloDTO.nombreModelo());
-        List<Version> versiones = this.versionService.resolverVersion(modeloDTO.versionesIds());
+    public Modelo crearModelo(Modelo modelo, Long marcaId, List<Long> coloresIds, List<Long> versionesIds) throws EntityNotFoundException {
+        List<Version> versiones = this.versionService.resolverVersion(versionesIds);
         modelo.setVersiones(versiones);
-        Marca marca = this.marcaService.obtenerMarcaPorId(modeloDTO.marcaId());
+        Marca marca = this.marcaService.obtenerMarcaPorId(marcaId);
         modelo.setMarca(marca);
-        List<Color> colores = this.colorService.resolverColor(modeloDTO.coloresIds());
+        List<Color> colores = this.colorService.resolverColor(coloresIds);
         modelo.setColores(colores);
         return modeloRepository.save(modelo);
     }
 
-    public Modelo actualizarModelo(Long id, CrearModeloDTO modeloDTO) throws EntityNotFoundException {
-        Modelo modeloExistente = obtenerModeloPorId(id);
-        modeloExistente.setNombre(modeloDTO.nombreModelo());
-        List<Version> versiones = this.versionService.resolverVersion(modeloDTO.versionesIds());
+    public Modelo actualizarModelo(Long modeloId, String nombre, Long marcaId, List<Long> coloresIds, List<Long> versionesIds ) throws EntityNotFoundException {
+        Modelo modeloExistente = obtenerModeloPorId(modeloId);
+        modeloExistente.setNombre(nombre);
+        List<Version> versiones = this.versionService.resolverVersion(versionesIds);
         modeloExistente.setVersiones(versiones);
-        Marca marca = this.marcaService.obtenerMarcaPorId(modeloDTO.marcaId());
+        Marca marca = this.marcaService.obtenerMarcaPorId(marcaId);
         modeloExistente.setMarca(marca);
-        List<Color> colores = this.colorService.resolverColor(modeloDTO.coloresIds());
+        List<Color> colores = this.colorService.resolverColor(coloresIds);
         modeloExistente.setColores(colores);
         return modeloRepository.save(modeloExistente);
     }
