@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearVehiculoDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
@@ -38,33 +37,51 @@ public class VehiculoService {
 
     public Vehiculo obtenerVehiculoPorId(Long id) throws EntityNotFoundException {
         return vehiculoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Vehiculo no encontrado."));
+                .orElseThrow(() -> new EntityNotFoundException("Vehículo no encontrado."));
     }
 
-    public Vehiculo crearVehiculo(CrearVehiculoDTO dto) {
-        Marca marca = marcaService.obtenerMarcaPorId(dto.getMarcaId());
-        Modelo modelo = modeloService.obtenerModeloPorId(dto.getModeloId());
-        Color color = colorService.obtenerColorPorId(dto.getColorId());
-        Version version = versionService.obtenerVersionPorId(dto.getVersionId());
+    public Vehiculo crearVehiculo(Vehiculo vehiculo, Long marcaId, Long modeloId, Long colorId, Long versionId) {
+        Marca marca = marcaService.obtenerMarcaPorId(marcaId);
+        Modelo modelo = modeloService.obtenerModeloPorId(modeloId);
+        Color color = colorService.obtenerColorPorId(colorId);
+        Version version = versionService.obtenerVersionPorId(versionId);
 
         modelo.validarVehiculo(color, version);
-        Vehiculo vehiculo = new Vehiculo();
+
         vehiculo.setMarca(marca);
         vehiculo.setModelo(modelo);
-        vehiculo.setColor(color);       
-        vehiculo.setVersion(version);   
+        vehiculo.setColor(color);
+        vehiculo.setVersion(version);
+
         return vehiculoRepository.save(vehiculo);
+    }
+
+    public Vehiculo actualizarVehiculo(Long id, Vehiculo datosActualizados, 
+                                       Long marcaId, Long modeloId, Long colorId, Long versionId) {
+        Vehiculo existente = obtenerVehiculoPorId(id);
+
+        Marca marca = marcaService.obtenerMarcaPorId(marcaId);
+        Modelo modelo = modeloService.obtenerModeloPorId(modeloId);
+        Color color = colorService.obtenerColorPorId(colorId);
+        Version version = versionService.obtenerVersionPorId(versionId);
+
+        modelo.validarVehiculo(color, version);
+
+        existente.setMarca(marca);
+        existente.setModelo(modelo);
+        existente.setColor(color);
+        existente.setVersion(version);
+
+        return vehiculoRepository.save(existente);
     }
 
     public void eliminarVehiculo(Long id) throws EntityNotFoundException {
         Vehiculo vehiculo = obtenerVehiculoPorId(id);
         vehiculoRepository.delete(vehiculo);
     }
-    
-    public Vehiculo resolverVehiculo(Long vehiculoId) throws IllegalArgumentException, EntityNotFoundException {
-        Vehiculo vehiculo = vehiculoRepository.findById(vehiculoId)
-                .orElseThrow(() -> new EntityNotFoundException("Vehiculo no encontrado."));
-        return vehiculo;
+
+    public Vehiculo resolverVehiculo(Long vehiculoId) throws EntityNotFoundException {
+        return vehiculoRepository.findById(vehiculoId)
+                .orElseThrow(() -> new EntityNotFoundException("Vehículo no encontrado."));
     }
 }
-

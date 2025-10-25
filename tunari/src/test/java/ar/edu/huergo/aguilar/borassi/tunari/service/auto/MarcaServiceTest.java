@@ -16,7 +16,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearMarcaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.MarcaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -93,7 +92,6 @@ class MarcaServiceTest {
     @DisplayName("Debería crear una marca a partir del DTO")
     void deberiaCrearMarca() {
         // Given
-        CrearMarcaDTO dto = new CrearMarcaDTO("Honda");
         Marca guardada = new Marca();
         guardada.setId(10L);
         guardada.setNombre("Honda");
@@ -101,7 +99,7 @@ class MarcaServiceTest {
         when(marcaRepository.save(any(Marca.class))).thenReturn(guardada);
 
         // When
-        Marca resultado = marcaService.crearMarca(dto);
+        Marca resultado = marcaService.crearMarca(guardada);
 
         // Then
         assertNotNull(resultado);
@@ -122,10 +120,8 @@ class MarcaServiceTest {
         devueltaPorSave.setNombre("Toyota Actualizada");
         when(marcaRepository.save(any(Marca.class))).thenReturn(devueltaPorSave);
 
-        CrearMarcaDTO dto = new CrearMarcaDTO("Toyota Actualizada");
-
         // When
-        Marca resultado = marcaService.actualizarMarca(id, dto);
+        Marca resultado = marcaService.actualizarMarca(id, "Toyota Actualizada");
 
         // Then
         assertNotNull(resultado);

@@ -16,10 +16,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearColorDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.ColorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de Unidad - ColorService")
@@ -33,6 +33,9 @@ class ColorServiceTest {
 
     @InjectMocks
     private ColorService colorService;
+
+    @Mock
+    private Marca marcas;
 
     private Color colorEjemplo;
 
@@ -96,7 +99,11 @@ class ColorServiceTest {
     @DisplayName("Debería crear un color a partir del DTO")
     void deberiaCrearColor() {
         // Given
-        CrearColorDTO dto = new CrearColorDTO("Gris titanio", 1L);
+
+        Marca marcaParaId = new Marca();
+        marcaParaId.setId(10L);
+        marcaParaId.setNombre("Marca para el id");
+
         Color colorGuardado = new Color();
         colorGuardado.setId(10L);
         colorGuardado.setNombre("Gris topo");
@@ -104,7 +111,7 @@ class ColorServiceTest {
         when(colorRepository.save(any(Color.class))).thenReturn(colorGuardado);
 
         // When
-        Color resultado = colorService.crearColor(dto);
+        Color resultado = colorService.crearColor(colorGuardado, marcaParaId.getId());
 
         // Then
         assertNotNull(resultado);
@@ -125,10 +132,11 @@ class ColorServiceTest {
         devueltoPorSave.setNombre("Gris elefante actualizado");
         when(colorRepository.save(any(Color.class))).thenReturn(devueltoPorSave);
 
-        CrearColorDTO dto = new CrearColorDTO("Gris elefante actualizado", 1L);
+        Color colorResultado = new Color();
+        colorResultado.setNombre("Gris elefante actualizado");
 
         // When
-        Color resultado = colorService.actualizarColor(id, dto);
+        Color resultado = colorService.actualizarColor(id, colorResultado.getNombre(), 10L);
 
         // Then
         assertNotNull(resultado);

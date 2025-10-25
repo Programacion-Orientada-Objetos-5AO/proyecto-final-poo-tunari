@@ -42,11 +42,12 @@ public class Agencia {
     @JoinColumn(name = "agencia_id", nullable = false) 
     private List<AutoStock> listaAutos = new ArrayList<>();
 
+    @NotNull
     @ManyToOne()
     @JoinColumn(name = "marca_id", nullable = false)
     private Marca marca;
 
-    public Agencia(@NotNull String nombre, @NotNull String ubicacion, Marca marca) {
+    public Agencia(@NotNull String nombre, @NotNull String ubicacion, @NotNull Marca marca) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.marca = marca;

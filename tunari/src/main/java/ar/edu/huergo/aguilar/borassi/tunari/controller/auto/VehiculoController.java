@@ -1,6 +1,5 @@
 package ar.edu.huergo.aguilar.borassi.tunari.controller.auto;
 
-
 import java.net.URI;
 import java.util.List;
 
@@ -23,8 +22,8 @@ import ar.edu.huergo.aguilar.borassi.tunari.mapper.auto.VehiculoMapper;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.VehiculoService;
 import jakarta.validation.Valid;
 
-@RestController //Tipo de controller, en este caso un RESTful API controller
-@RequestMapping("/vehiculos") //El dominio con el que acciona el controller
+@RestController
+@RequestMapping("/vehiculos")
 public class VehiculoController {
 
     @Autowired
@@ -33,38 +32,51 @@ public class VehiculoController {
     @Autowired
     private VehiculoMapper vehiculoMapper;
 
-     // GET /vehiculos
+    // GET /vehiculos
     @GetMapping
     public ResponseEntity<List<VehiculoDTO>> obtenerTodosLosVehiculos() {
-        List<Vehiculo> vehiculos = this.vehiculoService.obtenerTodosLosVehiculos();
-        return ResponseEntity.ok(this.vehiculoMapper.toDTOList(vehiculos));
+        List<Vehiculo> vehiculos = vehiculoService.obtenerTodosLosVehiculos();
+        return ResponseEntity.ok(vehiculoMapper.toDTOList(vehiculos));
     }
 
     // GET /vehiculos/{id}
     @GetMapping("/{id}")
     public ResponseEntity<VehiculoDTO> obtenerVehiculoPorId(@PathVariable Long id) {
-        Vehiculo vehiculo = this.vehiculoService.obtenerVehiculoPorId(id);
-        return ResponseEntity.ok(this.vehiculoMapper.toDTO(vehiculo));
+        Vehiculo vehiculo = vehiculoService.obtenerVehiculoPorId(id);
+        return ResponseEntity.ok(vehiculoMapper.toDTO(vehiculo));
     }
 
-    // POST /vehiculos
+    // POST /vehiculos  (actualizado)
     @PostMapping
-    public ResponseEntity<VehiculoDTO> crearAuto(@RequestBody @Valid CrearVehiculoDTO dto) {
-        Vehiculo creado = this.vehiculoService.crearVehiculo(dto);
+    public ResponseEntity<VehiculoDTO> crearVehiculo(@RequestBody @Valid CrearVehiculoDTO dto) {
+
+        // Crear el objeto base Vehiculo (vacío)
+        Vehiculo vehiculo = new Vehiculo();
+
+        // Llamar al service con los IDs del DTO
+        Vehiculo creado = vehiculoService.crearVehiculo(
+            vehiculo,
+            dto.getMarcaId(),
+            dto.getModeloId(),
+            dto.getColorId(),
+            dto.getVersionId()
+        );
+
+        // Crear la URI para el recurso creado
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(creado.getId())
                 .toUri();
 
-        return ResponseEntity.created(location).body(this.vehiculoMapper.toDTO(creado));
+        // Devolver el DTO mapeado
+        return ResponseEntity.created(location).body(vehiculoMapper.toDTO(creado));
     }
 
     // DELETE /vehiculos/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarVehiculo(@PathVariable Long id) {
-        this.vehiculoService.eliminarVehiculo(id);
+        vehiculoService.eliminarVehiculo(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
-

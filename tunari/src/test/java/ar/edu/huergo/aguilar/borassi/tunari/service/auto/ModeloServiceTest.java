@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +15,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearModeloDTO;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.ModeloRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -28,9 +29,6 @@ class ModeloServiceTest {
     @Mock
     private ModeloRepository modeloRepository;
 
-    @InjectMocks
-    private ModeloService modeloService;
-    
     @Mock
     private VersionService versionService;
 
@@ -40,26 +38,35 @@ class ModeloServiceTest {
     @Mock
     private ColorService colorService;
 
+    @InjectMocks
+    private ModeloService modeloService;
+
     private Modelo modeloEjemplo;
+    private Marca marcaEjemplo;
+    private List<Long> coloresIds;
+    private List<Long> versionesIds;
 
     @BeforeEach
     void setUp() {
         modeloEjemplo = new Modelo();
         modeloEjemplo.setId(1L);
         modeloEjemplo.setNombre("Bronco Sport");
+
+        marcaEjemplo = new Marca();
+        marcaEjemplo.setId(1L);
+        marcaEjemplo.setNombre("Ford");
+
+        coloresIds = List.of(10L, 11L);
+        versionesIds = List.of(20L, 21L);
     }
 
     @Test
     @DisplayName("Debería obtener todos los modelos")
     void deberiaObtenerTodosLosModelos() {
-        // Given
-        List<Modelo> modelosEsperados = Arrays.asList(modeloEjemplo);
-        when(modeloRepository.findAll()).thenReturn(modelosEsperados);
+        when(modeloRepository.findAll()).thenReturn(List.of(modeloEjemplo));
 
-        // When
         List<Modelo> resultado = modeloService.obtenerTodosLosModelos();
 
-        // Then
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
         assertEquals("Bronco Sport", resultado.get(0).getNombre());
@@ -69,96 +76,78 @@ class ModeloServiceTest {
     @Test
     @DisplayName("Debería obtener modelo por ID cuando existe")
     void deberiaObtenerModeloPorId() {
-        // Given
         Long id = 1L;
         when(modeloRepository.findById(id)).thenReturn(Optional.of(modeloEjemplo));
 
-        // When
         Modelo resultado = modeloService.obtenerModeloPorId(id);
 
-        // Then
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
         assertEquals("Bronco Sport", resultado.getNombre());
-        verify(modeloRepository, times(1)).findById(id);
+        verify(modeloRepository).findById(id);
     }
 
     @Test
     @DisplayName("Debería lanzar EntityNotFoundException cuando el modelo no existe")
     void deberiaLanzarExcepcionCuandoNoExiste() {
-        // Given
         Long idInexistente = 999L;
         when(modeloRepository.findById(idInexistente)).thenReturn(Optional.empty());
 
-        // When & Then
         EntityNotFoundException ex = assertThrows(EntityNotFoundException.class,
                 () -> modeloService.obtenerModeloPorId(idInexistente));
 
         assertEquals("Modelo no encontrado.", ex.getMessage());
-        verify(modeloRepository, times(1)).findById(idInexistente);
+        verify(modeloRepository).findById(idInexistente);
     }
 
     @Test
-    @DisplayName("Debería crear un modelo a partir del DTO")
+    @DisplayName("Debería crear un modelo correctamente")
     void deberiaCrearModelo() {
         // Given
-        CrearModeloDTO dto = new CrearModeloDTO("Bronco Sport 2025", 1L, List.of(2L, 3L), List.of(4L, 1000L) );
-        Modelo guardado = new Modelo();
-        guardado.setId(10L);
-        guardado.setNombre("Bronco Sport");
+        Modelo nuevo = new Modelo();
+        nuevo.setNombre("Bronco Sport 2025");
 
-        when(modeloRepository.save(any(Modelo.class))).thenReturn(guardado);
+        when(versionService.resolverVersion(versionesIds)).thenReturn(List.of(new Version()));
+        when(colorService.resolverColor(coloresIds)).thenReturn(List.of(new Color()));
+        when(marcaService.obtenerMarcaPorId(1L)).thenReturn(marcaEjemplo);
+        when(modeloRepository.save(any(Modelo.class))).thenReturn(nuevo);
 
         // When
-        Modelo resultado = modeloService.crearModelo(dto);
+        Modelo resultado = modeloService.crearModelo(nuevo, 1L, coloresIds, versionesIds);
 
         // Then
         assertNotNull(resultado);
-        assertEquals(10L, resultado.getId());
-        assertEquals("Bronco Sport", resultado.getNombre());
-        verify(modeloRepository, times(1)).save(any(Modelo.class));
+        assertEquals("Bronco Sport 2025", resultado.getNombre());
+        verify(modeloRepository).save(nuevo);
     }
 
     @Test
-    @DisplayName("Debería actualizar el nombre de un modelo existente")
+    @DisplayName("Debería actualizar el modelo correctamente")
     void deberiaActualizarModelo() {
-        // Given
         Long id = 1L;
         when(modeloRepository.findById(id)).thenReturn(Optional.of(modeloEjemplo));
+        when(versionService.resolverVersion(versionesIds)).thenReturn(List.of(new Version()));
+        when(colorService.resolverColor(coloresIds)).thenReturn(List.of(new Color()));
+        when(marcaService.obtenerMarcaPorId(1L)).thenReturn(marcaEjemplo);
+        when(modeloRepository.save(any(Modelo.class))).thenReturn(modeloEjemplo);
 
-        Modelo devueltoPorSave = new Modelo();
-        devueltoPorSave.setId(1L);
-        devueltoPorSave.setNombre("Bronco Sport 2025");
-        when(modeloRepository.save(any(Modelo.class))).thenReturn(devueltoPorSave);
+        Modelo resultado = modeloService.actualizarModelo(id, "Bronco Sport 2025", 1L, coloresIds, versionesIds);
 
-        CrearModeloDTO dto = new CrearModeloDTO("Bronco Sport 2025", 1L, List.of(2L, 3L), List.of(4L, 1000L) );
-        
-        // When
-        Modelo resultado = modeloService.actualizarModelo(id, dto);
-
-        // Then
         assertNotNull(resultado);
-        assertEquals(1L, resultado.getId());
         assertEquals("Bronco Sport 2025", resultado.getNombre());
-        // también chequeamos que en la entidad cargada se haya seteado el nombre
-        assertEquals("Bronco Sport 2025", modeloEjemplo.getNombre());
-        verify(modeloRepository, times(1)).findById(id);
-        verify(modeloRepository, times(1)).save(modeloEjemplo);
+        verify(modeloRepository).save(modeloEjemplo);
     }
 
     @Test
     @DisplayName("Debería eliminar un modelo existente")
     void deberiaEliminarModelo() {
-        // Given
         Long id = 1L;
         when(modeloRepository.findById(id)).thenReturn(Optional.of(modeloEjemplo));
         doNothing().when(modeloRepository).delete(modeloEjemplo);
 
-        // When
         assertDoesNotThrow(() -> modeloService.eliminarModelo(id));
 
-        // Then
-        verify(modeloRepository, times(1)).findById(id);
-        verify(modeloRepository, times(1)).delete(modeloEjemplo);
+        verify(modeloRepository).findById(id);
+        verify(modeloRepository).delete(modeloEjemplo);
     }
 }
