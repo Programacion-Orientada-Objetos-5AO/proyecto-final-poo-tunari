@@ -50,19 +50,18 @@ public class VehiculoController {
     @PostMapping
     public ResponseEntity<VehiculoDTO> crearVehiculo(@RequestBody @Valid CrearVehiculoDTO dto) {
 
-        // Crear el objeto base Vehiculo (vacío)
         Vehiculo vehiculo = new Vehiculo();
 
-        // Llamar al service con los IDs del DTO
         Vehiculo creado = vehiculoService.crearVehiculo(
             vehiculo,
             dto.getMarcaId(),
             dto.getModeloId(),
             dto.getColorId(),
-            dto.getVersionId()
+            dto.getVersionId(),
+            dto.getTipo(),
+            dto.getMedicionBaul()
         );
 
-        // Crear la URI para el recurso creado
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

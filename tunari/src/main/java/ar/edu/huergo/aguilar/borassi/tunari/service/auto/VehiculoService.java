@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.TipoVehiculo;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Auto;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Color;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.PickUp;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.VehiculoRepository;
@@ -40,20 +43,35 @@ public class VehiculoService {
                 .orElseThrow(() -> new EntityNotFoundException("Vehículo no encontrado."));
     }
 
-    public Vehiculo crearVehiculo(Vehiculo vehiculo, Long marcaId, Long modeloId, Long colorId, Long versionId) {
+    public Vehiculo crearVehiculo(Vehiculo vehiculo, Long marcaId, Long modeloId, Long colorId, Long versionId, TipoVehiculo tipo, Integer medicionBaul) {
         Marca marca = marcaService.obtenerMarcaPorId(marcaId);
         Modelo modelo = modeloService.obtenerModeloPorId(modeloId);
         Color color = colorService.obtenerColorPorId(colorId);
         Version version = versionService.obtenerVersionPorId(versionId);
-
         modelo.validarVehiculo(color, version);
+            
 
-        vehiculo.setMarca(marca);
-        vehiculo.setModelo(modelo);
-        vehiculo.setColor(color);
-        vehiculo.setVersion(version);
+        if (tipo.equals("PICKUP")) {
+            PickUp autoCreado = new PickUp();
+            autoCreado.setPesoBaul(medicionBaul);
+            autoCreado.setMarca(marca);
+            autoCreado.setModelo(modelo);
+            autoCreado.setColor(color);
+            autoCreado.setVersion(version);
+            return vehiculoRepository.save(autoCreado);
+            
+        }else {
+            Auto autoCreado = new Auto();
+            autoCreado.setMarca(marca);
+            autoCreado.setModelo(modelo);
+            autoCreado.setColor(color);
+            autoCreado.setVersion(version);
+            autoCreado.setTamanoBaul(medicionBaul);
+            return vehiculoRepository.save(autoCreado);
+        }
+    
 
-        return vehiculoRepository.save(vehiculo);
+        
     }
 
     public Vehiculo actualizarVehiculo(Long id, Vehiculo datosActualizados, 
