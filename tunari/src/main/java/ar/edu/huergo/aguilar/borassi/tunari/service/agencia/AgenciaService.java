@@ -34,21 +34,18 @@ public class AgenciaService {
             .orElseThrow(() -> new EntityNotFoundException("Agencia no encontrado"));
     }
 
-    public Agencia crearAgencia(CrearAgenciaDTO agencia) {
-        Agencia agenciaEntity = new Agencia();
-        agenciaEntity.setNombre(agencia.nombre());
-        Marca marca = marcaService.obtenerMarcaPorId(agencia.marcaId());
-        agenciaEntity.setMarca(marca);
-        agenciaEntity.setUbicacion(agencia.ubicacion());
-        return agenciaRepository.save(agenciaEntity);
+    public Agencia crearAgencia(Agencia agencia, Long marcaId) {
+        Marca marca = marcaService.obtenerMarcaPorId(marcaId);
+        agencia.setMarca(marca);
+        return agenciaRepository.save(agencia);
     }
 
-    public Agencia actualizarAgencia(Long id, CrearAgenciaDTO agencia) throws EntityNotFoundException {
+    public Agencia actualizarAgencia(Long id, Agencia agencia, Long marcaId) throws EntityNotFoundException {
         Agencia agenciaExistente = obtenerAgenciaPorId(id);
-        agenciaExistente.setNombre(agencia.nombre());
-        Marca marca = marcaService.obtenerMarcaPorId(agencia.marcaId());
+        agenciaExistente.setNombre(agencia.getNombre());
+        Marca marca = marcaService.obtenerMarcaPorId(marcaId);
         agenciaExistente.setMarca(marca);
-        agenciaExistente.setUbicacion(agencia.ubicacion());
+        agenciaExistente.setUbicacion(agencia.getUbicacion());
         return agenciaRepository.save(agenciaExistente);
     }
     
@@ -57,10 +54,10 @@ public class AgenciaService {
         agenciaRepository.delete(agencia);
     }
 
-    public Agencia actualizarStock(ModificarStockAgenciaDTO autoStock) throws EntityNotFoundException{
-        Agencia agenciaExistente = obtenerAgenciaPorId(autoStock.idAgencia());
-        Vehiculo auto = vehiculoService.resolverVehiculo(autoStock.idAuto());
-        agenciaExistente.modificarStock(auto, autoStock.nuevoStock());
+    public Agencia actualizarStock(Long idAgencia, Long idAuto, int nuevoStock) throws EntityNotFoundException{
+        Agencia agenciaExistente = obtenerAgenciaPorId(idAgencia);
+        Vehiculo auto = vehiculoService.resolverVehiculo(idAuto);
+        agenciaExistente.modificarStock(auto, nuevoStock);
         return agenciaRepository.save(agenciaExistente);
     }
 

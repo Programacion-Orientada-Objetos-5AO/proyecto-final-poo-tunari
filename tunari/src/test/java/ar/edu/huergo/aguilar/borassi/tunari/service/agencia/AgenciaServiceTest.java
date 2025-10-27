@@ -4,39 +4,34 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.agencia.CrearAgenciaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.agencia.Agencia;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.agencia.AgenciaRepository;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.MarcaService;
+import ar.edu.huergo.aguilar.borassi.tunari.service.auto.VehiculoService;
 import jakarta.persistence.EntityNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de Unidad - AgenciaService")
 class AgenciaServiceTest {
 
-    @Mock
-    private AgenciaRepository agenciaRepository;
-
-    @Mock
-    private MarcaService marcaService;
+    @Mock private AgenciaRepository agenciaRepository;
+    @Mock private MarcaService marcaService;
+    // Lo mockeamos por si en el futuro se usa en estos métodos
+    @Mock private VehiculoService vehiculoService;
 
     @InjectMocks
     private AgenciaService agenciaService;
@@ -99,49 +94,62 @@ class AgenciaServiceTest {
     }
 
     @Test
-    @DisplayName("Debería crear una nueva agencia desde el DTO")
-    void deberiaCrearAgenciaDesdeDTO() {
+    @DisplayName("Debería crear una nueva agencia correctamente")
+    void deberiaCrearAgenciaCorrectamente() {
         // Given
-        CrearAgenciaDTO dto = new CrearAgenciaDTO(null, "Tunari Center", "Av. Rivadavia 456", 1L);
+        Agencia nuevaAgencia = new Agencia();
+        nuevaAgencia.setNombre("Tunari Center");
+        nuevaAgencia.setUbicacion("Av. Rivadavia 456");
 
         when(marcaService.obtenerMarcaPorId(1L)).thenReturn(marcaEjemplo);
-        when(agenciaRepository.save(any(Agencia.class))).thenAnswer(invocation -> {
-            Agencia a = invocation.getArgument(0);
-            a.setId(10L);
-            return a;
-        });
+        when(agenciaRepository.save(any(Agencia.class))).thenReturn(nuevaAgencia);
 
         // When
-        Agencia resultado = agenciaService.crearAgencia(dto);
+        Agencia resultado = agenciaService.crearAgencia(nuevaAgencia, 1L);
 
         // Then
         assertNotNull(resultado);
-        assertEquals(10L, resultado.getId());
-        assertEquals("Tunari Center", resultado.getNombre());
-        assertEquals("Av. Rivadavia 456", resultado.getUbicacion());
-        assertEquals("Toyota", resultado.getMarca().getNombre());
-        verify(agenciaRepository, times(1)).save(any(Agencia.class));
+        assertEquals(nuevaAgencia.getNombre(), resultado.getNombre());
+        assertEquals(nuevaAgencia.getUbicacion(), resultado.getUbicacion());
+        assertEquals(marcaEjemplo, resultado.getMarca());
+
         verify(marcaService, times(1)).obtenerMarcaPorId(1L);
+        verify(agenciaRepository, times(1)).save(nuevaAgencia);
     }
 
+
     @Test
-    @DisplayName("Debería actualizar una agencia existente desde el DTO")
-    void deberiaActualizarAgenciaDesdeDTO() {
+    @DisplayName("Debería actualizar una agencia existente correctamente")
+    void deberiaActualizarAgenciaExistente() {
+        // Given
         Long id = 1L;
+
+        Agencia datosActualizados = new Agencia();
+        datosActualizados.setNombre("Tunari Motors Actualizada");
+        datosActualizados.setUbicacion("Av. Boca Juniors");
+
         when(agenciaRepository.findById(id)).thenReturn(Optional.of(agenciaEjemplo));
         when(marcaService.obtenerMarcaPorId(1L)).thenReturn(marcaEjemplo);
         when(agenciaRepository.save(any(Agencia.class))).thenReturn(agenciaEjemplo);
 
-        CrearAgenciaDTO dto = new CrearAgenciaDTO(id, "Tunari Motors Actualizada", "Av. Siempre Viva 999", 1L);
-
-        Agencia resultado = agenciaService.actualizarAgencia(id, dto);
+        Agencia resultado = agenciaService.actualizarAgencia(id, datosActualizados, 1L);
 
         assertNotNull(resultado);
-        assertEquals("Tunari Motors Actualizada", resultado.getNombre());
-        assertEquals("Av. Siempre Viva 999", resultado.getUbicacion());
-        verify(agenciaRepository, times(1)).save(any(Agencia.class));
+
+        verify(agenciaRepository, times(1)).findById(id);
         verify(marcaService, times(1)).obtenerMarcaPorId(1L);
+        verify(agenciaRepository, times(1)).save(agenciaEjemplo);
+
+
+        assertEquals("Tunari Motors Actualizada", agenciaEjemplo.getNombre());
+        assertEquals("Av. Boca Juniors", agenciaEjemplo.getUbicacion());
+        assertEquals(marcaEjemplo, agenciaEjemplo.getMarca());
+
+        assertEquals("Tunari Motors Actualizada", resultado.getNombre());
+        assertEquals("Av. Boca Juniors", resultado.getUbicacion());
+        assertEquals("Toyota", resultado.getMarca().getNombre());
     }
+
 
     @Test
     @DisplayName("Debería eliminar una agencia existente")
