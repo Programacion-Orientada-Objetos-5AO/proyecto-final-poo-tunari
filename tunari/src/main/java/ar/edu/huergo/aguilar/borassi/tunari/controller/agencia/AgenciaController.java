@@ -83,12 +83,12 @@ public class AgenciaController {
     }
 
     @PutMapping("/stock")
-    public ResponseEntity<Agencia> actualizarStock(@Valid @RequestBody ModificarStockAgenciaDTO autoStock) {
+    public ResponseEntity<MostrarAgenciaDTO> actualizarStock(@Valid @RequestBody ModificarStockAgenciaDTO autoStock) {
         Long autoId = autoStock.idAuto();
         int stock = autoStock.nuevoStock();
         Long agenciaId = autoStock.idAgencia();
         Agencia agenciaActualizada = agenciaService.actualizarStock(agenciaId, autoId, stock);
-        return ResponseEntity.ok(agenciaActualizada);
+        return ResponseEntity.ok(agenciaMapper.toDTO(agenciaActualizada));
     }
     
 }

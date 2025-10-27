@@ -48,7 +48,8 @@ public class SecurityConfig {
                     "/auth/**",
 
                     // *** API de auth REAL ***
-                    "/api/auth/**"
+                    "/api/auth/**",
+                    "api/usuarios/registrar"
                 ).permitAll()
                 .requestMatchers("/css/**", "/js/**", "/script/**", "/img/**", "/fonts/**").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // preflight CORS

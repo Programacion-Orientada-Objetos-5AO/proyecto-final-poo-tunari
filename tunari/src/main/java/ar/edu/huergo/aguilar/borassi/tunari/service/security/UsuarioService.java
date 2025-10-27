@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ar.edu.huergo.aguilar.borassi.tunari.entity.security.Rol;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.security.Usuario;
+import ar.edu.huergo.aguilar.borassi.tunari.repository.security.RolRepository;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.security.UsuarioRepository;
 import java.util.List;
 
@@ -13,7 +15,8 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
+    @Autowired
+    private RolRepository rolRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -31,6 +34,9 @@ public class UsuarioService {
         if (!password.equals(verificacionPassword)) {
             throw new IllegalArgumentException("Las contraseñas no coinciden");
         }
+        Rol cliente = rolRepository.findByNombre("CLIENTE")
+                .orElseThrow(() -> new IllegalStateException("El rol CLIENTE no existe"));
+        usuario.getRoles().add(cliente);
         usuario.setPassword(passwordEncoder.encode(password));
         return usuarioRepository.save(usuario);
     }

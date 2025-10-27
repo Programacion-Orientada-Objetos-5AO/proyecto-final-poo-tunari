@@ -5,6 +5,7 @@ import java.util.List;
 
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,9 +39,13 @@ public class Agencia {
     private String ubicacion;
 
 
-    @OneToMany()
-    @JoinColumn(name = "agencia_id", nullable = false) 
+    @OneToMany(
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    @JoinColumn(name = "agencia_id", nullable = false)
     private List<AutoStock> listaAutos = new ArrayList<>();
+
 
     @NotNull
     @ManyToOne()
