@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.CrearMarcaDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Marca;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.MarcaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -37,11 +36,14 @@ public class MarcaService {
         return marcaRepository.save(marca);
     }
 
-    public void eliminarMarca(Long id) {
-        Marca marca = obtenerMarcaPorId(id);
-        marcaRepository.delete(marca);
+    public boolean eliminarMarca(Long id) {
+        try {
+            Marca marca = obtenerMarcaPorId(id);
+            marcaRepository.delete(marca);
+            return true; 
+        } catch (EntityNotFoundException e) {
+            return false; 
+        }
     }
-
-    
 }
 

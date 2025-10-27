@@ -70,7 +70,14 @@ public class MarcaController {
 
     // DELETE /marcas/{id}
     @DeleteMapping("/{id}")
-    public void eliminarMarca(@PathVariable Long id) {
-        marcaService.eliminarMarca(id);
+    public ResponseEntity<String> eliminarMarca(@PathVariable Long id) {
+        boolean eliminada = marcaService.eliminarMarca(id);
+
+        if (!eliminada) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se encontró la marca con ID " + id + " para eliminar.");
+        }
+
+        return ResponseEntity.ok("Marca eliminada correctamente (ID: " + id + ")");
     }
 }
