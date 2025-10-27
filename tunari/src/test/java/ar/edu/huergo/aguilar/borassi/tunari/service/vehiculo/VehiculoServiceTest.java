@@ -16,13 +16,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import ar.edu.huergo.aguilar.borassi.tunari.dto.auto.TipoVehiculo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.*;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.auto.VehiculoRepository;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.*;
 import jakarta.persistence.EntityNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Tests de Unidad - VehiculoService (sin DTOs)")
+@DisplayName("Tests de Unidad - VehiculoService (con TipoVehiculo)")
 class VehiculoServiceTest {
 
     @Mock
@@ -59,17 +60,17 @@ class VehiculoServiceTest {
         modelo.setId(2L);
         modelo.setNombre("Ranger");
         modelo.setMarca(marca);
-        
+
         color = new Color();
         color.setId(3L);
         color.setNombre("Negro");
         color.setMarca(marca);
-        
+
         version = new Version();
         version.setId(4L);
         version.setNombre("XLT");
         version.setMarca(marca);
-        
+
         vehiculoEjemplo = new Vehiculo();
         vehiculoEjemplo.setId(10L);
         vehiculoEjemplo.setMarca(marca);
@@ -119,21 +120,45 @@ class VehiculoServiceTest {
     }
 
     @Test
-    @DisplayName("Debería crear un nuevo vehículo correctamente")
-    void deberiaCrearVehiculo() {
+    @DisplayName("Debería crear un nuevo AUTO correctamente")
+    void deberiaCrearAuto() {
         when(marcaService.obtenerMarcaPorId(1L)).thenReturn(marca);
         when(modeloService.obtenerModeloPorId(2L)).thenReturn(modelo);
         when(colorService.obtenerColorPorId(3L)).thenReturn(color);
         when(versionService.obtenerVersionPorId(4L)).thenReturn(version);
-        when(vehiculoRepository.save(any(Vehiculo.class))).thenReturn(vehiculoEjemplo);
+        when(vehiculoRepository.save(any(Vehiculo.class))).thenReturn(new Auto());
 
-        Vehiculo nuevo = new Vehiculo();
-        Vehiculo resultado = vehiculoService.crearVehiculo(nuevo, 1L, 2L, 3L, 4L);
+        Vehiculo resultado = vehiculoService.crearVehiculo(
+                new Vehiculo(),
+                1L, 2L, 3L, 4L,
+                TipoVehiculo.AUTO, 480
+        );
 
         assertNotNull(resultado);
-        assertEquals("Ranger", resultado.getModelo().getNombre());
+        assertTrue(resultado instanceof Auto);
         verify(vehiculoRepository, times(1)).save(any(Vehiculo.class));
     }
+
+    @Test
+    @DisplayName("Debería crear una PICKUP correctamente")
+    void deberiaCrearPickUp() {
+        when(marcaService.obtenerMarcaPorId(1L)).thenReturn(marca);
+        when(modeloService.obtenerModeloPorId(2L)).thenReturn(modelo);
+        when(colorService.obtenerColorPorId(3L)).thenReturn(color);
+        when(versionService.obtenerVersionPorId(4L)).thenReturn(version);
+        when(vehiculoRepository.save(any(Vehiculo.class))).thenReturn(new PickUp());
+
+        Vehiculo resultado = vehiculoService.crearVehiculo(
+                new Vehiculo(),
+                1L, 2L, 3L, 4L,
+                TipoVehiculo.PICKUP, 2000
+        );
+
+        assertNotNull(resultado);
+        assertTrue(resultado instanceof PickUp);
+        verify(vehiculoRepository, times(1)).save(any(Vehiculo.class));
+    }
+
 
     @Test
     @DisplayName("Debería actualizar un vehículo existente correctamente")
