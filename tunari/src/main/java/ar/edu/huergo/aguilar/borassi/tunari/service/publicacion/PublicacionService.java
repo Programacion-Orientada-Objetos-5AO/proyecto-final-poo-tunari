@@ -14,17 +14,22 @@ import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Vehiculo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Version;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.publicacion.Publicacion;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.security.Usuario;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.publicacion.PublicacionRepository;
+import ar.edu.huergo.aguilar.borassi.tunari.repository.security.UsuarioRepository;
 import ar.edu.huergo.aguilar.borassi.tunari.service.agencia.AgenciaService;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.ColorService;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.ModeloService;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.VersionService;
+import ar.edu.huergo.aguilar.borassi.tunari.service.security.JwtTokenService;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class PublicacionService {
     @Autowired
     private PublicacionRepository publicacionRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
     @Autowired
     private ModeloService modeloService;
     @Autowired
@@ -33,6 +38,8 @@ public class PublicacionService {
     private ColorService colorService;
     @Autowired
     private AgenciaService agenciaService;
+    @Autowired
+    private JwtTokenService jwtTokenService;
 
     public List<Publicacion> obtenerTodasLasPublicaciones() {
         return publicacionRepository.findAll();
@@ -43,15 +50,18 @@ public class PublicacionService {
                 .orElseThrow(() -> new EntityNotFoundException("Publicacion no encontrada."));
     }
 
-    public Publicacion crearPublicacion(CrearPublicacionDTO dto) {
-        // Busca el modelo usando el ID del DTO
-        Modelo modelo = modeloService.obtenerModeloPorId(dto.modeloId());
+    public Publicacion crearPublicacion(Long modeloId, String authHeader) {
 
-        // Crea una nueva publicación y le asigna el modelo
+        Modelo modelo = modeloService.obtenerModeloPorId(modeloId);
+        String token = authHeader.substring(7); // eliminar "Bearer "
+        String username = this.jwtTokenService.extraerUsername(token);
+
+        Usuario usuario = usuarioRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));;
+
         Publicacion publicacion = new Publicacion();
         publicacion.setModelo(modelo);
+        publicacion.setUsuario(usuario);
 
-        // Guarda y devuelve la publicación
         return publicacionRepository.save(publicacion);
     }
 

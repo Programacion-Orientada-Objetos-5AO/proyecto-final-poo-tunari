@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,8 +67,10 @@ public class PublicacionController {
 
     // POST /publicacions
     @PostMapping
-    public ResponseEntity<String> crearPublicacion(@RequestBody @Valid CrearPublicacionDTO dto) {
-        Publicacion publicacionCreada = publicacionService.crearPublicacion(dto);
+    public ResponseEntity<String> crearPublicacion(@RequestBody @Valid CrearPublicacionDTO dto,
+        @RequestHeader("Authorization") String authHeader) {
+        Long modeloId = dto.modeloId();
+        Publicacion publicacionCreada = publicacionService.crearPublicacion(modeloId, authHeader);
 
         URI location = ServletUriComponentsBuilder
             .fromCurrentRequest()
