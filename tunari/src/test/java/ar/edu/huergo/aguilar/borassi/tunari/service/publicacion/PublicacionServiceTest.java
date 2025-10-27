@@ -4,45 +4,42 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import ar.edu.huergo.aguilar.borassi.tunari.dto.publicacion.CrearPublicacionDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.auto.Modelo;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.publicacion.Publicacion;
+import ar.edu.huergo.aguilar.borassi.tunari.entity.security.Usuario;
 import ar.edu.huergo.aguilar.borassi.tunari.repository.publicacion.PublicacionRepository;
+import ar.edu.huergo.aguilar.borassi.tunari.repository.security.UsuarioRepository;
 import ar.edu.huergo.aguilar.borassi.tunari.service.auto.ModeloService;
+import ar.edu.huergo.aguilar.borassi.tunari.service.security.JwtTokenService;
 import jakarta.persistence.EntityNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de Unidad - PublicacionService")
 class PublicacionServiceTest {
 
-    @Mock
-    private PublicacionRepository publicacionRepository;
-
-    @Mock
-    private ModeloService modeloService; // porque el service usa modeloId del DTO
+    @Mock private PublicacionRepository publicacionRepository;
+    @Mock private UsuarioRepository usuarioRepository;
+    @Mock private ModeloService modeloService;
+    @Mock private JwtTokenService jwtTokenService;
 
     @InjectMocks
     private PublicacionService publicacionService;
 
     private Publicacion publicacionEjemplo;
     private Modelo modeloEjemplo;
+    private Usuario usuarioEjemplo;
 
     @BeforeEach
     void setUp() {
@@ -50,9 +47,14 @@ class PublicacionServiceTest {
         modeloEjemplo.setId(1L);
         modeloEjemplo.setNombre("Nuevo modelo 2025");
 
+        usuarioEjemplo = new Usuario();
+        usuarioEjemplo.setId(7L);
+        usuarioEjemplo.setUsername("fran");
+
         publicacionEjemplo = new Publicacion();
         publicacionEjemplo.setId(1L);
         publicacionEjemplo.setModelo(modeloEjemplo);
+        publicacionEjemplo.setUsuario(usuarioEjemplo);
     }
 
     @Test
@@ -90,29 +92,40 @@ class PublicacionServiceTest {
 
         assertEquals("Publicacion no encontrada.", ex.getMessage());
     }
-    
-    @Test
-    @DisplayName("Debería crear una nueva publicación usando modeloId del DTO")
-    void deberiaCrearPublicacionDesdeDTO() {
-        // Given
-        CrearPublicacionDTO dto = new CrearPublicacionDTO(1L);
 
-        when(modeloService.obtenerModeloPorId(1L)).thenReturn(modeloEjemplo);
-        when(publicacionRepository.save(any(Publicacion.class))).thenAnswer(invocation -> {
-            Publicacion p = invocation.getArgument(0);
-            p.setId(10L);
-            return p;
-        });
+    @Test
+    @DisplayName("Debería crear una nueva publicación usando modeloId y authHeader")
+    void deberiaCrearPublicacion() {
+        // Given
+        Long modeloId = 1L;
+        String authHeader = "Bearer abc.def.ghi";
+        String token = "abc.def.ghi";
+        String username = "fran";
+
+        when(modeloService.obtenerModeloPorId(modeloId)).thenReturn(modeloEjemplo);
+        when(jwtTokenService.extraerUsername(token)).thenReturn(username);
+        when(usuarioRepository.findByUsername(username)).thenReturn(Optional.of(usuarioEjemplo));
+
+        Publicacion guardada = new Publicacion();
+        guardada.setId(10L);
+        guardada.setModelo(modeloEjemplo);
+        guardada.setUsuario(usuarioEjemplo);
+
+        when(publicacionRepository.save(any(Publicacion.class))).thenReturn(guardada);
 
         // When
-        Publicacion resultado = publicacionService.crearPublicacion(dto);
+        Publicacion resultado = publicacionService.crearPublicacion(modeloId, authHeader);
 
         // Then
         assertNotNull(resultado);
         assertEquals(10L, resultado.getId());
         assertEquals("Nuevo modelo 2025", resultado.getModelo().getNombre());
+        assertEquals("fran", resultado.getUsuario().getUsername());
+
+        verify(modeloService, times(1)).obtenerModeloPorId(modeloId);
+        verify(jwtTokenService, times(1)).extraerUsername(token);
+        verify(usuarioRepository, times(1)).findByUsername(username);
         verify(publicacionRepository, times(1)).save(any(Publicacion.class));
-        verify(modeloService, times(1)).obtenerModeloPorId(1L);
     }
 
     @Test
