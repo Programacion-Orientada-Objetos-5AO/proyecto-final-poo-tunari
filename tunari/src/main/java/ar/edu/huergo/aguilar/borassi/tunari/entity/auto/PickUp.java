@@ -1,3 +1,4 @@
+
 package ar.edu.huergo.aguilar.borassi.tunari.entity.auto;
 
 import jakarta.persistence.DiscriminatorValue;
