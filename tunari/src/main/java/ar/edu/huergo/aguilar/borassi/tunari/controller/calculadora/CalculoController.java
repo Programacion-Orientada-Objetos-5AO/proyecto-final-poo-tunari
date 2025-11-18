@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import ar.edu.huergo.aguilar.borassi.tunari.dto.calculadora.EstadisticasDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.calculadora.RequestCalculoDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.dto.calculadora.ResponseCalculoDTO;
 import ar.edu.huergo.aguilar.borassi.tunari.entity.calculadora.Calculo;
@@ -53,7 +54,12 @@ public class CalculoController {
         List<Calculo> calculos = this.calculoService.obtenerUltimosCincoCalculos();
         return ResponseEntity.ok(this.calculoMapper.toDTOList(calculos));
     }
-    
+
+    @GetMapping("/estadisticas")
+    public ResponseEntity<EstadisticasDTO> estadisticas() {
+        return ResponseEntity.ok(this.calculoService.estadisticas());
+    }
+
     
 
 }
