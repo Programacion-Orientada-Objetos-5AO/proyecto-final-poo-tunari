@@ -38,6 +38,10 @@ public class CalculoService {
 
         throw new IllegalArgumentException("Operacion incorrecta");
     }
+
+    public List<Calculo> obtenerUltimosCincoCalculos() {
+        return calculoRepository.findCincoUltimosCalculos();
+    }
     
 
 }

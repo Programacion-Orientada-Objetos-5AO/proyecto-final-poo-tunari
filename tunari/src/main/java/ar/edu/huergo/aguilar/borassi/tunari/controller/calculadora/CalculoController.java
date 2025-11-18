@@ -47,6 +47,12 @@ public class CalculoController {
         return ResponseEntity.ok(calculoMapper.toDTO(calculo));
         
     }
+
+    @GetMapping("/ultimosCinco")
+    public ResponseEntity<List<ResponseCalculoDTO>> obtenerUltimosCincoCalculos() {
+        List<Calculo> calculos = this.calculoService.obtenerUltimosCincoCalculos();
+        return ResponseEntity.ok(this.calculoMapper.toDTOList(calculos));
+    }
     
     
 
